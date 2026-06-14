@@ -155,6 +155,19 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
 .fsrc{margin:5px 14px 24px;font-size:.65rem;color:var(--t3);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .fsrc a{color:#60a5fa;text-decoration:none}
 .fsrc a:hover{text-decoration:underline}
+/* CAL BUTTONS */
+.cal-row{margin:10px 14px 0;display:flex;gap:7px}
+.cal-btn{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:5px;
+  padding:9px 8px;border-radius:8px;cursor:pointer;
+  font-family:'Inter',sans-serif;font-size:.73rem;font-weight:600;
+  transition:all .15s;border:none;line-height:1.2;
+}
+.cal-dl{background:rgba(255,255,255,.06);border:1px solid var(--borde2);color:var(--t2)}
+.cal-dl:hover{background:rgba(255,255,255,.11);color:var(--texto)}
+.cal-gc{background:#1a73e8;color:#fff}
+.cal-gc:hover{background:#1558b0}
+.cal-dl:active,.cal-gc:active{transform:scale(.97)}
 </style>
 </head>
 <body>
@@ -212,6 +225,14 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
   <span class="smsg" id="smsg">Cargando datos…</span>
   <span class="sup" id="sup"></span>
   <button class="rbtn" id="rbtn" onclick="triggerRefresh()"><span class="ri" id="ri">↻</span> Actualizar</button>
+</div>
+
+<div class="cal-row">
+  <button class="cal-btn cal-dl" onclick="downloadICS()">📅 Descargar .ics</button>
+  <button class="cal-btn cal-gc" onclick="openGoogleCalendar()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.98 17.5H6.02c-.56 0-1.02-.46-1.02-1.02V7.52C5 6.96 5.46 6.5 6.02 6.5h11.96c.56 0 1.02.46 1.02 1.02v8.96c0 .56-.46 1.02-1.02 1.02z"/></svg>
+    Añadir a Google Calendar
+  </button>
 </div>
 
 <div class="slug-panel" id="slugPanel">
@@ -1271,6 +1292,175 @@ function setScenario(n){
   const el=document.getElementById('stag');
   el.className='stag '+t.cls;el.textContent=t.txt;
   closePopup();render();
+}
+
+/* ═══════════════════════════════════════════════════════
+   GENERADOR DE ICS — usa los datos en vivo (Polymarket +
+   resultados reales) que ya tiene cargados la web.
+   Se genera en el momento del clic, siempre actualizado.
+═══════════════════════════════════════════════════════ */
+
+function pad(n){ return String(n).padStart(2,'0'); }
+
+function toICSDate(dateStr, timeStr){
+  /* dateStr: '2026-07-02'  timeStr: '22:00'  → CEST = UTC+2 → UTC = 20:00 */
+  const [y,m,d] = dateStr.split('-');
+  const [h,mi]  = timeStr.split(':').map(Number);
+  /* Convertir hora España (CEST UTC+2) a UTC restando 2h */
+  const utcH = h - 2;
+  if(utcH < 0){
+    /* pasa a día anterior */
+    const prevDay = new Date(Date.UTC(+y,+m-1,+d));
+    prevDay.setUTCDate(prevDay.getUTCDate()-1);
+    return `${prevDay.getUTCFullYear()}${pad(prevDay.getUTCMonth()+1)}${pad(prevDay.getUTCDate())}T${pad(24+utcH)}${pad(mi)}00Z`;
+  }
+  return `${y}${pad(+m)}${pad(+d)}T${pad(utcH)}${pad(mi)}00Z`;
+}
+
+function formatAlarm(minutesBefore, label){
+  const h = Math.floor(minutesBefore/60), m = minutesBefore%60;
+  const dur = h ? `PT${h}H${m?m+'M':''}` : `PT${m}M`;
+  return `BEGIN:VALARM\r\nTRIGGER:-${dur}\r\nACTION:DISPLAY\r\nDESCRIPTION:${label}\r\nEND:VALARM`;
+}
+
+/* Construye los eventos del ICS usando los datos en vivo */
+function buildEvents(){
+  const events = [];
+
+  /* Datos de cada fase: fecha/hora en España, fecha ISO, uid */
+  const phases_meta = {
+    1: [
+      {uid:'16avos-1',isoDate:'2026-07-02',time:'22:00',location:'SoFi Stadium · Los Ángeles'},
+      {uid:'oct-1',   isoDate:'2026-07-06',time:'01:00',location:'AT&T Stadium · Dallas'},
+      {uid:'qtr-1',   isoDate:'2026-07-10',time:'22:00',location:'SoFi Stadium · Los Ángeles'},
+      {uid:'sf-1',    isoDate:'2026-07-15',time:'02:00',location:'Mercedes-Benz Stadium · Atlanta'},
+      {uid:'final',   isoDate:'2026-07-19',time:'20:00',location:'MetLife Stadium · Nueva Jersey'},
+    ],
+    2: [
+      {uid:'16avos-2',isoDate:'2026-07-03',time:'22:00',location:'Hard Rock Stadium · Miami'},
+      {uid:'oct-2',   isoDate:'2026-07-07',time:'02:00',location:'Mercedes-Benz Stadium · Atlanta'},
+      {uid:'qtr-2',   isoDate:'2026-07-11',time:'22:00',location:'Mercedes-Benz Stadium · Atlanta'},
+      {uid:'sf-2',    isoDate:'2026-07-14',time:'02:00',location:'AT&T Stadium · Dallas'},
+      {uid:'final',   isoDate:'2026-07-19',time:'20:00',location:'MetLife Stadium · Nueva Jersey'},
+    ]
+  };
+
+  const roundNames = [
+    'Dieciseisavos', 'Octavos', 'Cuartos', 'Semifinal', '🏆 Final'
+  ];
+  const scenLabel = ['1ª','2ª'];
+
+  [1,2].forEach(sc => {
+    const phases  = PHASES[sc];
+    const metas   = phases_meta[sc];
+
+    phases.forEach((phase, i) => {
+      /* Si es la final y ya existe del escenario 1, no duplicar */
+      if(sc===2 && i===4) return;
+
+      const meta = metas[i];
+      const cands = phase.candidates.map(c => {
+        const live = getProb(phase,c);
+        return {...c, pct: live!==null ? live : c.fallback, live: live!==null};
+      }).sort((a,b) => b.pct-a.pct);
+
+      const top3 = cands.slice(0,3);
+      const isLive = cands.some(c=>c.live);
+      const dataSource = isLive ? 'Polymarket (en vivo)' : 'estimación (sin datos en vivo)';
+
+      const roundName  = roundNames[i];
+      const scLbl      = sc===1?'1ª':'2ª';
+      const summary    = i===4
+        ? `🏆 España · FINAL Mundial 2026`
+        : `⚽ España (${scLbl}) · ${roundName} Mundial 2026`;
+
+      const rivalLine = top3.map((c,j)=>`${j+1}. ${c.flag} ${c.name} (${c.pct}%)`).join('\\n');
+      const desc = [
+        `${roundName} del Mundial 2026`,
+        `España (${i===4?'':'si quedó '+scLbl+' del Grupo H'})`,
+        '',
+        `Rivales más probables (${dataSource}):`,
+        rivalLine,
+        '',
+        i===4 ? '' : '⚠️ Solo se juega si España avanza.',
+        `Actualizado: ${new Date().toLocaleString('es-ES')}`,
+        'https://polymarket.com/sports/world-cup',
+      ].filter(l=>l!==undefined).join('\\n');
+
+      const dtStart = toICSDate(meta.isoDate, meta.time);
+      /* duración 2h → sumar 2h en UTC */
+      const dtEndDate = meta.isoDate;
+      const [eh,em] = meta.time.split(':').map(Number);
+      const endH = eh+2-2; /* +2h duración -2h CEST→UTC = misma hora local +2h */
+      const dtEnd = toICSDate(meta.isoDate, `${pad((eh+2)%24)}:${pad(em)}`);
+
+      const alarmMin = i===4 ? 60 : 30;
+      const alarmLabel = i===4
+        ? `¡FINAL del Mundial! España`
+        : `En ${alarmMin}min · España · ${roundName} Mundial`;
+
+      events.push([
+        'BEGIN:VEVENT',
+        `UID:esp-wc26-${meta.uid}-sc${sc}@mundial2026`,
+        `SUMMARY:${summary}`,
+        `DTSTART:${dtStart}`,
+        `DTEND:${dtEnd}`,
+        `LOCATION:${meta.location}`,
+        `DESCRIPTION:${desc}`,
+        `STATUS:CONFIRMED`,
+        `TRANSP:OPAQUE`,
+        formatAlarm(alarmMin, alarmLabel),
+        ...(i===4 ? [formatAlarm(24*60,'Mañana · FINAL Mundial · España 🏆')] : []),
+        'END:VEVENT',
+      ].join('\r\n'));
+    });
+  });
+
+  return events;
+}
+
+function generateICS(){
+  const events = buildEvents();
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//España Mundial 2026//ES',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    'X-WR-CALNAME:🇪🇸 España · Mundial 2026',
+    'X-WR-CALDESC:Cruces eliminatorios de España con probabilidades en vivo de Polymarket',
+    'X-WR-TIMEZONE:Europe/Madrid',
+    ...events,
+    'END:VCALENDAR',
+  ].join('\r\n');
+  return lines;
+}
+
+function downloadICS(){
+  const ics = generateICS();
+  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
+  const url  = URL.createObjectURL(blob);
+  const a    = Object.assign(document.createElement('a'),{href:url,download:'espana-mundial-2026.ics'});
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url), 5000);
+}
+
+/* ── Botón Google Calendar ────────────────────────────
+   El .ics en GitHub Pages se regenera cada 10 min
+   automáticamente via GitHub Actions.
+   Google Calendar, al suscribirse por URL, lo refresca
+   automáticamente (cada 12-24h según el cliente).
+   La URL webcal:// abre el diálogo de suscripción
+   directamente en Google Calendar.
+──────────────────────────────────────────────────────── */
+const ICS_URL = 'https://anprieto.github.io/mundial-2026/espana-mundial-2026.ics';
+
+function openGoogleCalendar(){
+  /* webcal:// → Google Calendar lo intercepta y ofrece suscripción */
+  const webcalURL = ICS_URL.replace('https://', 'webcal://');
+  const gcURL = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcalURL)}`;
+  window.open(gcURL, '_blank');
 }
 
 render();doRefresh();

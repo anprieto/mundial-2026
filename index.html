@@ -4,150 +4,200 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🇪🇸 España · Camino al Mundial 2026</title>
-<meta name="description" content="Camino de España en el Mundial 2026 con probabilidades en tiempo real de Polymarket. Actualización automática de slugs.">
+<meta name="description" content="Camino de España en el Mundial 2026. Probabilidades Polymarket + resultados reales en tiempo real.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --rojo: #c60b1e;
-    --amarillo: #f1bf00;
-    --fondo: #0f1014;
-    --card: #18191f;
-    --borde: #2c2f3a;
-    --borde2: #3a3d4a;
-    --texto: #f0f0f0;
-    --t2: rgba(240,240,240,0.55);
-    --t3: rgba(240,240,240,0.28);
-    --verde: #22c55e;
-    --azul: #3b82f6;
-    --naranja: #f59e0b;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.5;min-height:100vh;max-width:680px;margin:0 auto}
+:root{
+  --rojo:#c60b1e;--amarillo:#f1bf00;--fondo:#0f1014;--card:#18191f;
+  --borde:#2c2f3a;--borde2:#3a3d4a;--texto:#f0f0f0;
+  --t2:rgba(240,240,240,.55);--t3:rgba(240,240,240,.28);
+  --verde:#22c55e;--azul:#3b82f6;--naranja:#f59e0b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.5;min-height:100vh;max-width:680px;margin:0 auto}
 
-  /* HEADER */
-  .hdr{background:linear-gradient(160deg,#8b0000 0%,var(--rojo) 40%,#1a0005 100%);padding:30px 20px 24px;text-align:center;position:relative;overflow:hidden}
-  .hdr::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(241,191,0,.035) 18px,rgba(241,191,0,.035) 20px);pointer-events:none}
-  .hdr-flag{font-size:2.6rem;display:block;margin-bottom:6px;position:relative;z-index:1}
-  .hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,9vw,3.4rem);letter-spacing:4px;color:var(--amarillo);position:relative;z-index:1;text-shadow:0 2px 0 #6b0000}
-  .hdr-sub{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:5px;position:relative;z-index:1}
+.hdr{background:linear-gradient(160deg,#8b0000 0%,var(--rojo) 40%,#1a0005 100%);padding:28px 20px 22px;text-align:center;position:relative;overflow:hidden}
+.hdr::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(241,191,0,.035) 18px,rgba(241,191,0,.035) 20px);pointer-events:none}
+.hdr-flag{font-size:2.4rem;display:block;margin-bottom:5px;position:relative;z-index:1}
+.hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,9vw,3.2rem);letter-spacing:4px;color:var(--amarillo);position:relative;z-index:1;text-shadow:0 2px 0 #6b0000}
+.hdr-sub{font-size:.77rem;color:rgba(255,255,255,.5);margin-top:4px;position:relative;z-index:1}
 
-  /* GRUPO */
-  .gw{padding:14px 14px 0}
-  .gc{background:var(--card);border:1px solid var(--borde);border-top:3px solid var(--amarillo);border-radius:10px;padding:13px 15px}
-  .gt{font-family:'Bebas Neue',sans-serif;font-size:.82rem;letter-spacing:2.5px;color:var(--amarillo);margin-bottom:9px}
-  .gteams{display:flex;gap:6px;flex-wrap:wrap}
-  .chip{background:rgba(255,255,255,.05);border:1px solid var(--borde);border-radius:20px;padding:3px 11px;font-size:.74rem;font-weight:500;display:flex;align-items:center;gap:5px;white-space:nowrap}
-  .chip.es{background:rgba(198,11,30,.2);border-color:rgba(198,11,30,.5);color:#fca5a5}
+.gw{padding:12px 14px 0}
+.gc{background:var(--card);border:1px solid var(--borde);border-top:3px solid var(--amarillo);border-radius:10px;padding:12px 14px}
+.gt{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:2.5px;color:var(--amarillo);margin-bottom:8px}
+.gteams{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.05);border:1px solid var(--borde);border-radius:20px;padding:3px 10px;font-size:.73rem;font-weight:500;display:flex;align-items:center;gap:5px}
+.chip.es{background:rgba(198,11,30,.2);border-color:rgba(198,11,30,.5);color:#fca5a5}
 
-  /* TOGGLE */
-  .tw{padding:14px 14px 0}
-  .tlbl{font-size:.68rem;font-weight:600;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
-  .trow{display:flex;background:var(--card);border:1px solid var(--borde);border-radius:10px;padding:3px;gap:3px}
-  .tbtn{flex:1;padding:9px 6px;border:none;border-radius:7px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:.76rem;background:transparent;color:var(--t3);line-height:1.3;transition:all .2s}
-  .tbtn .ic{display:block;font-size:.95rem;margin-bottom:2px}
-  .tbtn.on1{background:linear-gradient(135deg,#9b0a1a,var(--rojo));color:#fff;box-shadow:0 2px 10px rgba(198,11,30,.35)}
-  .tbtn.on2{background:linear-gradient(135deg,#1a40a0,var(--azul));color:#fff;box-shadow:0 2px 10px rgba(59,130,246,.35)}
+.tw{padding:12px 14px 0}
+.tlbl{font-size:.67rem;font-weight:600;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.trow{display:flex;background:var(--card);border:1px solid var(--borde);border-radius:10px;padding:3px;gap:3px}
+.tbtn{flex:1;padding:8px 6px;border:none;border-radius:7px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:.74rem;background:transparent;color:var(--t3);line-height:1.3;transition:all .2s}
+.tbtn .ic{display:block;font-size:.9rem;margin-bottom:2px}
+.tbtn.on1{background:linear-gradient(135deg,#9b0a1a,var(--rojo));color:#fff;box-shadow:0 2px 10px rgba(198,11,30,.35)}
+.tbtn.on2{background:linear-gradient(135deg,#1a40a0,var(--azul));color:#fff;box-shadow:0 2px 10px rgba(59,130,246,.35)}
 
-  /* STATUS ROW */
-  .srow{margin:10px 14px 0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-  .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--naranja);transition:background .4s}
-  .dot.live{background:var(--verde)}
-  .dot.err{background:#ef4444}
-  .smsg{font-size:.7rem;color:var(--t3)}
-  .sup{font-size:.68rem;color:var(--t3);margin-left:auto}
+/* STATUS BAR */
+.sbar{margin:9px 14px 0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--naranja);transition:background .4s}
+.dot.live{background:var(--verde)}.dot.err{background:#ef4444}
+.smsg{font-size:.68rem;color:var(--t3)}
+.sup{font-size:.67rem;color:var(--t3);margin-left:auto}
+.rbtn{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,.05);border:1px solid var(--borde2);border-radius:7px;padding:4px 10px;font-size:.7rem;font-weight:600;color:var(--t2);cursor:pointer;font-family:'Inter',sans-serif;white-space:nowrap;transition:all .15s}
+.rbtn:hover{border-color:rgba(241,191,0,.35);color:var(--amarillo)}
+.rbtn.spinning .ri{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ri{display:inline-block}
 
-  /* REFRESH BTN */
-  .rbtn{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.05);border:1px solid var(--borde2);border-radius:7px;padding:5px 11px;font-size:.72rem;font-weight:600;color:var(--t2);cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;white-space:nowrap}
-  .rbtn:hover{background:rgba(255,255,255,.09);border-color:rgba(241,191,0,.3);color:var(--amarillo)}
-  .rbtn:active{transform:scale(.97)}
-  .rbtn.spinning .ri{animation:spin .8s linear infinite}
-  @keyframes spin{to{transform:rotate(360deg)}}
-  .ri{display:inline-block;font-size:.85rem}
+/* SLUG PANEL */
+.slug-panel{margin:8px 14px 0;background:rgba(0,0,0,.3);border:1px solid var(--borde);border-radius:8px;overflow:hidden;max-height:0;transition:max-height .3s ease}
+.slug-panel.open{max-height:280px}
+.slug-head{display:flex;align-items:center;justify-content:space-between;padding:7px 11px;cursor:pointer;user-select:none}
+.slug-title{font-size:.67rem;font-weight:600;color:var(--t3);letter-spacing:1px;text-transform:uppercase}
+.slug-chev{font-size:.72rem;color:var(--t3);transition:transform .25s}
+.slug-chev.open{transform:rotate(180deg)}
+.slug-body{padding:0 11px 9px;max-height:230px;overflow-y:auto}
+.slug-item{display:flex;align-items:flex-start;gap:7px;padding:3.5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.65rem}
+.slug-item:last-child{border:none}
+.slug-key{color:var(--t3);flex-shrink:0;width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.slug-val{font-family:monospace;word-break:break-all;flex:1}
+.slug-val.ok{color:#4ade80}.slug-val.miss{color:#ef4444}.slug-val.pending{color:var(--naranja)}
 
-  /* SLUG LOG */
-  .slug-panel{margin:10px 14px 0;background:rgba(0,0,0,.3);border:1px solid var(--borde);border-radius:8px;overflow:hidden;max-height:0;transition:max-height .35s ease}
-  .slug-panel.open{max-height:320px}
-  .slug-head{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;cursor:pointer;user-select:none}
-  .slug-title{font-size:.69rem;font-weight:600;color:var(--t3);letter-spacing:1px;text-transform:uppercase}
-  .slug-chevron{font-size:.75rem;color:var(--t3);transition:transform .25s}
-  .slug-chevron.open{transform:rotate(180deg)}
-  .slug-body{padding:0 12px 10px;max-height:260px;overflow-y:auto}
-  .slug-item{display:flex;align-items:flex-start;gap:8px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.67rem}
-  .slug-item:last-child{border:none}
-  .slug-key{color:var(--t3);flex-shrink:0;width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  .slug-val{color:var(--azul);font-family:monospace;word-break:break-all;flex:1}
-  .slug-val.ok{color:#4ade80}
-  .slug-val.miss{color:#ef4444}
-  .slug-val.pending{color:var(--naranja)}
+/* SCENE TAG */
+.stag{margin:9px 14px 0;padding:6px 11px;border-radius:7px;font-size:.72rem;font-weight:600;display:flex;align-items:center;gap:6px}
+.stag.s1{background:rgba(198,11,30,.12);border:1px solid rgba(198,11,30,.35);color:#fca5a5}
+.stag.s2{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.35);color:#93c5fd}
 
-  /* SCENE TAG */
-  .stag{margin:10px 14px 0;padding:7px 11px;border-radius:7px;font-size:.74rem;font-weight:600;display:flex;align-items:center;gap:6px;transition:all .25s}
-  .stag.s1{background:rgba(198,11,30,.12);border:1px solid rgba(198,11,30,.35);color:#fca5a5}
-  .stag.s2{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.35);color:#93c5fd}
+/* BRACKET */
+.bracket{padding:9px 14px 28px;display:flex;flex-direction:column;gap:6px}
+.pcard{background:var(--card);border:1px solid var(--borde);border-radius:11px;overflow:hidden}
+.pcard.final{background:linear-gradient(135deg,rgba(198,11,30,.12) 0%,rgba(241,191,0,.06) 100%);border-color:rgba(241,191,0,.35)}
+.phead{padding:7px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--borde)}
+.pname{font-family:'Bebas Neue',sans-serif;font-size:.78rem;letter-spacing:2px;color:var(--t2)}
+.final .pname{color:var(--amarillo)}
+.pdate{font-size:.65rem;color:var(--t3)}
+.vsrow{padding:10px 12px 6px;display:grid;grid-template-columns:1fr auto 1fr;gap:7px;align-items:center}
+.tes{display:flex;align-items:center;gap:6px}
+.trv{display:flex;align-items:center;gap:6px;flex-direction:row-reverse}
+.flag{font-size:1.35rem;flex-shrink:0}
+.tname{font-size:.84rem;font-weight:700}
+.tname.es{color:#fca5a5}
+.tsub{font-size:.63rem;color:var(--t3);margin-top:1px}
+.vsbox{font-size:.56rem;font-weight:700;color:var(--t3);letter-spacing:1px;text-align:center}
+.cands{padding:2px 12px 10px}
+.clbl{font-size:.64rem;color:var(--t3);margin-bottom:5px}
+.crow{display:flex;align-items:center;gap:5px;padding:2.5px 4px;border-radius:6px;cursor:pointer;transition:background .12s;user-select:none}
+.crow:hover{background:rgba(255,255,255,.07)}
+.crow.active{background:rgba(59,130,246,.1);outline:1px solid rgba(59,130,246,.25)}
+.crank{font-size:.66rem;color:var(--t3);width:12px;flex-shrink:0}
+.cflag{font-size:.9rem;flex-shrink:0}
+.cname{font-size:.74rem;color:var(--texto);flex:1}
+.cnote{font-size:.58rem;color:var(--t3)}
+.cbw{width:62px;height:4px;border-radius:3px;background:var(--borde);flex-shrink:0;overflow:hidden}
+.cb{height:4px;border-radius:3px;background:var(--azul);transition:width .5s ease}
+.cb.t1{background:var(--verde)}
+.cpct{font-size:.71rem;font-weight:600;color:var(--t2);width:30px;text-align:right;flex-shrink:0}
+.cpct.lv{color:var(--verde)}
+.arrow{text-align:center;color:var(--borde2);font-size:.95rem;line-height:1}
 
-  /* BRACKET */
-  .bracket{padding:10px 14px 30px;display:flex;flex-direction:column;gap:7px}
+/* ═══════════════════════════════════════
+   POPUP — aparece al hacer clic,
+   a la altura del cursor
+═══════════════════════════════════════ */
+#popup{
+  position:fixed;z-index:9999;
+  background:#1a1d26;border:1px solid var(--borde2);border-radius:12px;
+  width:300px;max-height:80vh;overflow-y:auto;
+  box-shadow:0 8px 32px rgba(0,0,0,.75);
+  opacity:0;pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;
+  transform:translateY(4px) scale(.97);
+}
+#popup.visible{opacity:1;pointer-events:auto;transform:translateY(0) scale(1)}
+.pu-head{padding:11px 13px 9px;border-bottom:1px solid var(--borde);display:flex;align-items:center;gap:9px;position:sticky;top:0;background:#1a1d26;z-index:1}
+.pu-close{margin-left:auto;font-size:1rem;cursor:pointer;color:var(--t3);flex-shrink:0;line-height:1;padding:2px}
+.pu-close:hover{color:var(--texto)}
+.pu-flag{font-size:1.5rem;flex-shrink:0}
+.pu-country{font-size:.9rem;font-weight:700}
+.pu-sub{font-size:.64rem;color:var(--t3);margin-top:1px}
+.pu-body{padding:8px 13px 11px;display:flex;flex-direction:column;gap:0}
+.pu-step{display:flex;align-items:flex-start;gap:9px;padding:5px 0}
+.pu-step:not(:last-child){border-bottom:1px solid rgba(255,255,255,.05)}
+.pu-dc{display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:3px;gap:0}
+.pu-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--borde2)}
+.pu-dot.done{background:var(--verde);border-color:var(--verde)}
+.pu-dot.clash{background:var(--amarillo);border-color:var(--amarillo);box-shadow:0 0 6px rgba(241,191,0,.5)}
+.pu-dot.future{background:transparent;border-color:var(--borde2)}
+.pu-line{width:1.5px;flex:1;min-height:12px;background:var(--borde)}
+.pu-info{flex:1;min-width:0}
+.pu-round{font-size:.62rem;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.7px}
+.pu-match{font-size:.74rem;color:var(--texto);margin-top:1px;line-height:1.35}
+.pu-score{display:inline-flex;align-items:center;gap:3px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);border-radius:4px;padding:0 5px;font-size:.66rem;font-weight:700;color:var(--verde);margin-left:4px}
+.pu-score.draw{background:rgba(241,191,0,.1);border-color:rgba(241,191,0,.3);color:var(--amarillo)}
+.pu-score.loss{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:#f87171}
+.pu-date{font-size:.61rem;color:var(--t3);margin-top:2px}
+.pu-footer{padding:6px 13px 8px;border-top:1px solid var(--borde);font-size:.61rem;color:var(--t3);display:flex;align-items:center;gap:5px}
 
-  .pcard{background:var(--card);border:1px solid var(--borde);border-radius:11px;overflow:hidden;transition:border-color .2s}
-  .pcard:hover{border-color:var(--borde2)}
-  .pcard.final{background:linear-gradient(135deg,rgba(198,11,30,.12) 0%,rgba(241,191,0,.06) 100%);border-color:rgba(241,191,0,.35)}
-
-  .phead{padding:8px 13px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--borde)}
-  .pname{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:2px;color:var(--t2)}
-  .final .pname{color:var(--amarillo)}
-  .pdate{font-size:.67rem;color:var(--t3)}
-
-  .vsrow{padding:11px 13px 7px;display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
-  .tes{display:flex;align-items:center;gap:7px}
-  .trv{display:flex;align-items:center;gap:7px;flex-direction:row-reverse}
-  .flag{font-size:1.4rem;flex-shrink:0}
-  .tname{font-size:.86rem;font-weight:700}
-  .tname.es{color:#fca5a5}
-  .tsub{font-size:.65rem;color:var(--t3);margin-top:1px}
-  .vsbox{font-size:.58rem;font-weight:700;color:var(--t3);letter-spacing:1px;text-align:center}
-
-  .cands{padding:3px 13px 11px}
-  .clbl{font-size:.66rem;color:var(--t3);margin-bottom:5px}
-  .crow{display:flex;align-items:center;gap:5px;padding:2.5px 0}
-  .crank{font-size:.68rem;color:var(--t3);width:13px;flex-shrink:0}
-  .cflag{font-size:.92rem;flex-shrink:0}
-  .cname{font-size:.76rem;color:var(--texto);flex:1}
-  .cnote{font-size:.6rem;color:var(--t3)}
-  .cbw{width:66px;height:5px;border-radius:3px;background:var(--borde);flex-shrink:0;overflow:hidden}
-  .cb{height:5px;border-radius:3px;background:var(--azul);transition:width .5s ease}
-  .cb.t1{background:var(--verde)}
-  .cpct{font-size:.73rem;font-weight:600;color:var(--t2);width:32px;text-align:right;flex-shrink:0}
-  .cpct.lv{color:var(--verde)}
-
-  .arrow{text-align:center;color:var(--borde2);font-size:1rem;line-height:1}
-
-  /* FOOTER */
-  .fnote{margin:0 14px 6px;padding:10px 12px;background:rgba(241,191,0,.04);border:1px solid rgba(241,191,0,.12);border-radius:8px;font-size:.69rem;color:var(--t3);line-height:1.6}
-  .fsrc{margin:6px 14px 26px;font-size:.67rem;color:var(--t3);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
-  .fsrc a{color:#60a5fa;text-decoration:none}
-  .fsrc a:hover{text-decoration:underline}
+/* Spain matches */
+.esp-match{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--borde)}
+.esp-match:last-child{border:none}
+.esp-m-teams{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.esp-flag{font-size:1.1rem}
+.esp-score{font-size:.75rem;font-weight:700;color:var(--t2);min-width:36px;text-align:center}
+.esp-score.win{color:var(--verde);background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);border-radius:4px;padding:1px 5px}
+.esp-score.draw{color:var(--naranja);background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:4px;padding:1px 5px}
+.esp-score.loss{color:#f87171;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);border-radius:4px;padding:1px 5px}
+.esp-m-info{display:flex;flex-direction:column;gap:1px;flex:1}
+.esp-rival{font-size:.78rem;font-weight:600;color:var(--texto)}
+.esp-time{font-size:.67rem;color:var(--t3)}
+.fnote{margin:0 14px 5px;padding:9px 12px;background:rgba(241,191,0,.04);border:1px solid rgba(241,191,0,.12);border-radius:8px;font-size:.67rem;color:var(--t3);line-height:1.6}
+.fsrc{margin:5px 14px 24px;font-size:.65rem;color:var(--t3);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.fsrc a{color:#60a5fa;text-decoration:none}
+.fsrc a:hover{text-decoration:underline}
 </style>
 </head>
 <body>
 
+<div id="popup" role="dialog" aria-label="Ruta del rival">
+  <div class="pu-head">
+    <span class="pu-flag" id="puFlag"></span>
+    <div><div class="pu-country" id="puCountry"></div><div class="pu-sub" id="puSub"></div></div>
+    <span class="pu-close" onclick="closePopup()" title="Cerrar">✕</span>
+  </div>
+  <div class="pu-body" id="puBody"></div>
+  <div class="pu-footer">⚔️ = posible cruce con España &nbsp;·&nbsp; ✓ = resultado real</div>
+</div>
+
 <div class="hdr">
   <span class="hdr-flag">🇪🇸</span>
   <h1>España · Mundial 2026</h1>
-  <p class="hdr-sub">Camino por fase · probabilidades en tiempo real · Polymarket</p>
+  <p class="hdr-sub">Camino por fase · resultados reales + probabilidades Polymarket</p>
 </div>
 
-<div class="gw">
-  <div class="gc">
-    <div class="gt">⚽ Grupo H</div>
-    <div class="gteams">
-      <div class="chip es">🇪🇸 España</div>
-      <div class="chip">🇺🇾 Uruguay</div>
-      <div class="chip">🇸🇦 Arabia Saudí</div>
-      <div class="chip">🇨🇻 Cabo Verde</div>
+<div class="gw"><div class="gc">
+  <div class="gt">⚽ Grupo H · Partidos de España</div>
+  <div id="espMatches">
+    <div class="esp-match" id="espm0">
+      <div class="esp-m-teams"><span class="esp-flag">🇪🇸</span><span class="esp-score" id="sc0">vs</span><span class="esp-flag">🇨🇻</span></div>
+      <div class="esp-m-info"><span class="esp-rival">Cabo Verde</span><span class="esp-time">Lun 15 Jun · <strong>18:00h</strong> · Atlanta</span></div>
+    </div>
+    <div class="esp-match" id="espm1">
+      <div class="esp-m-teams"><span class="esp-flag">🇪🇸</span><span class="esp-score" id="sc1">vs</span><span class="esp-flag">🇸🇦</span></div>
+      <div class="esp-m-info"><span class="esp-rival">Arabia Saudí</span><span class="esp-time">Dom 21 Jun · <strong>18:00h</strong> · Atlanta</span></div>
+    </div>
+    <div class="esp-match" id="espm2">
+      <div class="esp-m-teams"><span class="esp-flag">🇺🇾</span><span class="esp-score" id="sc2">vs</span><span class="esp-flag">🇪🇸</span></div>
+      <div class="esp-m-info"><span class="esp-rival">Uruguay</span><span class="esp-time">Vie 27 Jun · <strong>03:00h</strong> · Guadalajara 🌙</span></div>
     </div>
   </div>
-</div>
+  <div class="gteams" style="margin-top:10px;padding-top:8px;border-top:1px solid var(--borde)">
+    <div class="chip es">🇪🇸 España</div>
+    <div class="chip">🇺🇾 Uruguay</div>
+    <div class="chip">🇸🇦 Arabia Saudí</div>
+    <div class="chip">🇨🇻 Cabo Verde</div>
+  </div>
+</div></div>
 
 <div class="tw">
   <div class="tlbl">Escenario</div>
@@ -157,434 +207,1073 @@
   </div>
 </div>
 
-<!-- STATUS + REFRESH -->
-<div class="srow">
+<div class="sbar">
   <span class="dot" id="dot"></span>
-  <span class="smsg" id="smsg">Iniciando…</span>
+  <span class="smsg" id="smsg">Cargando datos…</span>
   <span class="sup" id="sup"></span>
-  <button class="rbtn" id="rbtn" onclick="triggerRefresh()">
-    <span class="ri" id="ri">↻</span> Actualizar slugs
-  </button>
+  <button class="rbtn" id="rbtn" onclick="triggerRefresh()"><span class="ri" id="ri">↻</span> Actualizar</button>
 </div>
 
-<!-- SLUG DEBUG PANEL -->
 <div class="slug-panel" id="slugPanel">
   <div class="slug-head" onclick="toggleSlugPanel()">
-    <span class="slug-title">🔍 Slugs detectados de Polymarket</span>
-    <span class="slug-chevron" id="slugChev">▼</span>
+    <span class="slug-title">🔍 Fuentes de datos</span>
+    <span class="slug-chev" id="slugChev">▼</span>
   </div>
-  <div class="slug-body" id="slugBody">
-    <div style="font-size:.68rem;color:var(--t3);padding:4px 0">Aún no se han buscado slugs.</div>
-  </div>
+  <div class="slug-body" id="slugBody"></div>
 </div>
 
 <div class="stag s1" id="stag">🔴 Si España queda 1ª → 16avos vs 2º del Grupo J (Austria/Argelia, no Argentina)</div>
-
 <div class="bracket" id="bracket"></div>
-
 <div class="fnote" id="fnote"></div>
 <div class="fsrc">
-  <span>📊</span>
-  <a href="https://polymarket.com/sports/world-cup" target="_blank" rel="noopener">Polymarket</a>
-  · mercado de predicción con dinero real · auto-refresh cada 10 min
+  <span>📊 Probabilidades:</span><a href="https://polymarket.com/sports/world-cup" target="_blank" rel="noopener">Polymarket</a>
+  · <span>⚽ Resultados:</span><a href="https://github.com/openfootball/worldcup.json" target="_blank" rel="noopener">openfootball</a>
   · <span id="fsup"></span>
 </div>
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   ESTRUCTURA DE FASES
-   Cada candidato lleva:
-     - searchTerms: palabras clave para buscar el mercado en Polymarket
-     - matchOutcome: cómo se llama el outcome dentro del mercado encontrado
-     - fallback: probabilidad de respaldo si no hay datos en vivo
+   DATOS DEL BRACKET (estructura fija del torneo)
 ═══════════════════════════════════════════════════════════════ */
-const PHASES = {
-  1: [ // España 1ª del Grupo H
-    {
-      round:'Dieciseisavos · 1ªH vs 2ªJ', date:'2 Jul · Los Ángeles, SoFi Stadium',
-      matchNote:'España 1ª enfrenta al 2º clasificado del Grupo J',
-      searchQuery:'world cup group j second place',
-      slugKey:'group-j-2nd',
-      candidates:[
-        {name:'Austria',   flag:'🇦🇹', matchOutcome:'Austria',   fallback:57},
-        {name:'Argelia',   flag:'🇩🇿', matchOutcome:'Algeria',   fallback:29},
-        {name:'Argentina', flag:'🇦🇷', matchOutcome:'Argentina', fallback: 8, note:'Solo si cae al 2º puesto'},
-        {name:'Jordania',  flag:'🇯🇴', matchOutcome:'Jordan',    fallback: 6},
-      ]
-    },
-    {
-      round:'Octavos · P84 vs P73', date:'6 Jul · Dallas, AT&T Stadium',
-      matchNote:'Cruce 2ºA vs 2ºB: probable México o Suiza',
-      searchQuery:null, slugKey:null,
-      candidates:[
-        {name:'México',        flag:'🇲🇽', fallback:45},
-        {name:'Suiza',         flag:'🇨🇭', fallback:30},
-        {name:'Canadá',        flag:'🇨🇦', fallback:15},
-        {name:'Corea del Sur', flag:'🇰🇷', fallback:10},
-      ]
-    },
-    {
-      round:'Cuartos · P93', date:'10 Jul · Los Ángeles, SoFi Stadium',
-      matchNote:'Mejor del cuadro C/F/K: Brasil favorito',
-      searchQuery:'world cup winner',
-      slugKey:'tournament-winner',
-      subset:['Brazil','Netherlands','Portugal','Morocco'],
-      candidates:[
-        {name:'Brasil',       flag:'🇧🇷', matchOutcome:'Brazil',      fallback:38},
-        {name:'Países Bajos', flag:'🇳🇱', matchOutcome:'Netherlands', fallback:28},
-        {name:'Portugal',     flag:'🇵🇹', matchOutcome:'Portugal',    fallback:22},
-        {name:'Marruecos',    flag:'🇲🇦', matchOutcome:'Morocco',     fallback:12},
-      ]
-    },
-    {
-      round:'Semifinal · P98', date:'15 Jul · Atlanta, Mercedes-Benz',
-      matchNote:'Cuadro I/L: Francia o Inglaterra probables',
-      searchQuery:'world cup winner',
-      slugKey:'tournament-winner',
-      subset:['France','England','Senegal','Norway'],
-      candidates:[
-        {name:'Francia',    flag:'🇫🇷', matchOutcome:'France',  fallback:50},
-        {name:'Inglaterra', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', matchOutcome:'England', fallback:30},
-        {name:'Senegal',    flag:'🇸🇳', matchOutcome:'Senegal', fallback:12},
-        {name:'Noruega',    flag:'🇳🇴', matchOutcome:'Norway',  fallback: 8},
-      ]
-    },
-    {
-      round:'🏆 Final · MetLife Stadium, NJ', date:'19 Jul',
-      isFinal:true,
-      matchNote:'Campeón del otro cuadro: Alemania o Argentina',
-      searchQuery:'world cup winner',
-      slugKey:'tournament-winner',
-      subset:['Germany','Argentina','England','France'],
-      candidates:[
-        {name:'Alemania',   flag:'🇩🇪', matchOutcome:'Germany',   fallback:36},
-        {name:'Argentina',  flag:'🇦🇷', matchOutcome:'Argentina', fallback:28},
-        {name:'Inglaterra', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', matchOutcome:'England',   fallback:22},
-        {name:'Francia',    flag:'🇫🇷', matchOutcome:'France',    fallback:14},
-      ]
-    },
+
+/* Mapeo nombre openfootball → nombre canónico en la app */
+const NAME_MAP = {
+  'Mexico':'México','South Africa':'Sudáfrica','South Korea':'Corea del Sur',
+  'Czech Republic':'Rep. Checa','Canada':'Canadá','Bosnia & Herzegovina':'Bosnia',
+  'Qatar':'Qatar','Switzerland':'Suiza','USA':'EE.UU.','Paraguay':'Paraguay',
+  'Australia':'Australia','Turkey':'Turquía','Brazil':'Brasil','Morocco':'Marruecos',
+  'Haiti':'Haití','Scotland':'Escocia','Germany':'Alemania','Curaçao':'Curazao',
+  'Ivory Coast':'Costa de Marfil','Ecuador':'Ecuador','Netherlands':'Países Bajos',
+  'Japan':'Japón','Sweden':'Suecia','Tunisia':'Túnez','Belgium':'Bélgica',
+  'Egypt':'Egipto','Iran':'Irán','New Zealand':'Nueva Zelanda',
+  'Spain':'España','Uruguay':'Uruguay','Saudi Arabia':'Arabia Saudí',
+  'Cape Verde':'Cabo Verde','France':'Francia','Senegal':'Senegal',
+  'Iraq':'Irak','Norway':'Noruega','Argentina':'Argentina','Algeria':'Argelia',
+  'Austria':'Austria','Jordan':'Jordania','Portugal':'Portugal',
+  'DR Congo':'RD Congo','Uzbekistan':'Uzbekistán','Colombia':'Colombia',
+  'England':'Inglaterra','Croatia':'Croacia','Ghana':'Ghana','Panama':'Panamá',
+  'Korea Republic':'Corea del Sur','Czechia':'Rep. Checa',
+  'Cabo Verde':'Cabo Verde',
+};
+const FLAGS = {
+  'México':'🇲🇽','Sudáfrica':'🇿🇦','Corea del Sur':'🇰🇷','Rep. Checa':'🇨🇿',
+  'Canadá':'🇨🇦','Bosnia':'🇧🇦','Qatar':'🇶🇦','Suiza':'🇨🇭',
+  'EE.UU.':'🇺🇸','Paraguay':'🇵🇾','Australia':'🇦🇺','Turquía':'🇹🇷',
+  'Brasil':'🇧🇷','Marruecos':'🇲🇦','Haití':'🇭🇹','Escocia':'🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+  'Alemania':'🇩🇪','Curazao':'🇨🇼','Costa de Marfil':'🇨🇮','Ecuador':'🇪🇨',
+  'Países Bajos':'🇳🇱','Japón':'🇯🇵','Suecia':'🇸🇪','Túnez':'🇹🇳',
+  'Bélgica':'🇧🇪','Egipto':'🇪🇬','Irán':'🇮🇷','Nueva Zelanda':'🇳🇿',
+  'España':'🇪🇸','Uruguay':'🇺🇾','Arabia Saudí':'🇸🇦','Cabo Verde':'🇨🇻',
+  'Francia':'🇫🇷','Senegal':'🇸🇳','Irak':'🇮🇶','Noruega':'🇳🇴',
+  'Argentina':'🇦🇷','Argelia':'🇩🇿','Austria':'🇦🇹','Jordania':'🇯🇴',
+  'Portugal':'🇵🇹','RD Congo':'🇨🇩','Uzbekistán':'🇺🇿','Colombia':'🇨🇴',
+  'Inglaterra':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Croacia':'🇭🇷','Ghana':'🇬🇭','Panamá':'🇵🇦',
+  'Bosnia':'🇧🇦',
+};
+const f = n => FLAGS[n] || '🏳️';
+
+/* Grupos del torneo */
+const GROUPS = {
+  'Group A':['México','Sudáfrica','Corea del Sur','Rep. Checa'],
+  'Group B':['Canadá','Bosnia','Qatar','Suiza'],
+  'Group C':['Brasil','Marruecos','Haití','Escocia'],
+  'Group D':['EE.UU.','Paraguay','Australia','Turquía'],
+  'Group E':['Alemania','Curazao','Costa de Marfil','Ecuador'],
+  'Group F':['Países Bajos','Japón','Suecia','Túnez'],
+  'Group G':['Bélgica','Egipto','Irán','Nueva Zelanda'],
+  'Group H':['España','Uruguay','Arabia Saudí','Cabo Verde'],
+  'Group I':['Francia','Senegal','Irak','Noruega'],
+  'Group J':['Argentina','Argelia','Austria','Jordania'],
+  'Group K':['Portugal','RD Congo','Uzbekistán','Colombia'],
+  'Group L':['Inglaterra','Croacia','Ghana','Panamá'],
+};
+
+/* Para cada selección: su grupo y sus partidos de fase de grupos */
+const GROUP_MATCHES = {
+  'Argentina':{g:'J',matches:[
+    {vs:'Argelia', date:'19 Jun',  ground:'Kansas City'},
+    {vs:'Austria', date:'21 Jun',  ground:'Houston'},
+    {vs:'Jordania', date:'26 Jun', ground:'Dallas'},
+  ]},
+  'Austria':{g:'J',matches:[
+    {vs:'Jordania', date:'19 Jun', ground:'Toronto'},
+    {vs:'Argentina',date:'21 Jun', ground:'Houston'},
+    {vs:'Argelia',  date:'26 Jun', ground:'Kansas City'},
+  ]},
+  'Argelia':{g:'J',matches:[
+    {vs:'Argentina',date:'19 Jun', ground:'Kansas City'},
+    {vs:'Jordania', date:'22 Jun', ground:'Seattle'},
+    {vs:'Austria',  date:'26 Jun', ground:'Kansas City'},
+  ]},
+  'Jordania':{g:'J',matches:[
+    {vs:'Austria',  date:'19 Jun', ground:'Toronto'},
+    {vs:'Argelia',  date:'22 Jun', ground:'Seattle'},
+    {vs:'Argentina',date:'26 Jun', ground:'Dallas'},
+  ]},
+  'México':{g:'A',matches:[
+    {vs:'Sudáfrica',    date:'11 Jun', ground:'México D.F.'},
+    {vs:'Corea del Sur',date:'18 Jun', ground:'Guadalajara'},
+    {vs:'Rep. Checa',   date:'24 Jun', ground:'México D.F.'},
+  ]},
+  'Suiza':{g:'B',matches:[
+    {vs:'Qatar',  date:'13 Jun', ground:'San Francisco'},
+    {vs:'Bosnia', date:'18 Jun', ground:'Los Ángeles'},
+    {vs:'Canadá', date:'24 Jun', ground:'Vancouver'},
+  ]},
+  'Canadá':{g:'B',matches:[
+    {vs:'Bosnia',date:'12 Jun', ground:'Toronto'},
+    {vs:'Qatar', date:'18 Jun', ground:'Vancouver'},
+    {vs:'Suiza', date:'24 Jun', ground:'Vancouver'},
+  ]},
+  'Corea del Sur':{g:'A',matches:[
+    {vs:'Rep. Checa',   date:'11 Jun', ground:'Guadalajara'},
+    {vs:'México',       date:'18 Jun', ground:'Guadalajara'},
+    {vs:'Sudáfrica',    date:'24 Jun', ground:'Monterrey'},
+  ]},
+  'Brasil':{g:'C',matches:[
+    {vs:'Marruecos',date:'13 Jun', ground:'Nueva York/NJ'},
+    {vs:'Haití',    date:'19 Jun', ground:'Filadelfia'},
+    {vs:'Escocia',  date:'24 Jun', ground:'Miami'},
+  ]},
+  'Países Bajos':{g:'F',matches:[
+    {vs:'Japón',  date:'14 Jun', ground:'Dallas'},
+    {vs:'Suecia', date:'20 Jun', ground:'Houston'},
+    {vs:'Túnez',  date:'25 Jun', ground:'Kansas City'},
+  ]},
+  'Portugal':{g:'K',matches:[
+    {vs:'RD Congo',    date:'16 Jun', ground:'Miami'},
+    {vs:'Uzbekistán',  date:'22 Jun', ground:'Houston'},
+    {vs:'Colombia',    date:'27 Jun', ground:'Miami'},
+  ]},
+  'Marruecos':{g:'C',matches:[
+    {vs:'Brasil',  date:'13 Jun', ground:'Nueva York/NJ'},
+    {vs:'Escocia', date:'19 Jun', ground:'Boston'},
+    {vs:'Haití',   date:'24 Jun', ground:'Atlanta'},
+  ]},
+  'Francia':{g:'I',matches:[
+    {vs:'Senegal',date:'16 Jun', ground:'Nueva York/NJ'},
+    {vs:'Irak',   date:'22 Jun', ground:'Filadelfia'},
+    {vs:'Noruega',date:'26 Jun', ground:'Boston'},
+  ]},
+  'Inglaterra':{g:'L',matches:[
+    {vs:'Panamá', date:'16 Jun', ground:'Nueva York/NJ'},
+    {vs:'Ghana',  date:'21 Jun', ground:'Dallas'},
+    {vs:'Croacia',date:'26 Jun', ground:'Filadelfia'},
+  ]},
+  'Senegal':{g:'I',matches:[
+    {vs:'Francia',date:'16 Jun', ground:'Nueva York/NJ'},
+    {vs:'Noruega',date:'21 Jun', ground:'Seattle'},
+    {vs:'Irak',   date:'26 Jun', ground:'Boston'},
+  ]},
+  'Noruega':{g:'I',matches:[
+    {vs:'Irak',   date:'15 Jun', ground:'Dallas'},
+    {vs:'Senegal',date:'21 Jun', ground:'Seattle'},
+    {vs:'Francia',date:'26 Jun', ground:'Boston'},
+  ]},
+  'Alemania':{g:'E',matches:[
+    {vs:'Curazao',        date:'14 Jun', ground:'Houston'},
+    {vs:'Costa de Marfil',date:'20 Jun', ground:'Toronto'},
+    {vs:'Ecuador',        date:'25 Jun', ground:'Nueva York/NJ'},
+  ]},
+  'EE.UU.':{g:'D',matches:[
+    {vs:'Paraguay',  date:'12 Jun', ground:'Los Ángeles'},
+    {vs:'Australia', date:'19 Jun', ground:'Seattle'},
+    {vs:'Turquía',   date:'25 Jun', ground:'Los Ángeles'},
+  ]},
+  'Bélgica':{g:'G',matches:[
+    {vs:'Egipto',       date:'15 Jun', ground:'Seattle'},
+    {vs:'Irán',         date:'21 Jun', ground:'Dallas'},
+    {vs:'Nueva Zelanda',date:'26 Jun', ground:'Seattle'},
+  ]},
+  'Paraguay':{g:'D',matches:[
+    {vs:'EE.UU.',    date:'12 Jun', ground:'Los Ángeles'},
+    {vs:'Turquía',   date:'19 Jun', ground:'San Francisco'},
+    {vs:'Australia', date:'25 Jun', ground:'San Francisco'},
+  ]},
+  'Turquía':{g:'D',matches:[
+    {vs:'Australia',date:'13 Jun', ground:'Vancouver'},
+    {vs:'Paraguay', date:'19 Jun', ground:'San Francisco'},
+    {vs:'EE.UU.',   date:'25 Jun', ground:'Los Ángeles'},
+  ]},
+  'Colombia':{g:'K',matches:[
+    {vs:'Uzbekistán',date:'15 Jun', ground:'Boston'},
+    {vs:'RD Congo',  date:'21 Jun', ground:'Dallas'},
+    {vs:'Portugal',  date:'27 Jun', ground:'Miami'},
+  ]},
+  'Croacia':{g:'L',matches:[
+    {vs:'Ghana',    date:'16 Jun', ground:'Filadelfia'},
+    {vs:'Panamá',   date:'22 Jun', ground:'Filadelfia'},
+    {vs:'Inglaterra',date:'26 Jun', ground:'Filadelfia'},
+  ]},
+};
+
+/* ═══════════════════════════════════════════════════════
+   RUTA ELIMINATORIA DE CADA RIVAL
+   Cada paso tiene:
+     round       — nombre de la ronda
+     match       — cruce oficial del bracket
+     priorRival  — rival MÁS PROBABLE en ese cruce (para mostrar en popup)
+     priorFlag   — bandera del rival probable
+     date        — fecha + hora en España peninsular (CEST = UTC+2)
+     clash       — true si es el cruce con España
+   Solo se renderizan los pasos hasta clash (inclusive).
+═══════════════════════════════════════════════════════ */
+const KNOCKOUT_ROUTES = {
+  /* ── Grupo J: 16avos directos vs España ────────────── */
+  'Argentina':[
+    {round:'Dieciseisavos', match:'1ºJ vs 2ºH',
+     priorRival:'España 2ª', priorFlag:'🇪🇸',
+     date:'3 Jul · Miami · 22:00h 🇪🇸', clash:true},
   ],
-  2: [ // España 2ª del Grupo H
-    {
-      round:'Dieciseisavos · 2ªH vs 1ªJ', date:'3 Jul · Miami, Hard Rock Stadium',
-      matchNote:'España 2ª enfrenta al 1º del Grupo J: Argentina favorita',
-      searchQuery:'world cup group j winner',
-      slugKey:'group-j-winner',
-      candidates:[
-        {name:'Argentina', flag:'🇦🇷', matchOutcome:'Argentina', fallback:72},
-        {name:'Austria',   flag:'🇦🇹', matchOutcome:'Austria',   fallback:19},
-        {name:'Argelia',   flag:'🇩🇿', matchOutcome:'Algeria',   fallback: 8},
-        {name:'Jordania',  flag:'🇯🇴', matchOutcome:'Jordan',    fallback: 1},
-      ]
-    },
-    {
-      round:'Octavos · P86 vs P88', date:'7 Jul · Atlanta, Mercedes-Benz',
-      matchNote:'Cruce 2ºD vs 2ºG: EE.UU. o Bélgica favoritos',
-      searchQuery:null, slugKey:null,
-      candidates:[
-        {name:'EE.UU.',   flag:'🇺🇸', fallback:42},
-        {name:'Bélgica',  flag:'🇧🇪', fallback:33},
-        {name:'Paraguay', flag:'🇵🇾', fallback:14},
-        {name:'Turquía',  flag:'🇹🇷', fallback:11},
-      ]
-    },
-    {
-      round:'Cuartos · P95', date:'11 Jul · Atlanta, Mercedes-Benz',
-      matchNote:'Cuadro I/L: Francia o Inglaterra',
-      searchQuery:'world cup winner',
-      slugKey:'tournament-winner',
-      subset:['France','England','Senegal','Croatia'],
-      candidates:[
-        {name:'Francia',    flag:'🇫🇷', matchOutcome:'France',  fallback:48},
-        {name:'Inglaterra', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', matchOutcome:'England', fallback:33},
-        {name:'Senegal',    flag:'🇸🇳', matchOutcome:'Senegal', fallback:12},
-        {name:'Croacia',    flag:'🇭🇷', matchOutcome:'Croatia', fallback: 7},
-      ]
-    },
-    {
-      round:'Semifinal · P97', date:'14 Jul · Dallas, AT&T Stadium',
-      matchNote:'Cuadro C/K: Brasil o Portugal probables',
-      searchQuery:'world cup winner',
-      slugKey:'tournament-winner',
-      subset:['Brazil','Portugal','Morocco','Colombia'],
-      candidates:[
-        {name:'Brasil',    flag:'🇧🇷', matchOutcome:'Brazil',   fallback:45},
-        {name:'Portugal',  flag:'🇵🇹', matchOutcome:'Portugal', fallback:32},
-        {name:'Marruecos', flag:'🇲🇦', matchOutcome:'Morocco',  fallback:14},
-        {name:'Colombia',  flag:'🇨🇴', matchOutcome:'Colombia', fallback: 9},
-      ]
-    },
-    {
-      round:'🏆 Final · MetLife Stadium, NJ', date:'19 Jul',
-      isFinal:true,
-      matchNote:'Campeón del otro cuadro: Alemania o Argentina',
-      searchQuery:'world cup winner',
-      slugKey:'tournament-winner',
-      subset:['Germany','Argentina','Netherlands','Brazil'],
-      candidates:[
-        {name:'Alemania',     flag:'🇩🇪', matchOutcome:'Germany',     fallback:34},
-        {name:'Argentina',    flag:'🇦🇷', matchOutcome:'Argentina',   fallback:30},
-        {name:'Países Bajos', flag:'🇳🇱', matchOutcome:'Netherlands', fallback:22},
-        {name:'Brasil',       flag:'🇧🇷', matchOutcome:'Brazil',      fallback:14},
-      ]
-    },
+  'Austria':[
+    {round:'Dieciseisavos', match:'2ºJ vs 1ºH',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'2 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
+  ],
+  'Argelia':[
+    {round:'Dieciseisavos', match:'2ºJ vs 1ºH',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'2 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
+  ],
+  'Jordania':[
+    {round:'Dieciseisavos', match:'2ºJ vs 1ºH',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'2 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
+  ],
+
+  /* ── Octavos vs España (escenario 1ª) ─────────────── */
+  'México':[
+    {round:'Dieciseisavos', match:'1ºA vs 3º mejor',
+     priorRival:'3º mejor del torneo', priorFlag:'🏳️',
+     date:'30 Jun · México D.F. · 03:00h 🇪🇸'},
+    {round:'Octavos', match:'P73 vs P84',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'6 Jul · Dallas · 01:00h 🇪🇸', clash:true},
+  ],
+  'Suiza':[
+    {round:'Dieciseisavos', match:'2ºB vs 2ºA',
+     priorRival:'México (2ºA)', priorFlag:'🇲🇽',
+     date:'28 Jun · SoFi · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P73 vs P84',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'6 Jul · Dallas · 01:00h 🇪🇸', clash:true},
+  ],
+  'Canadá':[
+    {round:'Dieciseisavos', match:'1ºB vs 3º mejor',
+     priorRival:'3º mejor del torneo', priorFlag:'🏳️',
+     date:'29 Jun · Vancouver · 01:00h 🇪🇸'},
+    {round:'Octavos', match:'P73 vs P84',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'6 Jul · Dallas · 01:00h 🇪🇸', clash:true},
+  ],
+  'Corea del Sur':[
+    {round:'Dieciseisavos', match:'2ºA vs 2ºB',
+     priorRival:'Suiza (2ºB)', priorFlag:'🇨🇭',
+     date:'28 Jun · SoFi · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P73 vs P84',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'6 Jul · Dallas · 01:00h 🇪🇸', clash:true},
+  ],
+
+  /* ── Cuartos vs España (escenario 1ª) ─────────────── */
+  'Brasil':[
+    {round:'Dieciseisavos', match:'1ºC vs 2ºF',
+     priorRival:'Japón (2ºF probable)', priorFlag:'🇯🇵',
+     date:'29 Jun · Boston · 01:00h 🇪🇸'},
+    {round:'Octavos', match:'P75 vs P76',
+     priorRival:'Países Bajos (1ºF)', priorFlag:'🇳🇱',
+     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
+    {round:'Cuartos', match:'P93 vs ganador P84',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
+  ],
+  'Países Bajos':[
+    {round:'Dieciseisavos', match:'1ºF vs 2ºC',
+     priorRival:'Marruecos (2ºC probable)', priorFlag:'🇲🇦',
+     date:'29 Jun · Monterrey · 21:00h 🇪🇸'},
+    {round:'Octavos', match:'P75 vs P76',
+     priorRival:'Brasil (1ºC)', priorFlag:'🇧🇷',
+     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
+    {round:'Cuartos', match:'P93 vs ganador P84',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
+  ],
+  'Portugal':[
+    {round:'Dieciseisavos', match:'1ºK vs 3º mejor',
+     priorRival:'3º mejor', priorFlag:'🏳️',
+     date:'3 Jul · Kansas City · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P87 vs P85',
+     priorRival:'Colombia/Croacia (2ºK/L)', priorFlag:'🇨🇴',
+     date:'7 Jul · Vancouver · 22:00h 🇪🇸'},
+    {round:'Cuartos', match:'P93 vs ganador P84',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
+  ],
+  'Marruecos':[
+    {round:'Dieciseisavos', match:'2ºC vs 1ºF',
+     priorRival:'Países Bajos (1ºF)', priorFlag:'🇳🇱',
+     date:'29 Jun · Monterrey · 21:00h 🇪🇸'},
+    {round:'Octavos', match:'P75 vs P76',
+     priorRival:'Brasil (1ºC)', priorFlag:'🇧🇷',
+     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
+    {round:'Cuartos', match:'P93 vs ganador P84',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
+  ],
+
+  /* ── Semis vs España (escenario 1ª) ───────────────── */
+  'Francia':[
+    {round:'Dieciseisavos', match:'1ºI vs 3ºC/D/F/G/H',
+     priorRival:'3º mejor', priorFlag:'🏳️',
+     date:'30 Jun · Dallas · 01:00h 🇪🇸'},
+    {round:'Octavos', match:'P77 vs P74',
+     priorRival:'Alemania (1ºE)', priorFlag:'🇩🇪',
+     date:'4 Jul · Filadelfia · 22:00h 🇪🇸'},
+    {round:'Cuartos', match:'P95 vs P96',
+     priorRival:'EE.UU./Bélgica', priorFlag:'🇺🇸',
+     date:'11 Jul · Atlanta · 22:00h 🇪🇸'},
+    {round:'Semifinal', match:'vs España 1ª',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'15 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
+  ],
+  'Inglaterra':[
+    {round:'Dieciseisavos', match:'1ºL vs 3ºE/H/I/J/K',
+     priorRival:'3º mejor', priorFlag:'🏳️',
+     date:'1 Jul · Seattle · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P80 vs P77',
+     priorRival:'Francia (1ºI)', priorFlag:'🇫🇷',
+     date:'5 Jul · Seattle · 22:00h 🇪🇸'},
+    {round:'Cuartos', match:'P95 vs P96',
+     priorRival:'EE.UU./Bélgica', priorFlag:'🇺🇸',
+     date:'11 Jul · Atlanta · 22:00h 🇪🇸'},
+    {round:'Semifinal', match:'vs España 1ª',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'15 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
+  ],
+  'Senegal':[
+    {round:'Dieciseisavos', match:'2ºI vs 2ºE',
+     priorRival:'Ecuador (2ºE probable)', priorFlag:'🇪🇨',
+     date:'28 Jun · Nueva York/NJ · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P78 vs P74',
+     priorRival:'Alemania (1ºE)', priorFlag:'🇩🇪',
+     date:'5 Jul · Filadelfia · 02:00h 🇪🇸'},
+    {round:'Cuartos', match:'P95 vs P96',
+     priorRival:'EE.UU./Bélgica', priorFlag:'🇺🇸',
+     date:'11 Jul · Atlanta · 22:00h 🇪🇸'},
+    {round:'Semifinal', match:'vs España 1ª',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'15 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
+  ],
+  'Noruega':[
+    {round:'Dieciseisavos', match:'2ºI / 3º mejor',
+     priorRival:'3º mejor', priorFlag:'🏳️',
+     date:'28–30 Jun'},
+    {round:'Octavos', match:'P77/P78',
+     priorRival:'Alemania/cuadro E-I', priorFlag:'🇩🇪',
+     date:'4–5 Jul'},
+    {round:'Cuartos', match:'P95 vs P96',
+     priorRival:'EE.UU./Bélgica', priorFlag:'🇺🇸',
+     date:'11 Jul · Atlanta · 22:00h 🇪🇸'},
+    {round:'Semifinal', match:'vs España 1ª',
+     priorRival:'España 1ª', priorFlag:'🇪🇸',
+     date:'15 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
+  ],
+
+  /* ── Final vs España ───────────────────────────────── */
+  'Alemania':[
+    {round:'Dieciseisavos', match:'1ºE vs 3ºA/B/C/D/F',
+     priorRival:'3º mejor', priorFlag:'🏳️',
+     date:'29 Jun · Houston · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P74 vs P77',
+     priorRival:'Francia (1ºI)', priorFlag:'🇫🇷',
+     date:'4 Jul · Filadelfia · 22:00h 🇪🇸'},
+    {round:'Cuartos', match:'P89 vs P90',
+     priorRival:'EE.UU./México', priorFlag:'🇺🇸',
+     date:'9 Jul · Boston · 22:00h 🇪🇸'},
+    {round:'Semifinal', match:'P97 vs P98',
+     priorRival:'cuadro opuesto', priorFlag:'🏳️',
+     date:'14 Jul · Dallas · 02:00h 🇪🇸'},
+    {round:'Final', match:'vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+  ],
+
+  /* ── Octavos vs España (escenario 2ª) ─────────────── */
+  'EE.UU.':[
+    {round:'Dieciseisavos', match:'1ºD vs 3ºB/E/F/I/J',
+     priorRival:'3º mejor', priorFlag:'🏳️',
+     date:'1 Jul · San Francisco · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P88 vs P86',
+     priorRival:'España 2ª', priorFlag:'🇪🇸',
+     date:'7 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
+  ],
+  'Bélgica':[
+    {round:'Dieciseisavos', match:'1ºG vs 3ºA/E/H/I/J',
+     priorRival:'3º mejor', priorFlag:'🏳️',
+     date:'1 Jul · Seattle · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P88 vs P86',
+     priorRival:'España 2ª', priorFlag:'🇪🇸',
+     date:'7 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
+  ],
+  'Paraguay':[
+    {round:'Dieciseisavos', match:'2ºD vs 2ºG',
+     priorRival:'Bélgica (2ºG)', priorFlag:'🇧🇪',
+     date:'3 Jul · Dallas · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P88 vs P86',
+     priorRival:'España 2ª', priorFlag:'🇪🇸',
+     date:'7 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
+  ],
+  'Turquía':[
+    {round:'Dieciseisavos', match:'2ºD vs 2ºG',
+     priorRival:'Bélgica (2ºG)', priorFlag:'🇧🇪',
+     date:'3 Jul · Dallas · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P88 vs P86',
+     priorRival:'España 2ª', priorFlag:'🇪🇸',
+     date:'7 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
+  ],
+
+  /* ── Cuartos vs España (escenario 2ª) ─────────────── */
+  'Croacia':[
+    {round:'Dieciseisavos', match:'2ºL vs 2ºK',
+     priorRival:'Colombia (2ºK)', priorFlag:'🇨🇴',
+     date:'2 Jul · Vancouver · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P83 vs P85/P87',
+     priorRival:'Portugal (1ºK)', priorFlag:'🇵🇹',
+     date:'6 Jul · Dallas · 22:00h 🇪🇸'},
+    {round:'Cuartos', match:'P95 vs P86',
+     priorRival:'España 2ª', priorFlag:'🇪🇸',
+     date:'11 Jul · Atlanta · 22:00h 🇪🇸', clash:true},
+  ],
+  'Colombia':[
+    {round:'Dieciseisavos', match:'2ºK vs 2ºL',
+     priorRival:'Croacia (2ºL)', priorFlag:'🇭🇷',
+     date:'2 Jul · Vancouver · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P83 vs P86',
+     priorRival:'ganador P86', priorFlag:'🏳️',
+     date:'6 Jul · Dallas · 22:00h 🇪🇸'},
+    {round:'Cuartos', match:'P95 vs P86',
+     priorRival:'España 2ª', priorFlag:'🇪🇸',
+     date:'11 Jul · Atlanta · 22:00h 🇪🇸', clash:true},
+  ],
+
+  /* ── Semis vs España (escenario 2ª) ───────────────── */
+  'Brasil':[
+    {round:'Dieciseisavos', match:'1ºC vs 2ºF',
+     priorRival:'Japón (2ºF probable)', priorFlag:'🇯🇵',
+     date:'29 Jun · Boston · 01:00h 🇪🇸'},
+    {round:'Octavos', match:'P75 vs P76',
+     priorRival:'Países Bajos (1ºF)', priorFlag:'🇳🇱',
+     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
+    {round:'Cuartos', match:'P93 vs P94',
+     priorRival:'Portugal/Colombia', priorFlag:'🇵🇹',
+     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸'},
+    {round:'Semifinal', match:'vs España 2ª',
+     priorRival:'España 2ª', priorFlag:'🇪🇸',
+     date:'14 Jul · Dallas · 02:00h 🇪🇸', clash:true},
+  ],
+  'Portugal':[
+    {round:'Dieciseisavos', match:'1ºK vs 3º mejor',
+     priorRival:'3º mejor', priorFlag:'🏳️',
+     date:'3 Jul · Kansas City · 22:00h 🇪🇸'},
+    {round:'Octavos', match:'P87 vs P85',
+     priorRival:'Colombia/Croacia (2ºK/L)', priorFlag:'🇨🇴',
+     date:'7 Jul · Vancouver · 22:00h 🇪🇸'},
+    {round:'Cuartos', match:'P93 vs P94',
+     priorRival:'Brasil/Países Bajos', priorFlag:'🇧🇷',
+     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸'},
+    {round:'Semifinal', match:'vs España 2ª',
+     priorRival:'España 2ª', priorFlag:'🇪🇸',
+     date:'14 Jul · Dallas · 02:00h 🇪🇸', clash:true},
+  ],
+  'Marruecos':[
+    {round:'Dieciseisavos', match:'2ºC vs 1ºF',
+     priorRival:'Países Bajos (1ºF)', priorFlag:'🇳🇱',
+     date:'29 Jun · Monterrey · 21:00h 🇪🇸'},
+    {round:'Octavos', match:'P75 vs P76',
+     priorRival:'Brasil (1ºC)', priorFlag:'🇧🇷',
+     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
+    {round:'Cuartos', match:'P93 vs P94',
+     priorRival:'Portugal/Colombia', priorFlag:'🇵🇹',
+     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸'},
+    {round:'Semifinal', match:'vs España 2ª',
+     priorRival:'España 2ª', priorFlag:'🇪🇸',
+     date:'14 Jul · Dallas · 02:00h 🇪🇸', clash:true},
+  ],
+  'Países Bajos':[
+    {round:'Dieciseisavos', match:'1ºF vs 2ºC',
+     priorRival:'Marruecos (2ºC probable)', priorFlag:'🇲🇦',
+     date:'29 Jun · Monterrey · 21:00h 🇪🇸'},
+    {round:'Octavos', match:'P75 vs P76',
+     priorRival:'Brasil (1ºC)', priorFlag:'🇧🇷',
+     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
+    {round:'Cuartos', match:'P93 vs P94',
+     priorRival:'Portugal/Colombia', priorFlag:'🇵🇹',
+     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸'},
+    {round:'Semifinal', match:'vs España 2ª',
+     priorRival:'España 2ª', priorFlag:'🇪🇸',
+     date:'14 Jul · Dallas · 02:00h 🇪🇸', clash:true},
+  ],
+};
+
+/* Fases del bracket de España */
+const PHASES = {
+  1:[
+    /* 16avos: fuente = mercado de clasificación del Grupo J (quién queda 2º) */
+    {round:'Dieciseisavos · 1ªH vs 2ªJ',date:'2 Jul · Los Ángeles · 22:00h 🇪🇸',
+     matchNote:'España 1ª enfrenta al 2º clasificado del Grupo J',
+     searchQuery:'world cup group j second place',
+     slugKey:'group-j-2nd', probType:'group',
+     candidates:[
+       {name:'Austria',  flag:'🇦🇹',matchOutcome:'Austria',  fallback:57},
+       {name:'Argelia',  flag:'🇩🇿',matchOutcome:'Algeria',  fallback:29},
+       {name:'Argentina',flag:'🇦🇷',matchOutcome:'Argentina',fallback:8,note:'Solo si cae 2º'},
+       {name:'Jordania', flag:'🇯🇴',matchOutcome:'Jordan',   fallback:6},
+     ]},
+    /* Octavos: fuente = world-cup-winner, subset del cuadro A/B */
+    {round:'Octavos · P84 vs P73',date:'6 Jul · Dallas · 01:00h 🇪🇸',
+     matchNote:'Cruce 2ºA vs 2ºB: probable México o Suiza',
+     searchQuery:'world cup winner',
+     slugKey:'tournament-winner', probType:'winner-subset',
+     subset:['Mexico','Switzerland','Canada','South Korea'],
+     candidates:[
+       {name:'México',       flag:'🇲🇽',matchOutcome:'Mexico',      fallback:45},
+       {name:'Suiza',        flag:'🇨🇭',matchOutcome:'Switzerland', fallback:30},
+       {name:'Canadá',       flag:'🇨🇦',matchOutcome:'Canada',      fallback:15},
+       {name:'Corea del Sur',flag:'🇰🇷',matchOutcome:'South Korea', fallback:10},
+     ]},
+    /* Cuartos: fuente = world-cup-winner, subset cuadro C/F/K */
+    {round:'Cuartos · P93',date:'10 Jul · Los Ángeles · 22:00h 🇪🇸',
+     matchNote:'Mejor del cuadro C/F/K',
+     searchQuery:'world cup winner',
+     slugKey:'tournament-winner', probType:'winner-subset',
+     subset:['Brazil','Netherlands','Portugal','Morocco'],
+     candidates:[
+       {name:'Brasil',      flag:'🇧🇷',matchOutcome:'Brazil',      fallback:38},
+       {name:'Países Bajos',flag:'🇳🇱',matchOutcome:'Netherlands', fallback:28},
+       {name:'Portugal',    flag:'🇵🇹',matchOutcome:'Portugal',    fallback:22},
+       {name:'Marruecos',   flag:'🇲🇦',matchOutcome:'Morocco',     fallback:12},
+     ]},
+    /* Semis: fuente = world-cup-winner, subset cuadro I/L */
+    {round:'Semifinal · P98',date:'15 Jul · Atlanta · 02:00h 🇪🇸',
+     matchNote:'Cuadro I/L: Francia o Inglaterra probables',
+     searchQuery:'world cup winner',
+     slugKey:'tournament-winner', probType:'winner-subset',
+     subset:['France','England','Senegal','Norway'],
+     candidates:[
+       {name:'Francia',    flag:'🇫🇷',matchOutcome:'France',  fallback:50},
+       {name:'Inglaterra', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',matchOutcome:'England', fallback:30},
+       {name:'Senegal',    flag:'🇸🇳',matchOutcome:'Senegal', fallback:12},
+       {name:'Noruega',    flag:'🇳🇴',matchOutcome:'Norway',  fallback:8},
+     ]},
+    /* Final: fuente = world-cup-winner, subset otro cuadro */
+    {round:'🏆 Final · MetLife Stadium, NJ',date:'19 Jul · 20:00h 🇪🇸',isFinal:true,
+     searchQuery:'world cup winner',
+     slugKey:'tournament-winner', probType:'winner-subset',
+     subset:['Germany','Argentina','England','France'],
+     candidates:[
+       {name:'Alemania',  flag:'🇩🇪',matchOutcome:'Germany',  fallback:36},
+       {name:'Argentina', flag:'🇦🇷',matchOutcome:'Argentina',fallback:28},
+       {name:'Inglaterra',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',matchOutcome:'England',  fallback:22},
+       {name:'Francia',   flag:'🇫🇷',matchOutcome:'France',   fallback:14},
+     ]},
+  ],
+  2:[
+    /* 16avos: fuente = mercado de clasificación del Grupo J (quién queda 1º) */
+    {round:'Dieciseisavos · 2ªH vs 1ªJ',date:'3 Jul · Miami · 22:00h 🇪🇸',
+     matchNote:'España 2ª enfrenta al 1º del Grupo J: Argentina favorita',
+     searchQuery:'world cup group j winner',
+     slugKey:'group-j-winner', probType:'group',
+     candidates:[
+       {name:'Argentina',flag:'🇦🇷',matchOutcome:'Argentina',fallback:72},
+       {name:'Austria',  flag:'🇦🇹',matchOutcome:'Austria',  fallback:19},
+       {name:'Argelia',  flag:'🇩🇿',matchOutcome:'Algeria',  fallback:8},
+       {name:'Jordania', flag:'🇯🇴',matchOutcome:'Jordan',   fallback:1},
+     ]},
+    /* Octavos: fuente = world-cup-winner, subset cuadro D/G */
+    {round:'Octavos · P86 vs P88',date:'7 Jul · Atlanta · 02:00h 🇪🇸',
+     matchNote:'Cruce 2ºD vs 2ºG: EE.UU. o Bélgica favoritos',
+     searchQuery:'world cup winner',
+     slugKey:'tournament-winner', probType:'winner-subset',
+     subset:['United States','Belgium','Paraguay','Turkey'],
+     candidates:[
+       {name:'EE.UU.',  flag:'🇺🇸',matchOutcome:'United States',fallback:42},
+       {name:'Bélgica', flag:'🇧🇪',matchOutcome:'Belgium',      fallback:33},
+       {name:'Paraguay',flag:'🇵🇾',matchOutcome:'Paraguay',     fallback:14},
+       {name:'Turquía', flag:'🇹🇷',matchOutcome:'Turkey',       fallback:11},
+     ]},
+    /* Cuartos: fuente = world-cup-winner, subset cuadro I/L */
+    {round:'Cuartos · P95',date:'11 Jul · Atlanta · 22:00h 🇪🇸',
+     matchNote:'Cuadro I/L: Francia o Inglaterra',
+     searchQuery:'world cup winner',
+     slugKey:'tournament-winner', probType:'winner-subset',
+     subset:['France','England','Senegal','Croatia'],
+     candidates:[
+       {name:'Francia',    flag:'🇫🇷',matchOutcome:'France',  fallback:48},
+       {name:'Inglaterra', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',matchOutcome:'England', fallback:33},
+       {name:'Senegal',    flag:'🇸🇳',matchOutcome:'Senegal', fallback:12},
+       {name:'Croacia',    flag:'🇭🇷',matchOutcome:'Croatia', fallback:7},
+     ]},
+    /* Semis: fuente = world-cup-winner, subset cuadro C/K */
+    {round:'Semifinal · P97',date:'14 Jul · Dallas · 02:00h 🇪🇸',
+     matchNote:'Cuadro C/K: Brasil o Portugal probables',
+     searchQuery:'world cup winner',
+     slugKey:'tournament-winner', probType:'winner-subset',
+     subset:['Brazil','Portugal','Morocco','Colombia'],
+     candidates:[
+       {name:'Brasil',   flag:'🇧🇷',matchOutcome:'Brazil',   fallback:45},
+       {name:'Portugal', flag:'🇵🇹',matchOutcome:'Portugal', fallback:32},
+       {name:'Marruecos',flag:'🇲🇦',matchOutcome:'Morocco',  fallback:14},
+       {name:'Colombia', flag:'🇨🇴',matchOutcome:'Colombia', fallback:9},
+     ]},
+    /* Final: fuente = world-cup-winner, subset otro cuadro */
+    {round:'🏆 Final · MetLife Stadium, NJ',date:'19 Jul · 20:00h 🇪🇸',isFinal:true,
+     matchNote:'Campeón del otro cuadro',
+     searchQuery:'world cup winner',
+     slugKey:'tournament-winner', probType:'winner-subset',
+     subset:['Germany','Argentina','Netherlands','Brazil'],
+     candidates:[
+       {name:'Alemania',     flag:'🇩🇪',matchOutcome:'Germany',    fallback:34},
+       {name:'Argentina',    flag:'🇦🇷',matchOutcome:'Argentina',  fallback:30},
+       {name:'Países Bajos', flag:'🇳🇱',matchOutcome:'Netherlands',fallback:22},
+       {name:'Brasil',       flag:'🇧🇷',matchOutcome:'Brazil',     fallback:14},
+     ]},
   ]
 };
 
-const FOOTERS = {
-  1:'📌 Escenario 1ª: en 16avos España evita a Argentina (favorita al ~72% en su grupo) y enfrenta al 2º, casi seguro Austria o Argelia. El cuadro se endurece en cuartos con Brasil/Portugal/Países Bajos.',
-  2:'📌 Escenario 2ª: la gran diferencia es el 16avos — directamente Argentina (1ª del Grupo J). Si se supera ese escollo, octavos y cuartos son algo más llevaderos (EE.UU./Bélgica y Francia/Inglaterra).'
+const FOOTERS={
+  1:'📌 Si España queda 1ª del Grupo H, en 16avos se enfrenta al 2º del Grupo J — casi seguro Austria o Argelia, NO Argentina. El cuadro se endurece a partir de cuartos.',
+  2:'📌 Si España queda 2ª, el 16avos es directamente contra Argentina (1ª del Grupo J con ~72%). Si supera ese escollo, los octavos y cuartos son algo más llevaderos.'
 };
-const STAGS = {
+const STAGS={
   1:{cls:'s1',txt:'🔴 Si España queda 1ª → 16avos vs 2º del Grupo J (Austria/Argelia, no Argentina)'},
   2:{cls:'s2',txt:'🔵 Si España queda 2ª → 16avos directamente vs Argentina (1ª del Grupo J)'}
 };
 
 /* ═══ STATE ═══ */
-let scenario = 1;
-let slugMap   = {};   // slugKey → { slug, markets: Map<outcome,prob> }
-let slugLog   = {};   // slugKey → { status, slug }
-let slugPanelOpen = false;
-let refreshing = false;
+let scenario=1, slugMap={}, slugLog={}, matchData=[], slugPanelOpen=false;
+let refreshing=false, refreshTimer=null, activeRow=null;
 
-/* ══════════════════════════════════════════════
-   AUTO-DISCOVERY: busca el slug correcto en la
-   Gamma API por texto de la question
-══════════════════════════════════════════════ */
-async function discoverSlug(searchQuery, slugKey) {
-  if (!searchQuery) return;
-  slugLog[slugKey] = {status:'pending', slug:'buscando…'};
-  renderSlugPanel();
-
-  try {
-    // Buscar por keyword en /markets
-    const url = `https://gamma-api.polymarket.com/markets?keyword=${encodeURIComponent(searchQuery)}&limit=50&active=true`;
-    const res = await fetch(url, {signal: AbortSignal.timeout(10000)});
-    if (!res.ok) throw new Error('HTTP '+res.status);
-    const markets = await res.json();
-    if (!Array.isArray(markets) || markets.length === 0) throw new Error('sin resultados');
-
-    // Filtrar los que parecen de "FIFA World Cup 2026" y son multi-outcome
-    const wc = markets.filter(m => {
-      const q = (m.question||'').toLowerCase();
-      const has2026 = q.includes('2026') || (m.endDate||'').startsWith('2026');
-      const hasWC   = q.includes('world cup') || q.includes('fifa') || q.includes('group');
-      const multi   = (m.outcomes && JSON.parse(m.outcomes||'[]').length > 2);
-      return has2026 && hasWC && multi && !m.closed;
-    });
-
-    if (wc.length === 0) throw new Error('no encontrado');
-
-    // Ordenar por volumen y tomar el más líquido
-    wc.sort((a,b) => (b.volumeNum||0) - (a.volumeNum||0));
-    const best = wc[0];
-    const slug = best.slug;
-    const outMap = new Map();
-    const outcomes = JSON.parse(best.outcomes||'[]');
-    const prices   = JSON.parse(best.outcomePrices||'[]');
-    outcomes.forEach((o,i) => {
-      const p = parseFloat(prices[i]);
-      if (!isNaN(p)) outMap.set(o, Math.round(p*100));
-    });
-
-    // Si el mercado tiene eventId, fetch también el evento para más markets
-    if (best.events && best.events.length > 0) {
-      const evSlug = best.events[0].slug;
-      try {
-        const evRes = await fetch(`https://gamma-api.polymarket.com/events?slug=${evSlug}`, {signal:AbortSignal.timeout(6000)});
-        if (evRes.ok) {
-          const evArr = await evRes.json();
-          if (evArr && evArr.length > 0) {
-            (evArr[0].markets||[]).forEach(m2 => {
-              try {
-                const outs2  = JSON.parse(m2.outcomes||'[]');
-                const prc2   = JSON.parse(m2.outcomePrices||'[]');
-                outs2.forEach((o,i) => {
-                  const p = parseFloat(prc2[i]);
-                  if (!isNaN(p) && !outMap.has(o)) outMap.set(o, Math.round(p*100));
-                });
-              } catch(_){}
-            });
-          }
-        }
-      } catch(_){}
-    }
-
-    slugMap[slugKey] = {slug, markets: outMap, question: best.question};
-    slugLog[slugKey] = {status:'ok', slug, question: best.question};
-
-  } catch(e) {
-    slugLog[slugKey] = {status:'miss', slug: e.message||'error'};
+/* ═══════════════════════════════════════════════════════
+   FUENTE 1: openfootball worldcup.json (resultados reales)
+   https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json
+═══════════════════════════════════════════════════════ */
+async function fetchResults(){
+  try{
+    const url='https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
+    const r=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(8000)});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    matchData=d.matches||[];
+    updateSrcLog('openfootball','ok',`${matchData.filter(m=>m.score).length} partidos con resultado`);
+  }catch(e){
+    updateSrcLog('openfootball','miss',e.message);
   }
+}
+
+/* Calcula standings de un grupo a partir de matchData */
+function calcStandings(groupName){
+  const gMatches=matchData.filter(m=>m.group===groupName&&m.score);
+  const pts={},gd={},gf={};
+  const teamsRaw=GROUPS[groupName]||[];
+  // nombre canónico → raw (para buscar en matchData)
+  const raw2can={};
+  Object.entries(NAME_MAP).forEach(([r,c])=>{raw2can[r]=c;});
+  const can2raw={}; // canonical → raw list
+  teamsRaw.forEach(c=>{
+    pts[c]=0;gd[c]=0;gf[c]=0;
+    can2raw[c]=Object.entries(NAME_MAP).filter(([r,cv])=>cv===c).map(([r])=>r);
+  });
+  const resolve=raw=>NAME_MAP[raw]||raw;
+  gMatches.forEach(m=>{
+    const t1=resolve(m.team1),t2=resolve(m.team2);
+    const s1=m.score.ft[0],s2=m.score.ft[1];
+    if(pts[t1]===undefined) pts[t1]=0,gd[t1]=0,gf[t1]=0;
+    if(pts[t2]===undefined) pts[t2]=0,gd[t2]=0,gf[t2]=0;
+    gf[t1]+=s1;gf[t2]+=s2;
+    gd[t1]+=(s1-s2);gd[t2]+=(s2-s1);
+    if(s1>s2){pts[t1]+=3;}
+    else if(s1===s2){pts[t1]+=1;pts[t2]+=1;}
+    else{pts[t2]+=3;}
+  });
+  return teamsRaw.map(t=>({name:t,pts:pts[t]||0,gd:gd[t]||0,gf:gf[t]||0}))
+    .sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf);
+}
+
+/* Obtiene resultados de un equipo en su grupo */
+function getTeamGroupResults(canonicalName){
+  const info=GROUP_MATCHES[canonicalName];
+  if(!info) return [];
+  const rawName=Object.entries(NAME_MAP).filter(([r,c])=>c===canonicalName).map(([r])=>r);
+  const resolve=r=>NAME_MAP[r]||r;
+  return info.matches.map(def=>{
+    // buscar en matchData
+    const found=matchData.find(m=>{
+      const r1=resolve(m.team1),r2=resolve(m.team2);
+      return (r1===canonicalName&&r2===def.vs)||(r2===canonicalName&&r1===def.vs);
+    });
+    if(!found||!found.score) return {...def,score:null};
+    const isHome=resolve(found.team1)===canonicalName;
+    const s1=found.score.ft[isHome?0:1];
+    const s2=found.score.ft[isHome?1:0];
+    return{...def,score:{for:s1,against:s2}};
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   FUENTE 2: Polymarket Gamma API (probabilidades)
+═══════════════════════════════════════════════════════ */
+async function discoverSlug(searchQuery,slugKey){
+  if(!searchQuery)return;
+  slugLog[slugKey]={status:'pending',slug:'buscando…'};renderSlugPanel();
+  try{
+    const r=await fetch(`https://gamma-api.polymarket.com/markets?keyword=${encodeURIComponent(searchQuery)}&limit=50&active=true`,{signal:AbortSignal.timeout(10000)});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    const ms=await r.json();
+    if(!Array.isArray(ms)||!ms.length)throw new Error('sin resultados');
+    const wc=ms.filter(m=>{
+      const q=(m.question||'').toLowerCase();
+      const has2026=q.includes('2026')||(m.endDate||'').startsWith('2026');
+      const hasWC=q.includes('world cup')||q.includes('fifa')||q.includes('group');
+      const multi=(m.outcomes&&JSON.parse(m.outcomes||'[]').length>2);
+      return has2026&&hasWC&&multi&&!m.closed;
+    });
+    if(!wc.length)throw new Error('no encontrado');
+    wc.sort((a,b)=>(b.volumeNum||0)-(a.volumeNum||0));
+    const best=wc[0];
+    const outMap=new Map();
+    JSON.parse(best.outcomes||'[]').forEach((o,i)=>{
+      const p=parseFloat(JSON.parse(best.outcomePrices||'[]')[i]);
+      if(!isNaN(p))outMap.set(o,Math.round(p*100));
+    });
+    if(best.events&&best.events.length>0){
+      try{
+        const evR=await fetch(`https://gamma-api.polymarket.com/events?slug=${best.events[0].slug}`,{signal:AbortSignal.timeout(6000)});
+        if(evR.ok){const ea=await evR.json();if(ea&&ea.length)(ea[0].markets||[]).forEach(m2=>{
+          try{const o2=JSON.parse(m2.outcomes||'[]'),p2=JSON.parse(m2.outcomePrices||'[]');
+          o2.forEach((o,i)=>{const p=parseFloat(p2[i]);if(!isNaN(p)&&!outMap.has(o))outMap.set(o,Math.round(p*100));});}catch(_){}
+        });}
+      }catch(_){}
+    }
+    slugMap[slugKey]={slug:best.slug,markets:outMap,question:best.question};
+    slugLog[slugKey]={status:'ok',slug:best.slug,question:best.question};
+  }catch(e){slugLog[slugKey]={status:'miss',slug:e.message};}
   renderSlugPanel();
 }
 
-/* ════════════════════════════════════
-   FETCH PRINCIPAL + REFRESH
-════════════════════════════════════ */
-let refreshTimer = null;
+function updateSrcLog(key,status,msg){
+  slugLog[key]={status,slug:msg};renderSlugPanel();
+}
 
-async function doRefresh() {
-  if (refreshing) return;
-  refreshing = true;
+/* ═══════════════════════════════════════════════════════
+   REFRESH PRINCIPAL
+═══════════════════════════════════════════════════════ */
+async function doRefresh(){
+  if(refreshing)return;
+  refreshing=true;
   setStatus('loading');
-  const rbtn = document.getElementById('rbtn');
-  const ri   = document.getElementById('ri');
-  rbtn.classList.add('spinning');
-  ri.textContent = '↻';
+  document.getElementById('rbtn').classList.add('spinning');
 
-  // Recopilar slugKeys únicos
-  const needed = new Map();
-  [1,2].forEach(s => PHASES[s].forEach(p => {
-    if (p.searchQuery && p.slugKey && !needed.has(p.slugKey))
+  // Recopilar todos los pares únicos searchQuery → slugKey de PHASES
+  const needed=new Map();
+  [1,2].forEach(s=>PHASES[s].forEach(p=>{
+    if(p.searchQuery && p.slugKey && !needed.has(p.slugKey))
       needed.set(p.slugKey, p.searchQuery);
   }));
 
-  await Promise.all([...needed.entries()].map(([k,q]) => discoverSlug(q, k)));
-
-  const ok = Object.values(slugLog).filter(v => v.status==='ok').length;
-  setStatus(ok > 0 ? 'live' : 'fallback');
-
-  const now = new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
-  document.getElementById('sup').textContent  = 'Act. '+now;
-  document.getElementById('fsup').textContent = 'Última act.: '+now;
-
-  rbtn.classList.remove('spinning');
-  refreshing = false;
-
+  await Promise.all([fetchResults(), ...[...needed.entries()].map(([k,q])=>discoverSlug(q,k))]);
+  const live=Object.values(slugLog).filter(v=>v.status==='ok').length;
+  setStatus(live>0?'live':'fallback');
+  const now=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('sup').textContent='Act. '+now;
+  document.getElementById('fsup').textContent='Última act.: '+now;
+  document.getElementById('rbtn').classList.remove('spinning');
+  refreshing=false;
   render();
-
   clearTimeout(refreshTimer);
-  refreshTimer = setTimeout(doRefresh, 600_000);
+  refreshTimer=setTimeout(doRefresh,600_000);
 }
-
-function triggerRefresh() { doRefresh(); }
-
+function triggerRefresh(){doRefresh();}
 function setStatus(s){
-  const dot  = document.getElementById('dot');
-  const smsg = document.getElementById('smsg');
-  const map  = {
-    loading: ['dot','Buscando mercados en Polymarket…'],
-    live:    ['dot live','Datos en vivo · Polymarket ✦'],
-    fallback:['dot err','Sin conexión · usando estimaciones']
-  };
-  const [cls,txt] = map[s]||map.loading;
-  dot.className = cls;
-  smsg.textContent = txt;
+  const dot=document.getElementById('dot'),msg=document.getElementById('smsg');
+  const m={loading:['dot','Actualizando datos…'],live:['dot live','Datos en vivo ✦'],fallback:['dot err','Sin conexión · estimaciones']};
+  const[cls,txt]=m[s]||m.loading;dot.className=cls;msg.textContent=txt;
 }
 
-/* ════════════════════════════════════
-   SLUG PANEL
-════════════════════════════════════ */
+/* SLUG PANEL */
 function toggleSlugPanel(){
-  slugPanelOpen = !slugPanelOpen;
-  document.getElementById('slugPanel').classList.toggle('open', slugPanelOpen);
-  document.getElementById('slugChev').classList.toggle('open', slugPanelOpen);
+  slugPanelOpen=!slugPanelOpen;
+  document.getElementById('slugPanel').classList.toggle('open',slugPanelOpen);
+  document.getElementById('slugChev').classList.toggle('open',slugPanelOpen);
+}
+function renderSlugPanel(){
+  const body=document.getElementById('slugBody');
+  const entries=Object.entries(slugLog);
+  if(!entries.length){body.innerHTML='<div style="font-size:.67rem;color:var(--t3);padding:3px 0">Pulsa "Actualizar" para buscar.</div>';return;}
+  body.innerHTML=entries.map(([k,v])=>`<div class="slug-item"><span class="slug-key">${k}</span><span class="slug-val ${v.status}">${v.status==='ok'?'✓ '+v.slug:v.status==='pending'?'⏳ …':'✗ '+v.slug}</span></div>`).join('');
 }
 
-function renderSlugPanel(){
-  const body = document.getElementById('slugBody');
-  const entries = Object.entries(slugLog);
-  if (entries.length === 0){
-    body.innerHTML = '<div style="font-size:.68rem;color:var(--t3);padding:4px 0">Pulsa "Actualizar slugs" para buscar.</div>';
+/* ═══════════════════════════════════════════════════════
+   POPUP — clic en la fila, a la altura del cursor
+   Usa event delegation: el bracket escucha clicks en .crow
+═══════════════════════════════════════════════════════ */
+
+// Event delegation: un solo listener en el bracket
+document.addEventListener('click', function(e){
+  const row = e.target.closest('.crow');
+  if(!row){
+    // Clic fuera de una fila: cerrar si el popup está abierto y no se clicó en él
+    if(!e.target.closest('#popup')) closePopup();
     return;
   }
-  body.innerHTML = entries.map(([k,v]) => `
-    <div class="slug-item">
-      <span class="slug-key">${k}</span>
-      <span class="slug-val ${v.status}">
-        ${v.status==='ok' ? '✓ '+v.slug+'<br><span style="color:var(--t3)">'+(v.question||'')+'</span>'
-          : v.status==='pending' ? '⏳ buscando…'
-          : '✗ '+v.slug}
-      </span>
-    </div>
-  `).join('');
-}
+  e.stopPropagation();
+  const name = row.dataset.name;
+  if(!name) return;
+  openPopup(name, e.clientY, row);
+});
 
-/* ════════════════════════════════════
-   RENDER BRACKET
-════════════════════════════════════ */
-function getProb(phase, cand){
-  if (!phase.slugKey) return null;
-  const entry = slugMap[phase.slugKey];
-  if (!entry || !cand.matchOutcome) return null;
-  const map = entry.markets;
-  if (!map) return null;
+function openPopup(name, clientY, rowEl){
+  const route=KNOCKOUT_ROUTES[name];
+  const groupInfo=GROUP_MATCHES[name];
+  if(!route&&!groupInfo){ closePopup(); return; }
 
-  if (phase.subset){
-    const total = phase.subset.reduce((s,k) => s+(map.get(k)||0), 0);
-    if (total === 0) return null;
-    const raw = map.get(cand.matchOutcome)||0;
-    return Math.round((raw/total)*100);
+  // Toggle: si ya está activa la misma fila, cerrar
+  if(activeRow===rowEl){
+    closePopup();
+    return;
   }
-  return map.get(cand.matchOutcome) ?? null;
+  if(activeRow) activeRow.classList.remove('active');
+  rowEl.classList.add('active');
+  activeRow=rowEl;
+
+  /* ── Construir contenido ── */
+  document.getElementById('puFlag').textContent=f(name);
+  document.getElementById('puCountry').textContent=name;
+
+  // Posición en grupo
+  const grpKey=groupInfo?'Group '+groupInfo.g:null;
+  let posText='';
+  if(grpKey){
+    const standings=calcStandings(grpKey);
+    const pos=standings.findIndex(t=>t.name===name)+1;
+    const played=standings.find(t=>t.name===name);
+    if(pos>0&&played) posText=`Grupo ${groupInfo.g} · ${pos}º actual (${played.pts}pts)`;
+    else posText=`Grupo ${groupInfo.g}`;
+  }
+  document.getElementById('puSub').textContent=posText;
+
+  /* Pasos: fase de grupos + eliminatorias */
+  const groupResults=getTeamGroupResults(name);
+  let stepsHtml='';
+
+  if(groupResults.length){
+    stepsHtml+=groupResults.map((r,i,arr)=>{
+      const isDone=r.score!==null;
+      const dotCls=isDone?'pu-dot done':'pu-dot future';
+      const showLine=i<arr.length-1||(route&&route.length>0);
+      let scoreHtml='';
+      if(isDone){
+        const win=r.score.for>r.score.against,draw=r.score.for===r.score.against;
+        const cls=win?'pu-score':draw?'pu-score draw':'pu-score loss';
+        scoreHtml=`<span class="${cls}">${r.score.for}–${r.score.against}</span>`;
+      }
+      return`<div class="pu-step">
+        <div class="pu-dc"><div class="${dotCls}"></div>${showLine?'<div class="pu-line"></div>':''}</div>
+        <div class="pu-info">
+          <div class="pu-round">Grupo ${groupInfo.g} · J${i+1}</div>
+          <div class="pu-match">vs ${f(r.vs)} ${r.vs}${scoreHtml}</div>
+          <div class="pu-date">${r.date} · ${r.ground}</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  if(route){
+    // Mostrar solo hasta el cruce con España (inclusive)
+    const clashIdx = route.findIndex(s => s.clash);
+    const stepsToShow = clashIdx >= 0 ? route.slice(0, clashIdx + 1) : route;
+
+    stepsToShow.forEach((s, i, arr) => {
+      const isClash = s.clash;
+      const dotCls  = isClash ? 'pu-dot clash' : 'pu-dot future';
+      const showLine = i < arr.length - 1;
+      const matchStyle = isClash ? 'color:var(--amarillo);font-weight:600' : '';
+
+      // Rival probable del cruce (si no es el clash con España)
+      let rivalHtml = '';
+      if(!isClash && s.priorRival){
+        rivalHtml = `<span style="color:var(--t3);font-size:.62rem"> · vs ${s.priorFlag} ${s.priorRival}</span>`;
+      }
+
+      stepsHtml += `<div class="pu-step">
+        <div class="pu-dc">
+          <div class="${dotCls}"></div>
+          ${showLine ? '<div class="pu-line"></div>' : ''}
+        </div>
+        <div class="pu-info">
+          <div class="pu-round">${s.round}</div>
+          <div class="pu-match">${isClash ? '⚔️ ' : ''}<span style="${matchStyle}">${s.match}</span>${rivalHtml}</div>
+          <div class="pu-date">${s.date}</div>
+        </div>
+      </div>`;
+    });
+  }
+
+  document.getElementById('puBody').innerHTML=stepsHtml;
+
+  /* Posicionar a la altura del cursor.
+     position:fixed → clientY es la coordenada correcta, sin scrollY. */
+  const pop=document.getElementById('popup');
+  // Quitar visible temporalmente para medir, pero mantener en DOM
+  pop.classList.remove('visible');
+  pop.style.top='-9999px';
+  pop.style.left='-9999px';
+  // Forzar que sea visible para medir scrollHeight
+  pop.style.opacity='0';
+  pop.style.pointerEvents='none';
+  pop.style.display='block';
+
+  // Dos frames: uno para que el browser pinte el contenido, otro para medir
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    const pw=300;
+    const ph=Math.min(pop.scrollHeight||300, window.innerHeight*0.82);
+    const margin=10;
+    let top=clientY - ph/2;
+    top=Math.max(margin, Math.min(top, window.innerHeight - ph - margin));
+    const bodyRect=document.body.getBoundingClientRect();
+    let left=bodyRect.left + (bodyRect.width - pw)/2;
+    left=Math.max(margin, Math.min(left, window.innerWidth - pw - margin));
+    pop.style.top=top+'px';
+    pop.style.left=left+'px';
+    pop.style.opacity='';
+    pop.style.pointerEvents='';
+    pop.classList.add('visible');
+  }));
 }
 
+function closePopup(){
+  document.getElementById('popup').classList.remove('visible');
+  if(activeRow){activeRow.classList.remove('active');activeRow=null;}
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closePopup();});
+
+/* ═══════════════════════════════════════════════════════
+   ACTUALIZAR MARCADORES DE ESPAÑA
+═══════════════════════════════════════════════════════ */
+function updateSpainScores(){
+  const espMatches=[
+    {team1:'Spain',team2:'Cape Verde', elId:'sc0', esHome:true},
+    {team1:'Spain',team2:'Saudi Arabia',elId:'sc1', esHome:true},
+    {team1:'Uruguay',team2:'Spain',    elId:'sc2', esHome:false},
+  ];
+  const resolve=r=>NAME_MAP[r]||r;
+  espMatches.forEach(def=>{
+    const found=matchData.find(m=>{
+      const r1=m.team1.toLowerCase(),r2=m.team2.toLowerCase();
+      const d1=def.team1.toLowerCase(),d2=def.team2.toLowerCase();
+      return (r1.includes(d1.split(' ')[0].toLowerCase())&&r2.includes(d2.split(' ')[0].toLowerCase()))
+          || (r2.includes(d1.split(' ')[0].toLowerCase())&&r1.includes(d2.split(' ')[0].toLowerCase()));
+    });
+    const el=document.getElementById(def.elId);
+    if(!el)return;
+    if(!found||!found.score){el.textContent='vs';el.className='esp-score';return;}
+    const ft=found.score.ft;
+    const esG=def.esHome?ft[0]:ft[1];
+    const rivG=def.esHome?ft[1]:ft[0];
+    const txt=`${esG}–${rivG}`;
+    const cls=esG>rivG?'win':esG===rivG?'draw':'loss';
+    el.textContent=txt;el.className='esp-score '+cls;
+  });
+}
+
+/* ═══════════════════════════════════════════════════════
+   PROBABILIDADES — dos fuentes limpias según probType
+
+   probType:'group'         → outcomePrices directos del mercado de grupo
+                              (quién gana / quién queda 2º el Grupo J)
+                              → el mercado ya refleja los resultados reales
+
+   probType:'winner-subset' → probabilidad de ganar el torneo (world-cup-winner)
+                              reescalada dentro del subset del cuadro de España
+                              → compara a los candidatos entre sí
+═══════════════════════════════════════════════════════ */
+function getProb(phase, cand){
+  const entry = slugMap[phase.slugKey];
+  if(!entry || !cand.matchOutcome) return null;
+  const map = entry.markets;
+  if(!map) return null;
+
+  if(phase.probType === 'group'){
+    /* Probabilidad directa del mercado de clasificación de grupo.
+       Los precios ya suman ~100% entre los 4 equipos del grupo. */
+    const raw = map.get(cand.matchOutcome);
+    return raw != null ? raw : null;
+  }
+
+  if(phase.probType === 'winner-subset'){
+    /* Probabilidad de ganar el Mundial, reescalada dentro del subconjunto.
+       Esto nos da quién es más fuerte del cuadro, sin descuentos artificiales. */
+    const subset = phase.subset || [];
+    const total = subset.reduce((s,k) => s + (map.get(k) || 0), 0);
+    if(!total) return null;
+    const raw = map.get(cand.matchOutcome) || 0;
+    return Math.round((raw / total) * 100);
+  }
+
+  return null;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RENDER
+═══════════════════════════════════════════════════════ */
 function render(){
-  const phases = PHASES[scenario];
-  let html = '';
-  phases.forEach((phase,pi) => {
-    const cands = phase.candidates.map(c => {
-      const live = getProb(phase, c);
-      return {...c, pct: live!==null ? live : c.fallback, live: live!==null};
-    }).sort((a,b) => b.pct - a.pct);
-
-    const top    = cands[0];
-    const maxPct = Math.max(1, cands[0].pct);
-
-    html += `
-    <div class="pcard${phase.isFinal?' final':''}">
-      <div class="phead">
-        <span class="pname">${phase.round}</span>
-        <span class="pdate">${phase.date}</span>
-      </div>
+  const phases=PHASES[scenario];
+  let html='';
+  phases.forEach((phase,pi)=>{
+    const cands=phase.candidates.map(c=>{
+      const live=getProb(phase,c);
+      return{...c,pct:live!==null?live:c.fallback,live:live!==null};
+    }).sort((a,b)=>b.pct-a.pct);
+    const top=cands[0],maxP=Math.max(1,top.pct);
+    html+=`<div class="pcard${phase.isFinal?' final':''}">
+      <div class="phead"><span class="pname">${phase.round}</span><span class="pdate">${phase.date}</span></div>
       <div class="vsrow">
-        <div class="tes">
-          <span class="flag">🇪🇸</span>
-          <div><div class="tname es">España</div><div class="tsub">${scenario===1?'1ª':'2ª'} Grupo H</div></div>
-        </div>
+        <div class="tes"><span class="flag">🇪🇸</span>
+          <div><div class="tname es">España</div><div class="tsub">${scenario===1?'1ª':'2ª'} Grupo H</div></div></div>
         <div class="vsbox">VS</div>
-        <div class="trv">
-          <span class="flag">${top.flag}</span>
-          <div style="text-align:right">
-            <div class="tname">${top.name}</div>
-            <div class="tsub">${top.pct}%${top.live?' ✦':''} · más probable</div>
-          </div>
-        </div>
+        <div class="trv"><span class="flag">${top.flag}</span>
+          <div style="text-align:right"><div class="tname">${top.name}</div>
+          <div class="tsub">${top.pct}%${top.live?' ✦':''} · más probable</div></div></div>
       </div>
       <div class="cands">
-        <div class="clbl">${phase.matchNote}</div>
+        <div class="clbl">${phase.matchNote} <span style="font-size:.59rem;color:var(--t3)">· clic para ver la ruta del rival 🗺</span></div>
         ${cands.map((c,i)=>`
-          <div class="crow">
+          <div class="crow" data-name="${c.name.replace(/"/g,'&quot;')}">
             <span class="crank">${i+1}.</span>
             <span class="cflag">${c.flag}</span>
-            <span class="cname">${c.name}${c.note?`<span class="cnote"> · ${c.note}</span>`:''}${c.live?' <span style="font-size:.6rem;color:var(--verde)">✦</span>':''}</span>
-            <div class="cbw"><div class="cb${i===0?' t1':''}" style="width:${Math.max(2,Math.round(c.pct/maxPct*100))}%"></div></div>
+            <span class="cname">${c.name}${c.note?`<span class="cnote"> · ${c.note}</span>`:''}${c.live?' <span style="font-size:.58rem;color:var(--verde)">✦</span>':''}</span>
+            <div class="cbw"><div class="cb${i===0?' t1':''}" style="width:${Math.max(2,Math.round(c.pct/maxP*100))}%"></div></div>
             <span class="cpct${c.live?' lv':''}">${c.pct}%</span>
-          </div>
-        `).join('')}
-      </div>
-    </div>`;
-    if (pi < phases.length-1) html += '<div class="arrow">↓</div>';
+          </div>`).join('')}
+      </div></div>`;
+    if(pi<phases.length-1)html+='<div class="arrow">↓</div>';
   });
-  document.getElementById('bracket').innerHTML = html;
-  document.getElementById('fnote').textContent = FOOTERS[scenario];
+  document.getElementById('bracket').innerHTML=html;
+  document.getElementById('fnote').textContent=FOOTERS[scenario];
+  updateSpainScores();
 }
 
 function setScenario(n){
-  scenario = n;
-  document.getElementById('btn1').className = 'tbtn'+(n===1?' on1':'');
-  document.getElementById('btn2').className = 'tbtn'+(n===2?' on2':'');
-  const t = STAGS[n];
-  const el = document.getElementById('stag');
-  el.className = 'stag '+t.cls;
-  el.textContent = t.txt;
-  render();
+  scenario=n;
+  document.getElementById('btn1').className='tbtn'+(n===1?' on1':'');
+  document.getElementById('btn2').className='tbtn'+(n===2?' on2':'');
+  const t=STAGS[n];
+  const el=document.getElementById('stag');
+  el.className='stag '+t.cls;el.textContent=t.txt;
+  closePopup();render();
 }
 
-/* ═══ INIT ═══ */
-render();
-doRefresh();
+render();doRefresh();
 </script>
 </body>
 </html>

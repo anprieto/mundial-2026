@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🇪🇸 España · Camino al Mundial 2026</title>
+<meta name="description" content="Camino de España en el Mundial 2026 con probabilidades en tiempo real de Polymarket. Actualización automática de slugs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rojo: #c60b1e;
+    --amarillo: #f1bf00;
+    --fondo: #0f1014;
+    --card: #18191f;
+    --borde: #2c2f3a;
+    --borde2: #3a3d4a;
+    --texto: #f0f0f0;
+    --t2: rgba(240,240,240,0.55);
+    --t3: rgba(240,240,240,0.28);
+    --verde: #22c55e;
+    --azul: #3b82f6;
+    --naranja: #f59e0b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.5;min-height:100vh;max-width:680px;margin:0 auto}
+
+  /* HEADER */
+  .hdr{background:linear-gradient(160deg,#8b0000 0%,var(--rojo) 40%,#1a0005 100%);padding:30px 20px 24px;text-align:center;position:relative;overflow:hidden}
+  .hdr::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 18px,rgba(241,191,0,.035) 18px,rgba(241,191,0,.035) 20px);pointer-events:none}
+  .hdr-flag{font-size:2.6rem;display:block;margin-bottom:6px;position:relative;z-index:1}
+  .hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,9vw,3.4rem);letter-spacing:4px;color:var(--amarillo);position:relative;z-index:1;text-shadow:0 2px 0 #6b0000}
+  .hdr-sub{font-size:.8rem;color:rgba(255,255,255,.5);margin-top:5px;position:relative;z-index:1}
+
+  /* GRUPO */
+  .gw{padding:14px 14px 0}
+  .gc{background:var(--card);border:1px solid var(--borde);border-top:3px solid var(--amarillo);border-radius:10px;padding:13px 15px}
+  .gt{font-family:'Bebas Neue',sans-serif;font-size:.82rem;letter-spacing:2.5px;color:var(--amarillo);margin-bottom:9px}
+  .gteams{display:flex;gap:6px;flex-wrap:wrap}
+  .chip{background:rgba(255,255,255,.05);border:1px solid var(--borde);border-radius:20px;padding:3px 11px;font-size:.74rem;font-weight:500;display:flex;align-items:center;gap:5px;white-space:nowrap}
+  .chip.es{background:rgba(198,11,30,.2);border-color:rgba(198,11,30,.5);color:#fca5a5}
+
+  /* TOGGLE */
+  .tw{padding:14px 14px 0}
+  .tlbl{font-size:.68rem;font-weight:600;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
+  .trow{display:flex;background:var(--card);border:1px solid var(--borde);border-radius:10px;padding:3px;gap:3px}
+  .tbtn{flex:1;padding:9px 6px;border:none;border-radius:7px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:.76rem;background:transparent;color:var(--t3);line-height:1.3;transition:all .2s}
+  .tbtn .ic{display:block;font-size:.95rem;margin-bottom:2px}
+  .tbtn.on1{background:linear-gradient(135deg,#9b0a1a,var(--rojo));color:#fff;box-shadow:0 2px 10px rgba(198,11,30,.35)}
+  .tbtn.on2{background:linear-gradient(135deg,#1a40a0,var(--azul));color:#fff;box-shadow:0 2px 10px rgba(59,130,246,.35)}
+
+  /* STATUS ROW */
+  .srow{margin:10px 14px 0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--naranja);transition:background .4s}
+  .dot.live{background:var(--verde)}
+  .dot.err{background:#ef4444}
+  .smsg{font-size:.7rem;color:var(--t3)}
+  .sup{font-size:.68rem;color:var(--t3);margin-left:auto}
+
+  /* REFRESH BTN */
+  .rbtn{display:flex;align-items:center;gap:5px;background:rgba(255,255,255,.05);border:1px solid var(--borde2);border-radius:7px;padding:5px 11px;font-size:.72rem;font-weight:600;color:var(--t2);cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;white-space:nowrap}
+  .rbtn:hover{background:rgba(255,255,255,.09);border-color:rgba(241,191,0,.3);color:var(--amarillo)}
+  .rbtn:active{transform:scale(.97)}
+  .rbtn.spinning .ri{animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .ri{display:inline-block;font-size:.85rem}
+
+  /* SLUG LOG */
+  .slug-panel{margin:10px 14px 0;background:rgba(0,0,0,.3);border:1px solid var(--borde);border-radius:8px;overflow:hidden;max-height:0;transition:max-height .35s ease}
+  .slug-panel.open{max-height:320px}
+  .slug-head{display:flex;align-items:center;justify-content:space-between;padding:8px 12px;cursor:pointer;user-select:none}
+  .slug-title{font-size:.69rem;font-weight:600;color:var(--t3);letter-spacing:1px;text-transform:uppercase}
+  .slug-chevron{font-size:.75rem;color:var(--t3);transition:transform .25s}
+  .slug-chevron.open{transform:rotate(180deg)}
+  .slug-body{padding:0 12px 10px;max-height:260px;overflow-y:auto}
+  .slug-item{display:flex;align-items:flex-start;gap:8px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.67rem}
+  .slug-item:last-child{border:none}
+  .slug-key{color:var(--t3);flex-shrink:0;width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .slug-val{color:var(--azul);font-family:monospace;word-break:break-all;flex:1}
+  .slug-val.ok{color:#4ade80}
+  .slug-val.miss{color:#ef4444}
+  .slug-val.pending{color:var(--naranja)}
+
+  /* SCENE TAG */
+  .stag{margin:10px 14px 0;padding:7px 11px;border-radius:7px;font-size:.74rem;font-weight:600;display:flex;align-items:center;gap:6px;transition:all .25s}
+  .stag.s1{background:rgba(198,11,30,.12);border:1px solid rgba(198,11,30,.35);color:#fca5a5}
+  .stag.s2{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.35);color:#93c5fd}
+
+  /* BRACKET */
+  .bracket{padding:10px 14px 30px;display:flex;flex-direction:column;gap:7px}
+
+  .pcard{background:var(--card);border:1px solid var(--borde);border-radius:11px;overflow:hidden;transition:border-color .2s}
+  .pcard:hover{border-color:var(--borde2)}
+  .pcard.final{background:linear-gradient(135deg,rgba(198,11,30,.12) 0%,rgba(241,191,0,.06) 100%);border-color:rgba(241,191,0,.35)}
+
+  .phead{padding:8px 13px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--borde)}
+  .pname{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:2px;color:var(--t2)}
+  .final .pname{color:var(--amarillo)}
+  .pdate{font-size:.67rem;color:var(--t3)}
+
+  .vsrow{padding:11px 13px 7px;display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center}
+  .tes{display:flex;align-items:center;gap:7px}
+  .trv{display:flex;align-items:center;gap:7px;flex-direction:row-reverse}
+  .flag{font-size:1.4rem;flex-shrink:0}
+  .tname{font-size:.86rem;font-weight:700}
+  .tname.es{color:#fca5a5}
+  .tsub{font-size:.65rem;color:var(--t3);margin-top:1px}
+  .vsbox{font-size:.58rem;font-weight:700;color:var(--t3);letter-spacing:1px;text-align:center}
+
+  .cands{padding:3px 13px 11px}
+  .clbl{font-size:.66rem;color:var(--t3);margin-bottom:5px}
+  .crow{display:flex;align-items:center;gap:5px;padding:2.5px 0}
+  .crank{font-size:.68rem;color:var(--t3);width:13px;flex-shrink:0}
+  .cflag{font-size:.92rem;flex-shrink:0}
+  .cname{font-size:.76rem;color:var(--texto);flex:1}
+  .cnote{font-size:.6rem;color:var(--t3)}
+  .cbw{width:66px;height:5px;border-radius:3px;background:var(--borde);flex-shrink:0;overflow:hidden}
+  .cb{height:5px;border-radius:3px;background:var(--azul);transition:width .5s ease}
+  .cb.t1{background:var(--verde)}
+  .cpct{font-size:.73rem;font-weight:600;color:var(--t2);width:32px;text-align:right;flex-shrink:0}
+  .cpct.lv{color:var(--verde)}
+
+  .arrow{text-align:center;color:var(--borde2);font-size:1rem;line-height:1}
+
+  /* FOOTER */
+  .fnote{margin:0 14px 6px;padding:10px 12px;background:rgba(241,191,0,.04);border:1px solid rgba(241,191,0,.12);border-radius:8px;font-size:.69rem;color:var(--t3);line-height:1.6}
+  .fsrc{margin:6px 14px 26px;font-size:.67rem;color:var(--t3);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+  .fsrc a{color:#60a5fa;text-decoration:none}
+  .fsrc a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <span class="hdr-flag">🇪🇸</span>
+  <h1>España · Mundial 2026</h1>
+  <p class="hdr-sub">Camino por fase · probabilidades en tiempo real · Polymarket</p>
+</div>
+
+<div class="gw">
+  <div class="gc">
+    <div class="gt">⚽ Grupo H</div>
+    <div class="gteams">
+      <div class="chip es">🇪🇸 España</div>
+      <div class="chip">🇺🇾 Uruguay</div>
+      <div class="chip">🇸🇦 Arabia Saudí</div>
+      <div class="chip">🇨🇻 Cabo Verde</div>
+    </div>
+  </div>
+</div>
+
+<div class="tw">
+  <div class="tlbl">Escenario</div>
+  <div class="trow">
+    <button class="tbtn on1" id="btn1" onclick="setScenario(1)"><span class="ic">🥇</span>1ª del Grupo H</button>
+    <button class="tbtn" id="btn2" onclick="setScenario(2)"><span class="ic">🥈</span>2ª del Grupo H</button>
+  </div>
+</div>
+
+<!-- STATUS + REFRESH -->
+<div class="srow">
+  <span class="dot" id="dot"></span>
+  <span class="smsg" id="smsg">Iniciando…</span>
+  <span class="sup" id="sup"></span>
+  <button class="rbtn" id="rbtn" onclick="triggerRefresh()">
+    <span class="ri" id="ri">↻</span> Actualizar slugs
+  </button>
+</div>
+
+<!-- SLUG DEBUG PANEL -->
+<div class="slug-panel" id="slugPanel">
+  <div class="slug-head" onclick="toggleSlugPanel()">
+    <span class="slug-title">🔍 Slugs detectados de Polymarket</span>
+    <span class="slug-chevron" id="slugChev">▼</span>
+  </div>
+  <div class="slug-body" id="slugBody">
+    <div style="font-size:.68rem;color:var(--t3);padding:4px 0">Aún no se han buscado slugs.</div>
+  </div>
+</div>
+
+<div class="stag s1" id="stag">🔴 Si España queda 1ª → 16avos vs 2º del Grupo J (Austria/Argelia, no Argentina)</div>
+
+<div class="bracket" id="bracket"></div>
+
+<div class="fnote" id="fnote"></div>
+<div class="fsrc">
+  <span>📊</span>
+  <a href="https://polymarket.com/sports/world-cup" target="_blank" rel="noopener">Polymarket</a>
+  · mercado de predicción con dinero real · auto-refresh cada 10 min
+  · <span id="fsup"></span>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   ESTRUCTURA DE FASES
+   Cada candidato lleva:
+     - searchTerms: palabras clave para buscar el mercado en Polymarket
+     - matchOutcome: cómo se llama el outcome dentro del mercado encontrado
+     - fallback: probabilidad de respaldo si no hay datos en vivo
+═══════════════════════════════════════════════════════════════ */
+const PHASES = {
+  1: [ // España 1ª del Grupo H
+    {
+      round:'Dieciseisavos · 1ªH vs 2ªJ', date:'2 Jul · Los Ángeles, SoFi Stadium',
+      matchNote:'España 1ª enfrenta al 2º clasificado del Grupo J',
+      searchQuery:'world cup group j second place',
+      slugKey:'group-j-2nd',
+      candidates:[
+        {name:'Austria',   flag:'🇦🇹', matchOutcome:'Austria',   fallback:57},
+        {name:'Argelia',   flag:'🇩🇿', matchOutcome:'Algeria',   fallback:29},
+        {name:'Argentina', flag:'🇦🇷', matchOutcome:'Argentina', fallback: 8, note:'Solo si cae al 2º puesto'},
+        {name:'Jordania',  flag:'🇯🇴', matchOutcome:'Jordan',    fallback: 6},
+      ]
+    },
+    {
+      round:'Octavos · P84 vs P73', date:'6 Jul · Dallas, AT&T Stadium',
+      matchNote:'Cruce 2ºA vs 2ºB: probable México o Suiza',
+      searchQuery:null, slugKey:null,
+      candidates:[
+        {name:'México',        flag:'🇲🇽', fallback:45},
+        {name:'Suiza',         flag:'🇨🇭', fallback:30},
+        {name:'Canadá',        flag:'🇨🇦', fallback:15},
+        {name:'Corea del Sur', flag:'🇰🇷', fallback:10},
+      ]
+    },
+    {
+      round:'Cuartos · P93', date:'10 Jul · Los Ángeles, SoFi Stadium',
+      matchNote:'Mejor del cuadro C/F/K: Brasil favorito',
+      searchQuery:'world cup winner',
+      slugKey:'tournament-winner',
+      subset:['Brazil','Netherlands','Portugal','Morocco'],
+      candidates:[
+        {name:'Brasil',       flag:'🇧🇷', matchOutcome:'Brazil',      fallback:38},
+        {name:'Países Bajos', flag:'🇳🇱', matchOutcome:'Netherlands', fallback:28},
+        {name:'Portugal',     flag:'🇵🇹', matchOutcome:'Portugal',    fallback:22},
+        {name:'Marruecos',    flag:'🇲🇦', matchOutcome:'Morocco',     fallback:12},
+      ]
+    },
+    {
+      round:'Semifinal · P98', date:'15 Jul · Atlanta, Mercedes-Benz',
+      matchNote:'Cuadro I/L: Francia o Inglaterra probables',
+      searchQuery:'world cup winner',
+      slugKey:'tournament-winner',
+      subset:['France','England','Senegal','Norway'],
+      candidates:[
+        {name:'Francia',    flag:'🇫🇷', matchOutcome:'France',  fallback:50},
+        {name:'Inglaterra', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', matchOutcome:'England', fallback:30},
+        {name:'Senegal',    flag:'🇸🇳', matchOutcome:'Senegal', fallback:12},
+        {name:'Noruega',    flag:'🇳🇴', matchOutcome:'Norway',  fallback: 8},
+      ]
+    },
+    {
+      round:'🏆 Final · MetLife Stadium, NJ', date:'19 Jul',
+      isFinal:true,
+      matchNote:'Campeón del otro cuadro: Alemania o Argentina',
+      searchQuery:'world cup winner',
+      slugKey:'tournament-winner',
+      subset:['Germany','Argentina','England','France'],
+      candidates:[
+        {name:'Alemania',   flag:'🇩🇪', matchOutcome:'Germany',   fallback:36},
+        {name:'Argentina',  flag:'🇦🇷', matchOutcome:'Argentina', fallback:28},
+        {name:'Inglaterra', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', matchOutcome:'England',   fallback:22},
+        {name:'Francia',    flag:'🇫🇷', matchOutcome:'France',    fallback:14},
+      ]
+    },
+  ],
+  2: [ // España 2ª del Grupo H
+    {
+      round:'Dieciseisavos · 2ªH vs 1ªJ', date:'3 Jul · Miami, Hard Rock Stadium',
+      matchNote:'España 2ª enfrenta al 1º del Grupo J: Argentina favorita',
+      searchQuery:'world cup group j winner',
+      slugKey:'group-j-winner',
+      candidates:[
+        {name:'Argentina', flag:'🇦🇷', matchOutcome:'Argentina', fallback:72},
+        {name:'Austria',   flag:'🇦🇹', matchOutcome:'Austria',   fallback:19},
+        {name:'Argelia',   flag:'🇩🇿', matchOutcome:'Algeria',   fallback: 8},
+        {name:'Jordania',  flag:'🇯🇴', matchOutcome:'Jordan',    fallback: 1},
+      ]
+    },
+    {
+      round:'Octavos · P86 vs P88', date:'7 Jul · Atlanta, Mercedes-Benz',
+      matchNote:'Cruce 2ºD vs 2ºG: EE.UU. o Bélgica favoritos',
+      searchQuery:null, slugKey:null,
+      candidates:[
+        {name:'EE.UU.',   flag:'🇺🇸', fallback:42},
+        {name:'Bélgica',  flag:'🇧🇪', fallback:33},
+        {name:'Paraguay', flag:'🇵🇾', fallback:14},
+        {name:'Turquía',  flag:'🇹🇷', fallback:11},
+      ]
+    },
+    {
+      round:'Cuartos · P95', date:'11 Jul · Atlanta, Mercedes-Benz',
+      matchNote:'Cuadro I/L: Francia o Inglaterra',
+      searchQuery:'world cup winner',
+      slugKey:'tournament-winner',
+      subset:['France','England','Senegal','Croatia'],
+      candidates:[
+        {name:'Francia',    flag:'🇫🇷', matchOutcome:'France',  fallback:48},
+        {name:'Inglaterra', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', matchOutcome:'England', fallback:33},
+        {name:'Senegal',    flag:'🇸🇳', matchOutcome:'Senegal', fallback:12},
+        {name:'Croacia',    flag:'🇭🇷', matchOutcome:'Croatia', fallback: 7},
+      ]
+    },
+    {
+      round:'Semifinal · P97', date:'14 Jul · Dallas, AT&T Stadium',
+      matchNote:'Cuadro C/K: Brasil o Portugal probables',
+      searchQuery:'world cup winner',
+      slugKey:'tournament-winner',
+      subset:['Brazil','Portugal','Morocco','Colombia'],
+      candidates:[
+        {name:'Brasil',    flag:'🇧🇷', matchOutcome:'Brazil',   fallback:45},
+        {name:'Portugal',  flag:'🇵🇹', matchOutcome:'Portugal', fallback:32},
+        {name:'Marruecos', flag:'🇲🇦', matchOutcome:'Morocco',  fallback:14},
+        {name:'Colombia',  flag:'🇨🇴', matchOutcome:'Colombia', fallback: 9},
+      ]
+    },
+    {
+      round:'🏆 Final · MetLife Stadium, NJ', date:'19 Jul',
+      isFinal:true,
+      matchNote:'Campeón del otro cuadro: Alemania o Argentina',
+      searchQuery:'world cup winner',
+      slugKey:'tournament-winner',
+      subset:['Germany','Argentina','Netherlands','Brazil'],
+      candidates:[
+        {name:'Alemania',     flag:'🇩🇪', matchOutcome:'Germany',     fallback:34},
+        {name:'Argentina',    flag:'🇦🇷', matchOutcome:'Argentina',   fallback:30},
+        {name:'Países Bajos', flag:'🇳🇱', matchOutcome:'Netherlands', fallback:22},
+        {name:'Brasil',       flag:'🇧🇷', matchOutcome:'Brazil',      fallback:14},
+      ]
+    },
+  ]
+};
+
+const FOOTERS = {
+  1:'📌 Escenario 1ª: en 16avos España evita a Argentina (favorita al ~72% en su grupo) y enfrenta al 2º, casi seguro Austria o Argelia. El cuadro se endurece en cuartos con Brasil/Portugal/Países Bajos.',
+  2:'📌 Escenario 2ª: la gran diferencia es el 16avos — directamente Argentina (1ª del Grupo J). Si se supera ese escollo, octavos y cuartos son algo más llevaderos (EE.UU./Bélgica y Francia/Inglaterra).'
+};
+const STAGS = {
+  1:{cls:'s1',txt:'🔴 Si España queda 1ª → 16avos vs 2º del Grupo J (Austria/Argelia, no Argentina)'},
+  2:{cls:'s2',txt:'🔵 Si España queda 2ª → 16avos directamente vs Argentina (1ª del Grupo J)'}
+};
+
+/* ═══ STATE ═══ */
+let scenario = 1;
+let slugMap   = {};   // slugKey → { slug, markets: Map<outcome,prob> }
+let slugLog   = {};   // slugKey → { status, slug }
+let slugPanelOpen = false;
+let refreshing = false;
+
+/* ══════════════════════════════════════════════
+   AUTO-DISCOVERY: busca el slug correcto en la
+   Gamma API por texto de la question
+══════════════════════════════════════════════ */
+async function discoverSlug(searchQuery, slugKey) {
+  if (!searchQuery) return;
+  slugLog[slugKey] = {status:'pending', slug:'buscando…'};
+  renderSlugPanel();
+
+  try {
+    // Buscar por keyword en /markets
+    const url = `https://gamma-api.polymarket.com/markets?keyword=${encodeURIComponent(searchQuery)}&limit=50&active=true`;
+    const res = await fetch(url, {signal: AbortSignal.timeout(10000)});
+    if (!res.ok) throw new Error('HTTP '+res.status);
+    const markets = await res.json();
+    if (!Array.isArray(markets) || markets.length === 0) throw new Error('sin resultados');
+
+    // Filtrar los que parecen de "FIFA World Cup 2026" y son multi-outcome
+    const wc = markets.filter(m => {
+      const q = (m.question||'').toLowerCase();
+      const has2026 = q.includes('2026') || (m.endDate||'').startsWith('2026');
+      const hasWC   = q.includes('world cup') || q.includes('fifa') || q.includes('group');
+      const multi   = (m.outcomes && JSON.parse(m.outcomes||'[]').length > 2);
+      return has2026 && hasWC && multi && !m.closed;
+    });
+
+    if (wc.length === 0) throw new Error('no encontrado');
+
+    // Ordenar por volumen y tomar el más líquido
+    wc.sort((a,b) => (b.volumeNum||0) - (a.volumeNum||0));
+    const best = wc[0];
+    const slug = best.slug;
+    const outMap = new Map();
+    const outcomes = JSON.parse(best.outcomes||'[]');
+    const prices   = JSON.parse(best.outcomePrices||'[]');
+    outcomes.forEach((o,i) => {
+      const p = parseFloat(prices[i]);
+      if (!isNaN(p)) outMap.set(o, Math.round(p*100));
+    });
+
+    // Si el mercado tiene eventId, fetch también el evento para más markets
+    if (best.events && best.events.length > 0) {
+      const evSlug = best.events[0].slug;
+      try {
+        const evRes = await fetch(`https://gamma-api.polymarket.com/events?slug=${evSlug}`, {signal:AbortSignal.timeout(6000)});
+        if (evRes.ok) {
+          const evArr = await evRes.json();
+          if (evArr && evArr.length > 0) {
+            (evArr[0].markets||[]).forEach(m2 => {
+              try {
+                const outs2  = JSON.parse(m2.outcomes||'[]');
+                const prc2   = JSON.parse(m2.outcomePrices||'[]');
+                outs2.forEach((o,i) => {
+                  const p = parseFloat(prc2[i]);
+                  if (!isNaN(p) && !outMap.has(o)) outMap.set(o, Math.round(p*100));
+                });
+              } catch(_){}
+            });
+          }
+        }
+      } catch(_){}
+    }
+
+    slugMap[slugKey] = {slug, markets: outMap, question: best.question};
+    slugLog[slugKey] = {status:'ok', slug, question: best.question};
+
+  } catch(e) {
+    slugLog[slugKey] = {status:'miss', slug: e.message||'error'};
+  }
+  renderSlugPanel();
+}
+
+/* ════════════════════════════════════
+   FETCH PRINCIPAL + REFRESH
+════════════════════════════════════ */
+let refreshTimer = null;
+
+async function doRefresh() {
+  if (refreshing) return;
+  refreshing = true;
+  setStatus('loading');
+  const rbtn = document.getElementById('rbtn');
+  const ri   = document.getElementById('ri');
+  rbtn.classList.add('spinning');
+  ri.textContent = '↻';
+
+  // Recopilar slugKeys únicos
+  const needed = new Map();
+  [1,2].forEach(s => PHASES[s].forEach(p => {
+    if (p.searchQuery && p.slugKey && !needed.has(p.slugKey))
+      needed.set(p.slugKey, p.searchQuery);
+  }));
+
+  await Promise.all([...needed.entries()].map(([k,q]) => discoverSlug(q, k)));
+
+  const ok = Object.values(slugLog).filter(v => v.status==='ok').length;
+  setStatus(ok > 0 ? 'live' : 'fallback');
+
+  const now = new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('sup').textContent  = 'Act. '+now;
+  document.getElementById('fsup').textContent = 'Última act.: '+now;
+
+  rbtn.classList.remove('spinning');
+  refreshing = false;
+
+  render();
+
+  clearTimeout(refreshTimer);
+  refreshTimer = setTimeout(doRefresh, 600_000);
+}
+
+function triggerRefresh() { doRefresh(); }
+
+function setStatus(s){
+  const dot  = document.getElementById('dot');
+  const smsg = document.getElementById('smsg');
+  const map  = {
+    loading: ['dot','Buscando mercados en Polymarket…'],
+    live:    ['dot live','Datos en vivo · Polymarket ✦'],
+    fallback:['dot err','Sin conexión · usando estimaciones']
+  };
+  const [cls,txt] = map[s]||map.loading;
+  dot.className = cls;
+  smsg.textContent = txt;
+}
+
+/* ════════════════════════════════════
+   SLUG PANEL
+════════════════════════════════════ */
+function toggleSlugPanel(){
+  slugPanelOpen = !slugPanelOpen;
+  document.getElementById('slugPanel').classList.toggle('open', slugPanelOpen);
+  document.getElementById('slugChev').classList.toggle('open', slugPanelOpen);
+}
+
+function renderSlugPanel(){
+  const body = document.getElementById('slugBody');
+  const entries = Object.entries(slugLog);
+  if (entries.length === 0){
+    body.innerHTML = '<div style="font-size:.68rem;color:var(--t3);padding:4px 0">Pulsa "Actualizar slugs" para buscar.</div>';
+    return;
+  }
+  body.innerHTML = entries.map(([k,v]) => `
+    <div class="slug-item">
+      <span class="slug-key">${k}</span>
+      <span class="slug-val ${v.status}">
+        ${v.status==='ok' ? '✓ '+v.slug+'<br><span style="color:var(--t3)">'+(v.question||'')+'</span>'
+          : v.status==='pending' ? '⏳ buscando…'
+          : '✗ '+v.slug}
+      </span>
+    </div>
+  `).join('');
+}
+
+/* ════════════════════════════════════
+   RENDER BRACKET
+════════════════════════════════════ */
+function getProb(phase, cand){
+  if (!phase.slugKey) return null;
+  const entry = slugMap[phase.slugKey];
+  if (!entry || !cand.matchOutcome) return null;
+  const map = entry.markets;
+  if (!map) return null;
+
+  if (phase.subset){
+    const total = phase.subset.reduce((s,k) => s+(map.get(k)||0), 0);
+    if (total === 0) return null;
+    const raw = map.get(cand.matchOutcome)||0;
+    return Math.round((raw/total)*100);
+  }
+  return map.get(cand.matchOutcome) ?? null;
+}
+
+function render(){
+  const phases = PHASES[scenario];
+  let html = '';
+  phases.forEach((phase,pi) => {
+    const cands = phase.candidates.map(c => {
+      const live = getProb(phase, c);
+      return {...c, pct: live!==null ? live : c.fallback, live: live!==null};
+    }).sort((a,b) => b.pct - a.pct);
+
+    const top    = cands[0];
+    const maxPct = Math.max(1, cands[0].pct);
+
+    html += `
+    <div class="pcard${phase.isFinal?' final':''}">
+      <div class="phead">
+        <span class="pname">${phase.round}</span>
+        <span class="pdate">${phase.date}</span>
+      </div>
+      <div class="vsrow">
+        <div class="tes">
+          <span class="flag">🇪🇸</span>
+          <div><div class="tname es">España</div><div class="tsub">${scenario===1?'1ª':'2ª'} Grupo H</div></div>
+        </div>
+        <div class="vsbox">VS</div>
+        <div class="trv">
+          <span class="flag">${top.flag}</span>
+          <div style="text-align:right">
+            <div class="tname">${top.name}</div>
+            <div class="tsub">${top.pct}%${top.live?' ✦':''} · más probable</div>
+          </div>
+        </div>
+      </div>
+      <div class="cands">
+        <div class="clbl">${phase.matchNote}</div>
+        ${cands.map((c,i)=>`
+          <div class="crow">
+            <span class="crank">${i+1}.</span>
+            <span class="cflag">${c.flag}</span>
+            <span class="cname">${c.name}${c.note?`<span class="cnote"> · ${c.note}</span>`:''}${c.live?' <span style="font-size:.6rem;color:var(--verde)">✦</span>':''}</span>
+            <div class="cbw"><div class="cb${i===0?' t1':''}" style="width:${Math.max(2,Math.round(c.pct/maxPct*100))}%"></div></div>
+            <span class="cpct${c.live?' lv':''}">${c.pct}%</span>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
+    if (pi < phases.length-1) html += '<div class="arrow">↓</div>';
+  });
+  document.getElementById('bracket').innerHTML = html;
+  document.getElementById('fnote').textContent = FOOTERS[scenario];
+}
+
+function setScenario(n){
+  scenario = n;
+  document.getElementById('btn1').className = 'tbtn'+(n===1?' on1':'');
+  document.getElementById('btn2').className = 'tbtn'+(n===2?' on2':'');
+  const t = STAGS[n];
+  const el = document.getElementById('stag');
+  el.className = 'stag '+t.cls;
+  el.textContent = t.txt;
+  render();
+}
+
+/* ═══ INIT ═══ */
+render();
+doRefresh();
+</script>
+</body>
+</html>

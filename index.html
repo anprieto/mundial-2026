@@ -963,44 +963,142 @@ function getTeamGroupResults(canonicalName){
 }
 
 /* ═══════════════════════════════════════════════════════
-   FUENTE 2: Polymarket Gamma API (probabilidades)
+   FUENTE 2: Polymarket — slugs hardcodeados directos
+   (El auto-discovery fallaba porque los mercados de grupo
+   son eventos multi-outcome en /events, no en /markets)
 ═══════════════════════════════════════════════════════ */
-async function discoverSlug(searchQuery,slugKey){
-  if(!searchQuery)return;
-  slugLog[slugKey]={status:'pending',slug:'buscando…'};renderSlugPanel();
+
+/* Slugs reales verificados de Polymarket */
+const POLY_SLUGS = {
+  'group-j-winner':    'world-cup-group-j-winner',
+  'group-j-2nd':       'world-cup-group-j-second-place-20260605152843566',
+  'tournament-winner': 'world-cup-winner',
+};
+
+async function fetchSlugDirect(slugKey){
+  const eventSlug = POLY_SLUGS[slugKey];
+  if(!eventSlug) return;
+  slugLog[slugKey]={status:'pending',slug:eventSlug}; renderSlugPanel();
   try{
-    const r=await fetch(`https://gamma-api.polymarket.com/markets?keyword=${encodeURIComponent(searchQuery)}&limit=50&active=true`,{signal:AbortSignal.timeout(10000)});
-    if(!r.ok)throw new Error('HTTP '+r.status);
-    const ms=await r.json();
-    if(!Array.isArray(ms)||!ms.length)throw new Error('sin resultados');
-    const wc=ms.filter(m=>{
-      const q=(m.question||'').toLowerCase();
-      const has2026=q.includes('2026')||(m.endDate||'').startsWith('2026');
-      const hasWC=q.includes('world cup')||q.includes('fifa')||q.includes('group');
-      const multi=(m.outcomes&&JSON.parse(m.outcomes||'[]').length>2);
-      return has2026&&hasWC&&multi&&!m.closed;
-    });
-    if(!wc.length)throw new Error('no encontrado');
-    wc.sort((a,b)=>(b.volumeNum||0)-(a.volumeNum||0));
-    const best=wc[0];
+    const url=`https://gamma-api.polymarket.com/events?slug=${eventSlug}`;
+    const r=await fetch(url,{signal:AbortSignal.timeout(10000)});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const arr=await r.json();
+    if(!arr||!arr.length) throw new Error('vacío');
     const outMap=new Map();
-    JSON.parse(best.outcomes||'[]').forEach((o,i)=>{
-      const p=parseFloat(JSON.parse(best.outcomePrices||'[]')[i]);
-      if(!isNaN(p))outMap.set(o,Math.round(p*100));
-    });
-    if(best.events&&best.events.length>0){
+    (arr[0].markets||[]).forEach(m=>{
       try{
-        const evR=await fetch(`https://gamma-api.polymarket.com/events?slug=${best.events[0].slug}`,{signal:AbortSignal.timeout(6000)});
-        if(evR.ok){const ea=await evR.json();if(ea&&ea.length)(ea[0].markets||[]).forEach(m2=>{
-          try{const o2=JSON.parse(m2.outcomes||'[]'),p2=JSON.parse(m2.outcomePrices||'[]');
-          o2.forEach((o,i)=>{const p=parseFloat(p2[i]);if(!isNaN(p)&&!outMap.has(o))outMap.set(o,Math.round(p*100));});}catch(_){}
-        });}
+        const outs=JSON.parse(m.outcomes||'[]');
+        const prs =JSON.parse(m.outcomePrices||'[]');
+        outs.forEach((o,i)=>{
+          const p=parseFloat(prs[i]);
+          if(!isNaN(p)) outMap.set(o,Math.round(p*100));
+        });
       }catch(_){}
-    }
-    slugMap[slugKey]={slug:best.slug,markets:outMap,question:best.question};
-    slugLog[slugKey]={status:'ok',slug:best.slug,question:best.question};
-  }catch(e){slugLog[slugKey]={status:'miss',slug:e.message};}
+    });
+    if(!outMap.size) throw new Error('sin outcomes');
+    slugMap[slugKey]={slug:eventSlug,markets:outMap};
+    slugLog[slugKey]={status:'ok',slug:eventSlug,question:`${outMap.size} outcomes cargados`};
+  }catch(e){
+    slugLog[slugKey]={status:'miss',slug:e.message};
+  }
   renderSlugPanel();
+}
+
+/* ═══════════════════════════════════════════════════════
+   PROBABILIDAD DESDE STANDINGS REALES (openfootball)
+
+   Para los 16avos de final, mientras la fase de grupos
+   está en curso, calculamos la probabilidad de que cada
+   equipo quede 1º o 2º usando los resultados reales.
+
+   Si la fase ya terminó (3 partidos jugados por equipo),
+   el resultado es determinista (0% o 100%).
+   Si está en curso, usamos simulación de partidos restantes.
+═══════════════════════════════════════════════════════ */
+function calcGroupProb(groupName, targetOutcome){
+  /* targetOutcome: 'winner' o 'second' */
+  const resolve = r => NAME_MAP[r] || r;
+  const teams   = GROUPS[groupName] || [];
+  const played  = matchData.filter(m => m.group === groupName && m.score);
+  const total   = teams.length * (teams.length - 1) / 2; // 6 partidos en grupo de 4
+
+  /* Calcular puntos/GD/GF actuales */
+  const stats = {};
+  teams.forEach(t => { stats[t] = {pts:0, gd:0, gf:0, played:0}; });
+  played.forEach(m => {
+    const t1=resolve(m.team1), t2=resolve(m.team2);
+    const s1=m.score.ft[0],    s2=m.score.ft[1];
+    if(!stats[t1]) stats[t1]={pts:0,gd:0,gf:0,played:0};
+    if(!stats[t2]) stats[t2]={pts:0,gd:0,gf:0,played:0};
+    stats[t1].played++; stats[t2].played++;
+    stats[t1].gf+=s1;   stats[t2].gf+=s2;
+    stats[t1].gd+=(s1-s2); stats[t2].gd+=(s2-s1);
+    if(s1>s2){ stats[t1].pts+=3; }
+    else if(s1===s2){ stats[t1].pts+=1; stats[t2].pts+=1; }
+    else { stats[t2].pts+=3; }
+  });
+
+  /* Si todos los partidos jugados: resultado determinista */
+  if(played.length === total){
+    const sorted = teams.slice().sort((a,b) =>
+      (stats[b].pts - stats[a].pts) ||
+      (stats[b].gd  - stats[a].gd)  ||
+      (stats[b].gf  - stats[a].gf)
+    );
+    const pos = sorted.indexOf; // no usado
+    const resultMap = {};
+    sorted.forEach((t,i) => {
+      resultMap[t] = {winner: i===0, second: i===1};
+    });
+    return teams.reduce((acc, t) => {
+      acc[t] = (targetOutcome==='winner' ? resultMap[t].winner : resultMap[t].second) ? 100 : 0;
+      return acc;
+    }, {});
+  }
+
+  /* Partidos por jugar */
+  const allPairs = [];
+  for(let i=0;i<teams.length;i++)
+    for(let j=i+1;j<teams.length;j++)
+      allPairs.push([teams[i],teams[j]]);
+  const remaining = allPairs.filter(([a,b]) =>
+    !played.some(m => {
+      const r1=resolve(m.team1),r2=resolve(m.team2);
+      return (r1===a&&r2===b)||(r1===b&&r2===a);
+    })
+  );
+
+  /* Monte Carlo simplificado: simulamos los partidos restantes.
+     Para cada partido asumimos P(gana A) = 40%, P(empate) = 25%, P(gana B) = 35%
+     (ligera ventaja para el primero de cada par por orden de lista de GROUPS,
+     en la práctica los equipos más fuertes están primeros en GROUPS).
+     Esto es una aproximación — lo ideal sería usar Polymarket por partido. */
+  const SIMS = 2000;
+  const wins = {};
+  teams.forEach(t => { wins[t] = 0; });
+
+  for(let s=0;s<SIMS;s++){
+    const simStats = {};
+    teams.forEach(t => { simStats[t] = {...stats[t]}; });
+    remaining.forEach(([a,b]) => {
+      const r = Math.random();
+      if(r < 0.38)      { simStats[a].pts+=3; simStats[a].gd++; simStats[b].gd--; }
+      else if(r < 0.63) { simStats[a].pts+=1; simStats[b].pts+=1; }
+      else              { simStats[b].pts+=3; simStats[b].gd++; simStats[a].gd--; }
+    });
+    const sorted = teams.slice().sort((a,b) =>
+      (simStats[b].pts - simStats[a].pts) ||
+      (simStats[b].gd  - simStats[a].gd)  ||
+      Math.random() - 0.5
+    );
+    const winner = sorted[0], second = sorted[1];
+    if(targetOutcome==='winner') wins[winner]++;
+    else                         wins[second]++;
+  }
+  const result = {};
+  teams.forEach(t => { result[t] = Math.round(wins[t]/SIMS*100); });
+  return result;
 }
 
 function updateSrcLog(key,status,msg){
@@ -1016,16 +1114,13 @@ async function doRefresh(){
   setStatus('loading');
   document.getElementById('rbtn').classList.add('spinning');
 
-  // Recopilar todos los pares únicos searchQuery → slugKey de PHASES
-  const needed=new Map();
-  [1,2].forEach(s=>PHASES[s].forEach(p=>{
-    if(p.searchQuery && p.slugKey && !needed.has(p.slugKey))
-      needed.set(p.slugKey, p.searchQuery);
-  }));
-
-  await Promise.all([fetchResults(), ...[...needed.entries()].map(([k,q])=>discoverSlug(q,k))]);
-  const live=Object.values(slugLog).filter(v=>v.status==='ok').length;
-  setStatus(live>0?'live':'fallback');
+  // Fetch resultados reales + Polymarket en paralelo
+  // Usamos slugs hardcodeados directos (no auto-discovery)
+  const slugKeys = ['group-j-winner', 'group-j-2nd', 'tournament-winner'];
+  await Promise.all([
+    fetchResults(),
+    ...slugKeys.map(k => fetchSlugDirect(k))
+  ]);
   const now=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('sup').textContent='Act. '+now;
   document.getElementById('fsup').textContent='Última act.: '+now;
@@ -1239,37 +1334,50 @@ function updateSpainScores(){
 }
 
 /* ═══════════════════════════════════════════════════════
-   PROBABILIDADES — dos fuentes limpias según probType
+   PROBABILIDADES
 
-   probType:'group'         → outcomePrices directos del mercado de grupo
-                              (quién gana / quién queda 2º el Grupo J)
-                              → el mercado ya refleja los resultados reales
+   probType:'group'         → Prioridad 1: standings reales (openfootball)
+                              Monte Carlo sobre partidos restantes.
+                              Prioridad 2: Polymarket evento de grupo.
+                              Refleja si Jordania está eliminada, etc.
 
-   probType:'winner-subset' → probabilidad de ganar el torneo (world-cup-winner)
-                              reescalada dentro del subset del cuadro de España
-                              → compara a los candidatos entre sí
+   probType:'winner-subset' → Polymarket world-cup-winner
+                              reescalado dentro del subset del cuadro.
 ═══════════════════════════════════════════════════════ */
 function getProb(phase, cand){
-  const entry = slugMap[phase.slugKey];
-  if(!entry || !cand.matchOutcome) return null;
-  const map = entry.markets;
-  if(!map) return null;
-
   if(phase.probType === 'group'){
-    /* Probabilidad directa del mercado de clasificación de grupo.
-       Los precios ya suman ~100% entre los 4 equipos del grupo. */
-    const raw = map.get(cand.matchOutcome);
-    return raw != null ? raw : null;
+    /* Determinar si es 1º o 2º del grupo */
+    const isWinner = phase.slugKey === 'group-j-winner';
+    const target   = isWinner ? 'winner' : 'second';
+
+    /* Intentar con standings reales primero */
+    if(matchData.length > 0){
+      const probs = calcGroupProb('Group J', target);
+      /* matchOutcome puede ser 'Argentina', 'Austria', 'Algeria', 'Jordan' */
+      const key = cand.matchOutcome;
+      /* Mapear nombre Polymarket al nombre canónico para buscar en probs */
+      const canonMap = {'Argentina':'Argentina','Austria':'Austria','Algeria':'Argelia','Jordan':'Jordania'};
+      const canon = canonMap[key];
+      if(canon && probs[canon] !== undefined) return probs[canon];
+    }
+
+    /* Fallback: Polymarket evento de grupo */
+    const entry = slugMap[phase.slugKey];
+    if(entry && entry.markets && cand.matchOutcome){
+      const raw = entry.markets.get(cand.matchOutcome);
+      if(raw != null) return raw;
+    }
+    return null;
   }
 
   if(phase.probType === 'winner-subset'){
-    /* Probabilidad de ganar el Mundial, reescalada dentro del subconjunto.
-       Esto nos da quién es más fuerte del cuadro, sin descuentos artificiales. */
+    const entry = slugMap[phase.slugKey];
+    if(!entry || !entry.markets || !cand.matchOutcome) return null;
+    const map    = entry.markets;
     const subset = phase.subset || [];
-    const total = subset.reduce((s,k) => s + (map.get(k) || 0), 0);
+    const total  = subset.reduce((s,k) => s + (map.get(k) || 0), 0);
     if(!total) return null;
-    const raw = map.get(cand.matchOutcome) || 0;
-    return Math.round((raw / total) * 100);
+    return Math.round(((map.get(cand.matchOutcome) || 0) / total) * 100);
   }
 
   return null;

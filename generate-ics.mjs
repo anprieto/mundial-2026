@@ -1,20 +1,30 @@
 /**
  * generate-ics.mjs
  * Corre en GitHub Actions cada 10 minutos.
- * Llama a Polymarket + openfootball, genera espana-mundial-2026.ics
+ * Llama a Polymarket + genera espana-mundial-2026.ics
+ *
+ * CUADRO ESPANA 1a (confirmado 27 Jun 2026):
+ *   16avos P84:  Espana vs Austria           · 2 Jul 22:00h ESP · SoFi, Los Angeles
+ *   Octavos P93: Gan(Portugal vs Ghana P83)  · 7 Jul 02:00h ESP · AT&T, Dallas
+ *   Cuartos P98: Gan(P93) vs Gan(P94)        · 11 Jul 02:00h ESP · SoFi, Los Angeles
+ *   Semis P101:  Gan(P97) vs Gan(P98)        · 15 Jul 01:00h ESP · AT&T, Dallas
+ *   Final:       Gan P101 vs Gan P102        · 19 Jul 21:00h ESP · MetLife, NJ
+ *
+ * CONVERSION CEST (UTC+2):
+ *   Los Angeles / SF / Seattle / Vancouver (UTC-7) +9h
+ *   Dallas / Houston / KC / Mexico (UTC-5/6) +7/8h
+ *   Atlanta / Miami / Toronto / Boston / MetLife (UTC-4) +6h
  */
 
-import fetch  from 'node-fetch';
-import fs     from 'fs';
+import fetch from 'node-fetch';
+import fs    from 'fs';
 
-/* ── Helpers ─────────────────────────────────────────── */
 const pad = n => String(n).padStart(2, '0');
 
-/** Hora España (CEST, UTC+2) → UTC para ICS */
 function toUTC(isoDate, timeESP) {
   const [y, m, d] = isoDate.split('-').map(Number);
   const [h, mi]   = timeESP.split(':').map(Number);
-  const dt = new Date(Date.UTC(y, m - 1, d, h - 2, mi)); // CEST = UTC+2
+  const dt = new Date(Date.UTC(y, m - 1, d, h - 2, mi));
   return `${dt.getUTCFullYear()}${pad(dt.getUTCMonth()+1)}${pad(dt.getUTCDate())}` +
          `T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}00Z`;
 }
@@ -27,280 +37,225 @@ function addHours(isoDate, timeESP, hours) {
          `T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}00Z`;
 }
 
-function alarm(minBefore, desc) {
-  const h = Math.floor(minBefore / 60), m = minBefore % 60;
+function dtstamp() {
+  const now = new Date();
+  return `${now.getUTCFullYear()}${pad(now.getUTCMonth()+1)}${pad(now.getUTCDate())}` +
+         `T${pad(now.getUTCHours())}${pad(now.getUTCMinutes())}00Z`;
+}
+
+function alarm(minutesBefore, desc) {
+  const h = Math.floor(minutesBefore / 60), m = minutesBefore % 60;
   const dur = h ? `PT${h}H${m ? m + 'M' : ''}` : `PT${m}M`;
   return `BEGIN:VALARM\r\nTRIGGER:-${dur}\r\nACTION:DISPLAY\r\nDESCRIPTION:${desc}\r\nEND:VALARM`;
 }
 
-/* ── Fetch Polymarket ────────────────────────────────── */
-async function fetchPolymarket(keyword) {
+// Eventos del cuadro de Espana (isoDate + timeESP = hora peninsular espanola CEST)
+const EVENTS = [
+  {
+    uid: 'esp-wc26-16avos',
+    isoDate: '2026-07-02', timeESP: '22:00',  // 3pm LA (UTC-7) = 22h CEST
+    dur: 2, alarmMin: 30,
+    loc: 'SoFi Stadium, Los Angeles',
+    title: 'Espana vs Austria - 16avos Mundial 2026',
+    type: 'fixed',
+    desc: 'Espana (1aH) vs Austria (2oJ)\n16avos de final del Mundial 2026\nConfirmado por FIFA',
+  },
+  {
+    uid: 'esp-wc26-octavos',
+    isoDate: '2026-07-07', timeESP: '02:00',  // 7pm Dallas (UTC-5) = 02h CEST sig. dia
+    dur: 2, alarmMin: 30,
+    loc: 'AT&T Stadium, Dallas',
+    title: 'Espana - Octavos Mundial 2026',
+    type: 'match',
+    keyword: 'portugal ghana world cup',
+    pair: ['Portugal', 'Ghana'],
+    fallback: [['Portugal', 78], ['Ghana', 22]],
+    note: 'Ganador del P83: Portugal vs Ghana',
+  },
+  {
+    uid: 'esp-wc26-cuartos',
+    isoDate: '2026-07-11', timeESP: '02:00',  // 7pm LA (UTC-7) = 02h CEST sig. dia
+    dur: 2, alarmMin: 30,
+    loc: 'SoFi Stadium, Los Angeles',
+    title: 'Espana - Cuartos Final Mundial 2026',
+    type: 'tournament',
+    subset: ['United States','Egypt','Bosnia','South Korea'],
+    names:  {'United States':'EE.UU.','Egypt':'Egipto','Bosnia':'Bosnia','South Korea':'Corea del Sur'},
+    fallback: [['EE.UU.',65],['Egipto',15],['Bosnia',12],['Corea del Sur',8]],
+    note: 'P94 = EE.UU./Bosnia vs Egipto/Corea del Sur',
+  },
+  {
+    uid: 'esp-wc26-semis',
+    isoDate: '2026-07-15', timeESP: '01:00',  // 6pm Dallas (UTC-5) = 01h CEST sig. dia
+    dur: 2, alarmMin: 30,
+    loc: 'AT&T Stadium, Dallas',
+    title: 'Espana - Semifinal Mundial 2026',
+    type: 'tournament',
+    subset: ['Germany','France','Netherlands','Morocco','Sweden','Canada'],
+    names:  {'Germany':'Alemania','France':'Francia','Netherlands':'Paises Bajos',
+             'Morocco':'Marruecos','Sweden':'Suecia','Canada':'Canada'},
+    fallback: [['Alemania',34],['Francia',28],['Paises Bajos',22],['Marruecos',10],['Suecia',6]],
+    note: 'P97 = Gan(Alemania/Francia) vs Gan(Paises Bajos/Marruecos/Suecia/Canada)',
+  },
+  {
+    uid: 'esp-wc26-final',
+    isoDate: '2026-07-19', timeESP: '21:00',  // 3pm MetLife (UTC-4) = 21h CEST
+    dur: 2, alarmMin: 60,
+    loc: 'MetLife Stadium, East Rutherford NJ',
+    title: 'Espana - FINAL Mundial 2026',
+    type: 'tournament',
+    subset: ['Argentina','Brazil','England','Colombia','Mexico','Switzerland'],
+    names:  {'Argentina':'Argentina','Brazil':'Brasil','England':'Inglaterra',
+             'Colombia':'Colombia','Mexico':'Mexico','Switzerland':'Suiza'},
+    fallback: [['Argentina',30],['Brasil',25],['Inglaterra',18],['Colombia',14],['Mexico',8],['Suiza',5]],
+    note: 'Cuadro opuesto: Argentina, Brasil, Inglaterra, Colombia, Mexico, Suiza',
+  },
+];
+
+async function fetchWinner() {
   try {
-    const url = `https://gamma-api.polymarket.com/markets?keyword=${encodeURIComponent(keyword)}&limit=50&active=true`;
+    const r = await fetch('https://gamma-api.polymarket.com/events?slug=world-cup-winner',
+                          { signal: AbortSignal.timeout(10000) });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const arr = await r.json();
+    if (!arr?.length) throw new Error('vacio');
+    const map = new Map();
+    (arr[0].markets || []).forEach(m => {
+      try {
+        const o = JSON.parse(m.outcomes || '[]');
+        const p = JSON.parse(m.outcomePrices || '[]');
+        o.forEach((name, i) => { const v = parseFloat(p[i]); if (!isNaN(v)) map.set(name, Math.round(v*100)); });
+      } catch (_) {}
+    });
+    if (!map.size) throw new Error('sin datos');
+    console.log(`  ok world-cup-winner (${map.size} outcomes)`);
+    return map;
+  } catch (e) { console.warn(`  fail world-cup-winner: ${e.message}`); return null; }
+}
+
+async function fetchMatchMarket(keyword, pair) {
+  try {
+    const url = `https://gamma-api.polymarket.com/markets?keyword=${encodeURIComponent(keyword)}&limit=20&active=true`;
     const r   = await fetch(url, { signal: AbortSignal.timeout(10000) });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const markets = await r.json();
-
-    // Filtrar mercados del Mundial 2026 con múltiples outcomes
-    const wc = markets.filter(m => {
-      const q  = (m.question || '').toLowerCase();
-      const ok = (q.includes('2026') || (m.endDate || '').startsWith('2026'))
-              && (q.includes('world cup') || q.includes('fifa') || q.includes('group'))
-              && !m.closed;
-      let outcomes = [];
-      try { outcomes = JSON.parse(m.outcomes || '[]'); } catch {}
-      return ok && outcomes.length > 2;
+    const ms  = await r.json();
+    const [a, b] = pair.map(s => s.toLowerCase());
+    const m = ms.find(x => {
+      const q = (x.question || '').toLowerCase();
+      return q.includes(a) && q.includes(b) && (q.includes('world cup') || q.includes('2026')) && !x.closed;
     });
-
-    if (!wc.length) return null;
-    wc.sort((a, b) => (b.volumeNum || 0) - (a.volumeNum || 0));
-    const best = wc[0];
-
-    const outMap = new Map();
-    const outcomes = JSON.parse(best.outcomes || '[]');
-    const prices   = JSON.parse(best.outcomePrices || '[]');
-    outcomes.forEach((o, i) => {
-      const p = parseFloat(prices[i]);
-      if (!isNaN(p)) outMap.set(o, Math.round(p * 100));
-    });
-    console.log(`  ✓ ${keyword}: ${best.question} (${outMap.size} outcomes)`);
-    return outMap;
-  } catch (e) {
-    console.warn(`  ✗ ${keyword}: ${e.message}`);
-    return null;
-  }
+    if (!m) throw new Error('no encontrado');
+    const outs  = JSON.parse(m.outcomes || '[]');
+    const prs   = JSON.parse(m.outcomePrices || '[]');
+    const map   = new Map();
+    outs.forEach((o, i) => { const v = parseFloat(prs[i]); if (!isNaN(v)) map.set(o, Math.round(v*100)); });
+    console.log(`  ok ${keyword} (${m.question})`);
+    return map;
+  } catch (e) { console.warn(`  fail ${keyword}: ${e.message}`); return null; }
 }
 
-/* ── Fetch openfootball results ──────────────────────── */
-async function fetchResults() {
-  try {
-    const url = 'https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
-    const r   = await fetch(url, { signal: AbortSignal.timeout(8000) });
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    const d = await r.json();
-    console.log(`  ✓ openfootball: ${d.matches.filter(m => m.score).length} partidos con resultado`);
-    return d.matches || [];
-  } catch (e) {
-    console.warn(`  ✗ openfootball: ${e.message}`);
-    return [];
+function getTopRivals(ev, winnerMap, matchMap) {
+  if (ev.type === 'fixed') {
+    return [{ name: 'Austria', pct: 100 }];
   }
-}
 
-/* ── Calcular probabilidades ─────────────────────────── */
-function getTopCandidates(candidates, polyMap, subset) {
-  return candidates.map(c => {
-    let pct = c.fallback;
-    if (polyMap && c.matchOutcome) {
-      if (subset) {
-        const total = subset.reduce((s, k) => s + (polyMap.get(k) || 0), 0);
-        if (total > 0) pct = Math.round((polyMap.get(c.matchOutcome) || 0) / total * 100);
-      } else {
-        const raw = polyMap.get(c.matchOutcome);
-        if (raw != null) pct = raw;
-      }
+  if (ev.type === 'match') {
+    const map = matchMap;
+    if (map) {
+      const rivals = ev.pair.map(name => {
+        const pct = map.get(name) || map.get(name.toLowerCase()) || 0;
+        return { name, pct };
+      }).sort((a, b) => b.pct - a.pct);
+      if (rivals.some(r => r.pct > 0)) return rivals;
     }
-    return { ...c, pct };
-  }).sort((a, b) => b.pct - a.pct);
+    return ev.fallback.map(([name, pct]) => ({ name, pct }));
+  }
+
+  if (ev.type === 'tournament' && winnerMap) {
+    const total = ev.subset.reduce((s, k) => s + (winnerMap.get(k) || 0), 0);
+    if (total > 0) {
+      return ev.subset
+        .map(k => ({ name: ev.names[k] || k, pct: Math.round((winnerMap.get(k)||0)/total*100) }))
+        .sort((a, b) => b.pct - a.pct);
+    }
+  }
+  return ev.fallback.map(([name, pct]) => ({ name, pct }));
 }
 
-/* ── Estructura de fases ─────────────────────────────── */
-const PHASES = {
-  1: [
-    { round: 'Dieciseisavos', isoDate: '2026-07-02', timeESP: '22:00', location: 'SoFi Stadium · Los Ángeles',
-      polyKey: 'world cup group j second place', subset: null, uid: '16avos-1',
-      title: '⚽ España (1ª) vs 2º Grupo J · 16avos Mundial 2026',
-      cond: 'Solo si España queda 1ª del Grupo H',
-      candidates: [
-        { name: 'Austria',   flag: '🇦🇹', matchOutcome: 'Austria',   fallback: 57 },
-        { name: 'Argelia',   flag: '🇩🇿', matchOutcome: 'Algeria',   fallback: 29 },
-        { name: 'Argentina', flag: '🇦🇷', matchOutcome: 'Argentina', fallback:  8 },
-        { name: 'Jordania',  flag: '🇯🇴', matchOutcome: 'Jordan',    fallback:  6 },
-      ]},
-    { round: 'Octavos', isoDate: '2026-07-06', timeESP: '01:00', location: 'AT&T Stadium · Dallas',
-      polyKey: 'world cup winner', subset: ['Mexico','Switzerland','Canada','South Korea'], uid: 'oct-1',
-      title: '⚽ España (1ª) · Octavos de Final · Mundial 2026',
-      cond: 'Solo si España queda 1ª y supera 16avos',
-      candidates: [
-        { name: 'México',        flag: '🇲🇽', matchOutcome: 'Mexico',       fallback: 45 },
-        { name: 'Suiza',         flag: '🇨🇭', matchOutcome: 'Switzerland',  fallback: 30 },
-        { name: 'Canadá',        flag: '🇨🇦', matchOutcome: 'Canada',       fallback: 15 },
-        { name: 'Corea del Sur', flag: '🇰🇷', matchOutcome: 'South Korea',  fallback: 10 },
-      ]},
-    { round: 'Cuartos', isoDate: '2026-07-10', timeESP: '22:00', location: 'SoFi Stadium · Los Ángeles',
-      polyKey: 'world cup winner', subset: ['Brazil','Netherlands','Portugal','Morocco'], uid: 'qtr-1',
-      title: '⚽ España (1ª) · Cuartos de Final · Mundial 2026',
-      cond: 'Solo si España queda 1ª y llega a cuartos',
-      candidates: [
-        { name: 'Brasil',       flag: '🇧🇷', matchOutcome: 'Brazil',      fallback: 38 },
-        { name: 'Países Bajos', flag: '🇳🇱', matchOutcome: 'Netherlands', fallback: 28 },
-        { name: 'Portugal',     flag: '🇵🇹', matchOutcome: 'Portugal',    fallback: 22 },
-        { name: 'Marruecos',    flag: '🇲🇦', matchOutcome: 'Morocco',     fallback: 12 },
-      ]},
-    { round: 'Semifinal', isoDate: '2026-07-15', timeESP: '02:00', location: 'Mercedes-Benz Stadium · Atlanta',
-      polyKey: 'world cup winner', subset: ['France','England','Senegal','Norway'], uid: 'sf-1',
-      title: '⚽ España (1ª) · Semifinal · Mundial 2026',
-      cond: 'Solo si España queda 1ª y llega a semis',
-      candidates: [
-        { name: 'Francia',    flag: '🇫🇷', matchOutcome: 'France',  fallback: 50 },
-        { name: 'Inglaterra', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', matchOutcome: 'England', fallback: 30 },
-        { name: 'Senegal',    flag: '🇸🇳', matchOutcome: 'Senegal', fallback: 12 },
-        { name: 'Noruega',    flag: '🇳🇴', matchOutcome: 'Norway',  fallback:  8 },
-      ]},
-  ],
-  2: [
-    { round: 'Dieciseisavos', isoDate: '2026-07-03', timeESP: '22:00', location: 'Hard Rock Stadium · Miami',
-      polyKey: 'world cup group j winner', subset: null, uid: '16avos-2',
-      title: '⚽ España (2ª) vs 1º Grupo J · 16avos Mundial 2026',
-      cond: 'Solo si España queda 2ª del Grupo H',
-      candidates: [
-        { name: 'Argentina', flag: '🇦🇷', matchOutcome: 'Argentina', fallback: 72 },
-        { name: 'Austria',   flag: '🇦🇹', matchOutcome: 'Austria',   fallback: 19 },
-        { name: 'Argelia',   flag: '🇩🇿', matchOutcome: 'Algeria',   fallback:  8 },
-        { name: 'Jordania',  flag: '🇯🇴', matchOutcome: 'Jordan',    fallback:  1 },
-      ]},
-    { round: 'Octavos', isoDate: '2026-07-07', timeESP: '02:00', location: 'Mercedes-Benz Stadium · Atlanta',
-      polyKey: 'world cup winner', subset: ['United States','Belgium','Paraguay','Turkey'], uid: 'oct-2',
-      title: '⚽ España (2ª) · Octavos de Final · Mundial 2026',
-      cond: 'Solo si España queda 2ª y supera 16avos',
-      candidates: [
-        { name: 'EE.UU.',   flag: '🇺🇸', matchOutcome: 'United States', fallback: 42 },
-        { name: 'Bélgica',  flag: '🇧🇪', matchOutcome: 'Belgium',       fallback: 33 },
-        { name: 'Paraguay', flag: '🇵🇾', matchOutcome: 'Paraguay',      fallback: 14 },
-        { name: 'Turquía',  flag: '🇹🇷', matchOutcome: 'Turkey',        fallback: 11 },
-      ]},
-    { round: 'Cuartos', isoDate: '2026-07-11', timeESP: '22:00', location: 'Mercedes-Benz Stadium · Atlanta',
-      polyKey: 'world cup winner', subset: ['France','England','Senegal','Croatia'], uid: 'qtr-2',
-      title: '⚽ España (2ª) · Cuartos de Final · Mundial 2026',
-      cond: 'Solo si España queda 2ª y llega a cuartos',
-      candidates: [
-        { name: 'Francia',    flag: '🇫🇷', matchOutcome: 'France',  fallback: 48 },
-        { name: 'Inglaterra', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', matchOutcome: 'England', fallback: 33 },
-        { name: 'Senegal',    flag: '🇸🇳', matchOutcome: 'Senegal', fallback: 12 },
-        { name: 'Croacia',    flag: '🇭🇷', matchOutcome: 'Croatia', fallback:  7 },
-      ]},
-    { round: 'Semifinal', isoDate: '2026-07-14', timeESP: '02:00', location: 'AT&T Stadium · Dallas',
-      polyKey: 'world cup winner', subset: ['Brazil','Portugal','Morocco','Colombia'], uid: 'sf-2',
-      title: '⚽ España (2ª) · Semifinal · Mundial 2026',
-      cond: 'Solo si España queda 2ª y llega a semis',
-      candidates: [
-        { name: 'Brasil',    flag: '🇧🇷', matchOutcome: 'Brazil',   fallback: 45 },
-        { name: 'Portugal',  flag: '🇵🇹', matchOutcome: 'Portugal', fallback: 32 },
-        { name: 'Marruecos', flag: '🇲🇦', matchOutcome: 'Morocco',  fallback: 14 },
-        { name: 'Colombia',  flag: '🇨🇴', matchOutcome: 'Colombia', fallback:  9 },
-      ]},
-  ],
-};
+function buildVevent(ev, rivals) {
+  const top     = rivals[0]?.name || '?';
+  const rivStr  = rivals.slice(0, 3).map(r => `${r.name} (${r.pct}%)`).join(' / ');
+  const now_es  = new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' });
+  const source  = ev.type === 'match'
+    ? 'Polymarket (partido especifico) o Ranking FIFA'
+    : ev.type === 'tournament'
+    ? 'Polymarket (world-cup-winner)'
+    : 'Confirmado FIFA';
 
-const FINAL = {
-  isoDate: '2026-07-19', timeESP: '20:00', location: 'MetLife Stadium · East Rutherford, NJ',
-  polyKey: 'world cup winner', uid: 'final',
-  title: '🏆 España · FINAL Mundial 2026',
-  cond: 'Solo si España llega a la final',
-  subset: ['Germany','Argentina','England','France'],
-  candidates: [
-    { name: 'Alemania',   flag: '🇩🇪', matchOutcome: 'Germany',   fallback: 36 },
-    { name: 'Argentina',  flag: '🇦🇷', matchOutcome: 'Argentina', fallback: 28 },
-    { name: 'Inglaterra', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', matchOutcome: 'England',   fallback: 22 },
-    { name: 'Francia',    flag: '🇫🇷', matchOutcome: 'France',    fallback: 14 },
-  ],
-};
+  const desc = ev.type === 'fixed'
+    ? [ev.title, 'Rival confirmado: Austria', `Sede: ${ev.loc}`,
+       'https://anprieto.github.io/mundial-2026/'].join('\\n')
+    : [ev.title, `Rival mas probable: ${top}`,
+       `Candidatos: ${rivStr}`,
+       ev.note || '',
+       `Fuente: ${source}`,
+       `Actualizado: ${now_es}`,
+       'https://anprieto.github.io/mundial-2026/'].join('\\n');
 
-/* ── Main ─────────────────────────────────────────────── */
+  const summary = ev.type === 'fixed' ? ev.title : `${ev.title} · vs ${top}`;
+
+  const lines = [
+    'BEGIN:VEVENT',
+    `UID:${ev.uid}@anprieto.github.io`,
+    `DTSTAMP:${dtstamp()}`,
+    `SUMMARY:${summary}`,
+    `DTSTART:${toUTC(ev.isoDate, ev.timeESP)}`,
+    `DTEND:${addHours(ev.isoDate, ev.timeESP, ev.dur)}`,
+    `LOCATION:${ev.loc}`,
+    `DESCRIPTION:${desc}`,
+    'STATUS:CONFIRMED',
+    'TRANSP:OPAQUE',
+    alarm(ev.alarmMin, `En ${ev.alarmMin}min - ${summary}`),
+  ];
+  if (ev.uid.includes('final')) {
+    lines.push(alarm(60 * 24, 'Manana - FINAL del Mundial - Espana'));
+  }
+  lines.push('END:VEVENT');
+  return lines.join('\r\n');
+}
+
 async function main() {
-  console.log('⚽ Generando ICS Mundial 2026...\n');
-  const now = new Date();
-  console.log(`🕒 ${now.toISOString()}\n`);
+  console.log('Generando ICS Espana Mundial 2026...');
+  console.log(new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' }), '\n');
 
-  // 1. Fetch datos
-  console.log('📡 Cargando datos...');
-  const [matches, groupJ1st, groupJ2nd, winner] = await Promise.all([
-    fetchResults(),
-    fetchPolymarket('world cup group j winner'),
-    fetchPolymarket('world cup group j second place'),
-    fetchPolymarket('world cup winner'),
+  const [winnerMap, matchMap] = await Promise.all([
+    fetchWinner(),
+    fetchMatchMarket('portugal ghana world cup', ['Portugal', 'Ghana']),
   ]);
 
-  const polyMaps = {
-    'world cup group j winner':        groupJ1st,
-    'world cup group j second place':  groupJ2nd,
-    'world cup winner':                winner,
-  };
+  const vevents = EVENTS.map(ev => {
+    const rivals = getTopRivals(ev, winnerMap, matchMap);
+    console.log(`  ${ev.uid.split('-').pop()} -> ${rivals.slice(0,2).map(r=>r.name+' '+r.pct+'%').join(' / ')}`);
+    return buildVevent(ev, rivals);
+  });
 
-  // 2. Generar eventos
-  console.log('\n📅 Generando eventos...');
-  const events = [];
-
-  const allPhases = [
-    ...PHASES[1].map(p => ({ ...p, sc: 1 })),
-    ...PHASES[2].map(p => ({ ...p, sc: 2 })),
-    { ...FINAL, sc: 0 },
-  ];
-
-  for (const phase of allPhases) {
-    const polyMap = polyMaps[phase.polyKey] || null;
-    const top3 = getTopCandidates(phase.candidates, polyMap, phase.subset).slice(0, 3);
-    const isLive = polyMap !== null;
-
-    const rivalLine = top3.map((c, i) => `${i+1}. ${c.flag} ${c.name} (${c.pct}%)`).join('\n');
-    const source    = isLive ? 'Polymarket (en vivo)' : 'estimación (sin datos en vivo)';
-
-    const desc = [
-      phase.title,
-      '',
-      phase.cond,
-      '',
-      `Rivales más probables [${source}]:`,
-      rivalLine,
-      '',
-      `Actualizado: ${now.toLocaleString('es-ES', { timeZone: 'Europe/Madrid' })}`,
-      'Fuente: https://anprieto.github.io/mundial-2026/',
-    ].join('\\n');  // \\n = literal \n en ICS
-
-    const dtStart = toUTC(phase.isoDate, phase.timeESP);
-    const dtEnd   = addHours(phase.isoDate, phase.timeESP, 2);
-    const isFinal = phase.sc === 0;
-    const alarmMin = isLive ? 30 : 30;
-
-    const vevent = [
-      'BEGIN:VEVENT',
-      `UID:esp-wc26-${phase.uid}@anprieto.github.io`,
-      `DTSTAMP:${toUTC(now.toISOString().slice(0,10), now.toISOString().slice(11,16))}`,
-      `SUMMARY:${phase.title}`,
-      `DTSTART:${dtStart}`,
-      `DTEND:${dtEnd}`,
-      `LOCATION:${phase.location}`,
-      `DESCRIPTION:${desc}`,
-      'STATUS:CONFIRMED',
-      'TRANSP:OPAQUE',
-      alarm(30, `En 30 min · ${phase.title}`),
-      ...(isLive ? [] : ['X-APPLE-DEFAULT-ALARM:FALSE']),
-      ...(isLive ? [alarm(60*24, `Mañana · ${phase.title}`)] : []),
-      'END:VEVENT',
-    ].join('\r\n');
-
-    events.push(vevent);
-    console.log(`  ✓ ${phase.title} → ${top3.map(c=>c.name+' '+c.pct+'%').join(' / ')}`);
-  }
-
-  // 3. Escribir ICS
   const ics = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//España Mundial 2026//ES',
+    'PRODID:-//Espana Mundial 2026//ES',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
-    'X-WR-CALNAME:🇪🇸 España · Mundial 2026',
-    'X-WR-CALDESC:Cruces eliminatorios de España con probabilidades de Polymarket actualizadas cada 10 minutos',
+    'X-WR-CALNAME:Espana - Mundial 2026',
+    'X-WR-CALDESC:Cruces eliminatorios de Espana con probabilidades Polymarket (cada 10 min)',
     'X-WR-TIMEZONE:Europe/Madrid',
     'REFRESH-INTERVAL;VALUE=DURATION:PT10M',
     'X-PUBLISHED-TTL:PT10M',
-    ...events,
+    ...vevents,
     'END:VCALENDAR',
   ].join('\r\n');
 
   fs.writeFileSync('espana-mundial-2026.ics', ics, 'utf8');
-  console.log(`\n✅ ICS generado: ${events.length} eventos (${ics.length} bytes)`);
-  console.log('   → espana-mundial-2026.ics');
+  console.log(`\nOK: espana-mundial-2026.ics (${ics.length} bytes, ${vevents.length} eventos)`);
 }
 
-main().catch(e => { console.error(e); process.exit(1); });
+main().catch(e => { console.error('ERROR:', e); process.exit(1); });

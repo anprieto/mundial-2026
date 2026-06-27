@@ -178,15 +178,15 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
   <div id="espMatches">
     <div class="esp-match">
       <div class="esp-m-teams"><span class="esp-flag">🇪🇸</span><span class="esp-score" id="sc0">vs</span><span class="esp-flag">🇨🇻</span></div>
-      <div class="esp-m-info"><span class="esp-rival">Cabo Verde</span><span class="esp-time">Dom 15 Jun · 18:00h · Atlanta</span></div>
+      <div class="esp-m-info"><span class="esp-rival">Cabo Verde</span><span class="esp-time">Dom 15 Jun · 18:00h 🇪🇸 · Atlanta</span></div>
     </div>
     <div class="esp-match">
       <div class="esp-m-teams"><span class="esp-flag">🇪🇸</span><span class="esp-score" id="sc1">vs</span><span class="esp-flag">🇸🇦</span></div>
-      <div class="esp-m-info"><span class="esp-rival">Arabia Saudí</span><span class="esp-time">Dom 21 Jun · 18:00h · Atlanta</span></div>
+      <div class="esp-m-info"><span class="esp-rival">Arabia Saudí</span><span class="esp-time">Dom 21 Jun · 18:00h 🇪🇸 · Atlanta</span></div>
     </div>
     <div class="esp-match">
       <div class="esp-m-teams"><span class="esp-flag">🇺🇾</span><span class="esp-score" id="sc2">vs</span><span class="esp-flag">🇪🇸</span></div>
-      <div class="esp-m-info"><span class="esp-rival">Uruguay</span><span class="esp-time">Vie 27 Jun · 03:00h · Guadalajara 🌙</span></div>
+      <div class="esp-m-info"><span class="esp-rival">Uruguay</span><span class="esp-time">Vie 27 Jun · 03:00h 🇪🇸 · Guadalajara 🌙 🌙</span></div>
     </div>
   </div>
   <div class="gteams">
@@ -320,21 +320,21 @@ const BRACKET_MATCHES = {
   // 16avos cuadro España
   P73: {t1:'Sudáfrica',     t2:'Canadá',         confirmed:true, played:false, score:null, date:'28 Jun · Los Ángeles, SoFi · 22:00h 🇪🇸'},
   P74: {t1:'Alemania',      t2:'Paraguay',        confirmed:true, played:false, score:null, date:'29 Jun · Boston, Gillette · 22:30h 🇪🇸'},
-  P75: {t1:'Países Bajos',  t2:'Marruecos',       confirmed:true, played:false, score:null, date:'30 Jun · Monterrey, BBVA · 03:00h 🇪🇸'},
+  P75: {t1:'Países Bajos',  t2:'Marruecos',       confirmed:true, played:false, score:null, date:'30 Jun · Monterrey, BBVA · 04:00h 🇪🇸 🌙'},
   P77: {t1:'Francia',       t2:'Suecia',          confirmed:true, played:false, score:null, date:'1 Jul · MetLife · 23:00h 🇪🇸'},
-  P81: {t1:'EE.UU.',        t2:'Bosnia',          confirmed:true, played:false, score:null, date:'2 Jul · San Francisco, Levis · 03:00h 🇪🇸'},
-  P82: {t1:'Egipto',        t2:'Corea del Sur',   confirmed:false,played:false, score:null, date:'2 Jul · Seattle, Lumen · 20:00h 🇪🇸'},
-  P83: {t1:'Portugal',      t2:'Ghana',           confirmed:true, played:false, score:null, date:'2 Jul · Toronto, BMO · 02:00h 🇪🇸'},
-  P84: {t1:'España',        t2:'Austria',         confirmed:true, played:false, score:null, date:'2 Jul · Los Ángeles, SoFi · 20:00h 🇪🇸'},
+  P81: {t1:'EE.UU.',        t2:'Bosnia',          confirmed:true, played:false, score:null, date:'2 Jul · San Francisco, Levis · 03:00h 🇪🇸 🌙'},
+  P82: {t1:'Egipto',        t2:'Corea del Sur',   confirmed:false,played:false, score:null, date:'2 Jul · Seattle, Lumen · 23:00h 🇪🇸'},
+  P83: {t1:'Portugal',      t2:'Ghana',           confirmed:true, played:false, score:null, date:'2 Jul · Toronto, BMO · 01:00h 🇪🇸 🌙'},
+  P84: {t1:'España',        t2:'Austria',         confirmed:true, played:false, score:null, date:'2 Jul · Los Ángeles, SoFi · 22:00h 🇪🇸'},
   // 16avos cuadro opuesto (para final)
   P76: {t1:'Brasil',        t2:'Japón',           confirmed:true, played:false, score:null, date:'29 Jun · Houston, NRG · 20:00h 🇪🇸'},
-  P78: {t1:'Costa de Marfil',t2:'Noruega',        confirmed:true, played:false, score:null, date:'30 Jun · Dallas, AT&T · 19:00h 🇪🇸'},
+  P78: {t1:'Costa de Marfil',t2:'Noruega',        confirmed:true, played:false, score:null, date:'30 Jun · Dallas, AT&T · 20:00h 🇪🇸'},
   P79: {t1:'México',        t2:'Escocia',         confirmed:true, played:false, score:null, date:'1 Jul · México DF, Azteca · 03:00h 🇪🇸'},
   P80: {t1:'Inglaterra',    t2:'Argelia',         confirmed:true, played:false, score:null, date:'2 Jul · Atlanta, M-B · 22:00h 🇪🇸'},
-  P85: {t1:'Suiza',         t2:'Bélgica',         confirmed:true, played:false, score:null, date:'3 Jul · Vancouver, BC · 22:00h 🇪🇸'},
-  P86: {t1:'Argentina',     t2:'Cabo Verde',      confirmed:true, played:false, score:null, date:'3 Jul · Miami, Hard Rock · 01:00h 🇪🇸'},
+  P85: {t1:'Suiza',         t2:'Bélgica',         confirmed:true, played:false, score:null, date:'3 Jul · Vancouver, BC · 06:00h 🇪🇸 🌙'},
+  P86: {t1:'Argentina',     t2:'Cabo Verde',      confirmed:true, played:false, score:null, date:'3 Jul · Miami, Hard Rock · 00:00h 🇪🇸 🌙'},
   P87: {t1:'Colombia',      t2:'Croacia',         confirmed:true, played:false, score:null, date:'3 Jul · Kansas City, Arrow · 02:00h 🇪🇸'},
-  P88: {t1:'Australia',     t2:'Irán',            confirmed:true, played:false, score:null, date:'4 Jul · Dallas, AT&T · 22:00h 🇪🇸'},
+  P88: {t1:'Australia',     t2:'Irán',            confirmed:true, played:false, score:null, date:'4 Jul · Dallas, AT&T · 21:00h 🇪🇸'},
 };
 
 /* ── FASES DEL BRACKET DE ESPAÑA (solo escenario 1ª) ──
@@ -347,7 +347,7 @@ const PHASES = [
   /* ── 16avos P84: España vs Austria ── */
   {
     id:'P84', round:'16avos · P84',
-    date:'2 Jul · Los Ángeles, SoFi · 20:00h 🇪🇸',
+    date:'2 Jul · Los Ángeles, SoFi · 22:00h 🇪🇸',
     note:'✓ Confirmado: España (1ºH) vs Austria (2ºJ)',
     probType:'confirmed',
     isFinal:false,
@@ -358,7 +358,7 @@ const PHASES = [
   /* ── Octavos P93: Gan.P83 vs España ── */
   {
     id:'P93', round:'Octavos · P93',
-    date:'6 Jul · Dallas, AT&T · 22:00h 🇪🇸',
+    date:'6 Jul · Dallas, AT&T · 02:00h 🇪🇸 🌙',
     note:'Portugal vs Ghana (P83) → el ganador enfrenta a España',
     probType:'match',        // probabilidad de que gane cada uno en P83
     matchSlug:'portugal-ghana-world-cup-2026',
@@ -372,7 +372,7 @@ const PHASES = [
   /* ── Cuartos P98: Gan.P93 vs Gan.P94 ── */
   {
     id:'P98', round:'Cuartos · P98',
-    date:'10 Jul · SoFi Stadium · 22:00h 🇪🇸',
+    date:'10 Jul · Los Ángeles, SoFi · 02:00h 🇪🇸 🌙',
     note:'Gan.P94 = EE.UU./Bosnia vs Egipto/Corea del Sur → favorito EE.UU.',
     probType:'tournament',
     slugKey:'tournament-winner',
@@ -388,7 +388,7 @@ const PHASES = [
   /* ── Semis P101: Gan.P97 vs Gan.P98 ── */
   {
     id:'P101', round:'Semis · P101',
-    date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸',
+    date:'14 Jul · Dallas, AT&T · 01:00h 🇪🇸 🌙',
     note:'P97 = Gan(Alemania/Paraguay) vs Gan(Países Bajos/Marruecos/Sudáfrica/Canadá)',
     probType:'tournament',
     slugKey:'tournament-winner',
@@ -405,7 +405,7 @@ const PHASES = [
   /* ── Final ── */
   {
     id:'Final', round:'🏆 Final · MetLife Stadium, NJ',
-    date:'19 Jul · 20:00h 🇪🇸',
+    date:'19 Jul · MetLife, NJ · 21:00h 🇪🇸',
     note:'Campeón del sub-cuadro opuesto (Brasil, Argentina, Inglaterra, Colombia...)',
     probType:'tournament',
     slugKey:'tournament-winner',
@@ -431,7 +431,7 @@ const ROUTES = {
   'Austria':[
     {round:'16avos · P84', match:'Austria vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'2 Jul · Los Ángeles, SoFi · 20:00h 🇪🇸', clash:true},
+     date:'2 Jul · Los Ángeles, SoFi · 22:00h 🇪🇸', clash:true},
   ],
   /* Octavos: ganador P83 */
   'Portugal':[
@@ -440,7 +440,7 @@ const ROUTES = {
      date:'28 Jun · Toronto, BMO · 02:00h 🇪🇸'},
     {round:'Octavos · P93', match:'Gan.P83 vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'6 Jul · Dallas, AT&T · 22:00h 🇪🇸', clash:true},
+     date:'6 Jul · Dallas, AT&T · 02:00h 🇪🇸 🌙', clash:true},
   ],
   'Ghana':[
     {round:'16avos · P83', match:'Ghana vs Portugal',
@@ -448,52 +448,52 @@ const ROUTES = {
      date:'28 Jun · Toronto, BMO · 02:00h 🇪🇸'},
     {round:'Octavos · P93', match:'Gan.P83 vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'6 Jul · Dallas, AT&T · 22:00h 🇪🇸', clash:true},
+     date:'6 Jul · Dallas, AT&T · 02:00h 🇪🇸 🌙', clash:true},
   ],
   /* Cuartos: ganador P94 = Gan.P81 vs Gan.P82 */
   'EE.UU.':[
     {round:'16avos · P81', match:'EE.UU. vs Bosnia',
      priorRival:'Bosnia (3º mejor)', priorFlag:'🇧🇦',
-     date:'2 Jul · San Francisco, Levis · 03:00h 🇪🇸'},
+     date:'2 Jul · San Francisco, Levis · 03:00h 🇪🇸 🌙'},
     {round:'Octavos · P94', match:'Gan.P81 vs Gan.P82',
      priorRival:'Egipto/Corea del Sur (gan.P82)', priorFlag:'🇪🇬',
      date:'6 Jul · Seattle, Lumen · 02:00h 🇪🇸'},
     {round:'Cuartos · P98', match:'Gan.P93 vs Gan.P94',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'10 Jul · SoFi Stadium · 22:00h 🇪🇸', clash:true},
+     date:'10 Jul · Los Ángeles, SoFi · 02:00h 🇪🇸 🌙', clash:true},
   ],
   'Bosnia':[
     {round:'16avos · P81', match:'Bosnia vs EE.UU.',
      priorRival:'EE.UU. (1ºD)', priorFlag:'🇺🇸',
-     date:'2 Jul · San Francisco, Levis · 03:00h 🇪🇸'},
+     date:'2 Jul · San Francisco, Levis · 03:00h 🇪🇸 🌙'},
     {round:'Octavos · P94', match:'Gan.P81 vs Gan.P82',
      priorRival:'Egipto/Corea del Sur (gan.P82)', priorFlag:'🇪🇬',
      date:'6 Jul · Seattle, Lumen · 02:00h 🇪🇸'},
     {round:'Cuartos · P98', match:'Gan.P93 vs Gan.P94',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'10 Jul · SoFi Stadium · 22:00h 🇪🇸', clash:true},
+     date:'10 Jul · Los Ángeles, SoFi · 02:00h 🇪🇸 🌙', clash:true},
   ],
   'Egipto':[
     {round:'16avos · P82', match:'Egipto vs Corea del Sur',
      priorRival:'Corea del Sur (2ºA)', priorFlag:'🇰🇷',
-     date:'2 Jul · Seattle, Lumen · 20:00h 🇪🇸'},
+     date:'2 Jul · Seattle, Lumen · 23:00h 🇪🇸'},
     {round:'Octavos · P94', match:'Gan.P82 vs Gan.P81',
      priorRival:'EE.UU./Bosnia (gan.P81)', priorFlag:'🇺🇸',
      date:'6 Jul · Seattle, Lumen · 02:00h 🇪🇸'},
     {round:'Cuartos · P98', match:'Gan.P93 vs Gan.P94',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'10 Jul · SoFi Stadium · 22:00h 🇪🇸', clash:true},
+     date:'10 Jul · Los Ángeles, SoFi · 02:00h 🇪🇸 🌙', clash:true},
   ],
   'Corea del Sur':[
     {round:'16avos · P82', match:'Corea del Sur vs Egipto',
      priorRival:'Egipto (2ºG)', priorFlag:'🇪🇬',
-     date:'2 Jul · Seattle, Lumen · 20:00h 🇪🇸'},
+     date:'2 Jul · Seattle, Lumen · 23:00h 🇪🇸'},
     {round:'Octavos · P94', match:'Gan.P82 vs Gan.P81',
      priorRival:'EE.UU./Bosnia (gan.P81)', priorFlag:'🇺🇸',
      date:'6 Jul · Seattle, Lumen · 02:00h 🇪🇸'},
     {round:'Cuartos · P98', match:'Gan.P93 vs Gan.P94',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'10 Jul · SoFi Stadium · 22:00h 🇪🇸', clash:true},
+     date:'10 Jul · Los Ángeles, SoFi · 02:00h 🇪🇸 🌙', clash:true},
   ],
   /* Semis: ganador P97 = Gan.P89 vs Gan.P90 */
   'Alemania':[
@@ -502,13 +502,13 @@ const ROUTES = {
      date:'29 Jun · Boston, Gillette · 22:30h 🇪🇸'},
     {round:'Octavos · P89', match:'Gan.P74 vs Gan.P77',
      priorRival:'Francia/Suecia (gan.P77)', priorFlag:'🇫🇷',
-     date:'4 Jul · Houston, NRG · 02:00h 🇪🇸'},
+     date:'4 Jul · Houston, NRG · 23:00h 🇪🇸'},
     {round:'Cuartos · P97', match:'Gan.P89 vs Gan.P90',
      priorRival:'Países Bajos/Marruecos (gan.P90)', priorFlag:'🇳🇱',
      date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
     {round:'Semis · P101', match:'Gan.P97 vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+     date:'14 Jul · Dallas, AT&T · 01:00h 🇪🇸 🌙', clash:true},
   ],
   'Francia':[
     {round:'16avos · P77', match:'Francia vs Suecia',
@@ -516,18 +516,18 @@ const ROUTES = {
      date:'1 Jul · MetLife · 23:00h 🇪🇸'},
     {round:'Octavos · P89', match:'Gan.P74 vs Gan.P77',
      priorRival:'Alemania/Paraguay (gan.P74)', priorFlag:'🇩🇪',
-     date:'4 Jul · Houston, NRG · 02:00h 🇪🇸'},
+     date:'4 Jul · Houston, NRG · 23:00h 🇪🇸'},
     {round:'Cuartos · P97', match:'Gan.P89 vs Gan.P90',
      priorRival:'Países Bajos/Marruecos (gan.P90)', priorFlag:'🇳🇱',
      date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
     {round:'Semis · P101', match:'Gan.P97 vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+     date:'14 Jul · Dallas, AT&T · 01:00h 🇪🇸 🌙', clash:true},
   ],
   'Países Bajos':[
     {round:'16avos · P75', match:'Países Bajos vs Marruecos',
      priorRival:'Marruecos (2ºC)', priorFlag:'🇲🇦',
-     date:'30 Jun · Monterrey, BBVA · 03:00h 🇪🇸'},
+     date:'30 Jun · Monterrey, BBVA · 04:00h 🇪🇸 🌙'},
     {round:'Octavos · P90', match:'Gan.P73 vs Gan.P75',
      priorRival:'Sudáfrica/Canadá (gan.P73)', priorFlag:'🇿🇦',
      date:'4 Jul · Filadelfia · 22:00h 🇪🇸'},
@@ -536,12 +536,12 @@ const ROUTES = {
      date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
     {round:'Semis · P101', match:'Gan.P97 vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+     date:'14 Jul · Dallas, AT&T · 01:00h 🇪🇸 🌙', clash:true},
   ],
   'Marruecos':[
     {round:'16avos · P75', match:'Marruecos vs Países Bajos',
      priorRival:'Países Bajos (1ºF)', priorFlag:'🇳🇱',
-     date:'30 Jun · Monterrey, BBVA · 03:00h 🇪🇸'},
+     date:'30 Jun · Monterrey, BBVA · 04:00h 🇪🇸 🌙'},
     {round:'Octavos · P90', match:'Gan.P73 vs Gan.P75',
      priorRival:'Sudáfrica/Canadá (gan.P73)', priorFlag:'🇿🇦',
      date:'4 Jul · Filadelfia · 22:00h 🇪🇸'},
@@ -550,7 +550,7 @@ const ROUTES = {
      date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
     {round:'Semis · P101', match:'Gan.P97 vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+     date:'14 Jul · Dallas, AT&T · 01:00h 🇪🇸 🌙', clash:true},
   ],
   'Suecia':[
     {round:'16avos · P77', match:'Suecia vs Francia',
@@ -558,13 +558,13 @@ const ROUTES = {
      date:'1 Jul · MetLife · 23:00h 🇪🇸'},
     {round:'Octavos · P89', match:'Gan.P74 vs Gan.P77',
      priorRival:'Alemania/Paraguay (gan.P74)', priorFlag:'🇩🇪',
-     date:'4 Jul · Houston, NRG · 02:00h 🇪🇸'},
+     date:'4 Jul · Houston, NRG · 23:00h 🇪🇸'},
     {round:'Cuartos · P97', match:'Gan.P89 vs Gan.P90',
      priorRival:'Países Bajos/Marruecos (gan.P90)', priorFlag:'🇳🇱',
      date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
     {round:'Semis · P101', match:'Gan.P97 vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+     date:'14 Jul · Dallas, AT&T · 01:00h 🇪🇸 🌙', clash:true},
   ],
   'Canadá':[
     {round:'16avos · P73', match:'Canadá vs Sudáfrica',
@@ -578,13 +578,13 @@ const ROUTES = {
      date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
     {round:'Semis · P101', match:'Gan.P97 vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+     date:'14 Jul · Dallas, AT&T · 01:00h 🇪🇸 🌙', clash:true},
   ],
   /* FINAL: cuadro opuesto */
   'Argentina':[
     {round:'16avos · P86', match:'Argentina vs Cabo Verde',
      priorRival:'Cabo Verde (2ºH)', priorFlag:'🇨🇻',
-     date:'3 Jul · Miami, Hard Rock · 01:00h 🇪🇸'},
+     date:'3 Jul · Miami, Hard Rock · 00:00h 🇪🇸 🌙'},
     {round:'Octavos · P95', match:'Gan.P86 vs Gan.P88',
      priorRival:'Australia/Irán (gan.P88)', priorFlag:'🇦🇺',
      date:'7 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
@@ -593,10 +593,10 @@ const ROUTES = {
      date:'11 Jul · Kansas City · 22:00h 🇪🇸'},
     {round:'Semis · P102', match:'Gan.P99 vs Gan.P100',
      priorRival:'Brasil/Inglaterra/México', priorFlag:'🇧🇷',
-     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+     date:'15 Jul · Atlanta, M-B · 00:00h 🇪🇸 🌙'},
     {round:'Final', match:'vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+     date:'19 Jul · MetLife, NJ · 21:00h 🇪🇸', clash:true},
   ],
   'Brasil':[
     {round:'16avos · P76', match:'Brasil vs Japón',
@@ -607,10 +607,10 @@ const ROUTES = {
      date:'5 Jul · MetLife · 01:00h 🇪🇸'},
     {round:'Semis · P102', match:'Gan.P99 vs Gan.P100',
      priorRival:'Argentina/Colombia (gan.P100)', priorFlag:'🇦🇷',
-     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+     date:'15 Jul · Atlanta, M-B · 00:00h 🇪🇸 🌙'},
     {round:'Final', match:'vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+     date:'19 Jul · MetLife, NJ · 21:00h 🇪🇸', clash:true},
   ],
   'Inglaterra':[
     {round:'16avos · P80', match:'Inglaterra vs Argelia',
@@ -621,15 +621,15 @@ const ROUTES = {
      date:'5 Jul · México DF, Azteca · 02:00h 🇪🇸'},
     {round:'Semis · P102', match:'Gan.P99 vs Gan.P100',
      priorRival:'Argentina/Colombia (gan.P100)', priorFlag:'🇦🇷',
-     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+     date:'15 Jul · Atlanta, M-B · 00:00h 🇪🇸 🌙'},
     {round:'Final', match:'vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+     date:'19 Jul · MetLife, NJ · 21:00h 🇪🇸', clash:true},
   ],
   'Colombia':[
     {round:'16avos · P87', match:'Colombia vs Croacia',
      priorRival:'Croacia (2ºL)', priorFlag:'🇭🇷',
-     date:'3 Jul · Kansas City · 02:00h 🇪🇸'},
+     date:'3 Jul · Kansas City · 03:30h 🇪🇸 🌙'},
     {round:'Octavos · P96', match:'Gan.P85 vs Gan.P87',
      priorRival:'Suiza/Bélgica (gan.P85)', priorFlag:'🇨🇭',
      date:'7 Jul · Vancouver, BC · 22:00h 🇪🇸'},
@@ -638,10 +638,10 @@ const ROUTES = {
      date:'11 Jul · Kansas City · 22:00h 🇪🇸'},
     {round:'Semis · P102', match:'Gan.P99 vs Gan.P100',
      priorRival:'Brasil/Inglaterra/México', priorFlag:'🇧🇷',
-     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+     date:'15 Jul · Atlanta, M-B · 00:00h 🇪🇸 🌙'},
     {round:'Final', match:'vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+     date:'19 Jul · MetLife, NJ · 21:00h 🇪🇸', clash:true},
   ],
   'México':[
     {round:'16avos · P79', match:'México vs Escocia',
@@ -652,15 +652,15 @@ const ROUTES = {
      date:'5 Jul · México DF, Azteca · 02:00h 🇪🇸'},
     {round:'Semis · P102', match:'Gan.P91 vs Gan.P92',
      priorRival:'Brasil/Costa de Marfil (gan.P91)', priorFlag:'🇧🇷',
-     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+     date:'15 Jul · Atlanta, M-B · 00:00h 🇪🇸 🌙'},
     {round:'Final', match:'vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+     date:'19 Jul · MetLife, NJ · 21:00h 🇪🇸', clash:true},
   ],
   'Suiza':[
     {round:'16avos · P85', match:'Suiza vs Bélgica',
      priorRival:'Bélgica (1ºG)', priorFlag:'🇧🇪',
-     date:'3 Jul · Vancouver, BC · 22:00h 🇪🇸'},
+     date:'3 Jul · Vancouver, BC · 06:00h 🇪🇸 🌙'},
     {round:'Octavos · P96', match:'Gan.P85 vs Gan.P87',
      priorRival:'Colombia/Croacia (gan.P87)', priorFlag:'🇨🇴',
      date:'7 Jul · Vancouver, BC · 22:00h 🇪🇸'},
@@ -669,10 +669,10 @@ const ROUTES = {
      date:'11 Jul · Kansas City · 22:00h 🇪🇸'},
     {round:'Semis · P102', match:'Gan.P99 vs Gan.P100',
      priorRival:'Brasil/Inglaterra/México', priorFlag:'🇧🇷',
-     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+     date:'15 Jul · Atlanta, M-B · 00:00h 🇪🇸 🌙'},
     {round:'Final', match:'vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+     date:'19 Jul · MetLife, NJ · 21:00h 🇪🇸', clash:true},
   ],
   'Paraguay':[
     {round:'16avos · P74', match:'Paraguay vs Alemania',
@@ -680,13 +680,13 @@ const ROUTES = {
      date:'29 Jun · Boston, Gillette · 22:30h 🇪🇸'},
     {round:'Octavos · P89', match:'Gan.P74 vs Gan.P77',
      priorRival:'Francia/Suecia (gan.P77)', priorFlag:'🇫🇷',
-     date:'4 Jul · Houston, NRG · 02:00h 🇪🇸'},
+     date:'4 Jul · Houston, NRG · 23:00h 🇪🇸'},
     {round:'Cuartos · P97', match:'Gan.P89 vs Gan.P90',
      priorRival:'Países Bajos/Marruecos (gan.P90)', priorFlag:'🇳🇱',
      date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
     {round:'Semis · P101', match:'Gan.P97 vs España',
      priorRival:'España', priorFlag:'🇪🇸',
-     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+     date:'14 Jul · Dallas, AT&T · 01:00h 🇪🇸 🌙', clash:true},
   ],
 };
 
@@ -1179,28 +1179,28 @@ const ICS_EVENTS=[
   {uid:'16avos', isoDate:'2026-07-02', timeESP:'20:00', dur:2, loc:'SoFi Stadium - Los Angeles',
    title:'Esp vs Austria - 16avos Mundial 2026',
    desc:'Espana (1aH) vs Austria (2oJ) - Confirmado\n16avos de final del Mundial 2026', alarm:30},
-  {uid:'octavos', isoDate:'2026-07-06', timeESP:'22:00', dur:2, loc:'AT&T Stadium - Dallas',
+  {uid:'octavos', isoDate:'2026-07-07', timeESP:'02:00', dur:2, loc:'AT&T Stadium - Dallas',
    title:'Esp - Octavos Mundial 2026',
    getDesc:()=>{
      const phase=PHASES.find(p=>p.id==='P93');
      const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
      return 'Octavos P93\nEspana vs '+cands.map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nGanador Portugal vs Ghana\nFuente: Polymarket';
    }, alarm:30},
-  {uid:'cuartos', isoDate:'2026-07-10', timeESP:'22:00', dur:2, loc:'SoFi Stadium - Los Angeles',
+  {uid:'cuartos', isoDate:'2026-07-11', timeESP:'02:00', dur:2, loc:'SoFi Stadium - Los Angeles',
    title:'Esp - Cuartos Final Mundial 2026',
    getDesc:()=>{
      const phase=PHASES.find(p=>p.id==='P98');
      const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
      return 'Cuartos P98\nEspana vs '+cands.slice(0,3).map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nFuente: Polymarket';
    }, alarm:30},
-  {uid:'semis', isoDate:'2026-07-14', timeESP:'02:00', dur:2, loc:'AT&T Stadium - Dallas',
+  {uid:'semis', isoDate:'2026-07-15', timeESP:'01:00', dur:2, loc:'AT&T Stadium - Dallas',
    title:'Esp - Semifinal Mundial 2026',
    getDesc:()=>{
      const phase=PHASES.find(p=>p.id==='P101');
      const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
      return 'Semifinal P101\nEspana vs '+cands.slice(0,3).map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nFuente: Polymarket';
    }, alarm:30},
-  {uid:'final', isoDate:'2026-07-19', timeESP:'20:00', dur:2, loc:'MetLife Stadium - Nueva Jersey',
+  {uid:'final', isoDate:'2026-07-19', timeESP:'21:00', dur:2, loc:'MetLife Stadium - Nueva Jersey',
    title:'Esp - FINAL Mundial 2026',
    getDesc:()=>{
      const phase=PHASES.find(p=>p.isFinal);

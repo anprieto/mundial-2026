@@ -4,10 +4,10 @@
  * Llama a Polymarket + genera espana-mundial-2026.ics
  *
  * CUADRO ESPANA 1a (confirmado 27 Jun 2026):
- *   16avos P84:  Espana vs Austria           · 2 Jul 22:00h ESP · SoFi, Los Angeles
- *   Octavos P93: Gan(Portugal vs Ghana P83)  · 7 Jul 02:00h ESP · AT&T, Dallas
- *   Cuartos P98: Gan(P93) vs Gan(P94)        · 11 Jul 02:00h ESP · SoFi, Los Angeles
- *   Semis P101:  Gan(P97) vs Gan(P98)        · 15 Jul 01:00h ESP · AT&T, Dallas
+ *   16avos P84:  Espana vs Austria           · 2 Jul 21:00h ESP · SoFi, Los Angeles
+ *   Octavos P93: Gan(Portugal vs Ghana P83)  · 6 Jul 21:00h ESP · AT&T, Dallas
+ *   Cuartos P98: Gan(P93) vs Gan(P94)        · 10 Jul 21:00h ESP · SoFi, Los Angeles
+ *   Semis P101:  Gan(P97) vs Gan(P98)        · 14 Jul 21:00h ESP · AT&T, Dallas
  *   Final:       Gan P101 vs Gan P102        · 19 Jul 21:00h ESP · MetLife, NJ
  *
  * CONVERSION CEST (UTC+2):
@@ -53,7 +53,7 @@ function alarm(minutesBefore, desc) {
 const EVENTS = [
   {
     uid: 'esp-wc26-16avos',
-    isoDate: '2026-07-02', timeESP: '22:00',  // 3pm LA (UTC-7) = 22h CEST
+    isoDate: '2026-07-02', timeESP: '21:00',  // 3pm LA (UTC-7) = 22h CEST
     dur: 2, alarmMin: 30,
     loc: 'SoFi Stadium, Los Angeles',
     title: 'Espana vs Austria - 16avos Mundial 2026',
@@ -62,7 +62,7 @@ const EVENTS = [
   },
   {
     uid: 'esp-wc26-octavos',
-    isoDate: '2026-07-07', timeESP: '02:00',  // 7pm Dallas (UTC-5) = 02h CEST sig. dia
+    isoDate: '2026-07-06', timeESP: '21:00',  // 7pm Dallas (UTC-5) = 02h CEST sig. dia
     dur: 2, alarmMin: 30,
     loc: 'AT&T Stadium, Dallas',
     title: 'Espana - Octavos Mundial 2026',
@@ -74,7 +74,7 @@ const EVENTS = [
   },
   {
     uid: 'esp-wc26-cuartos',
-    isoDate: '2026-07-11', timeESP: '02:00',  // 7pm LA (UTC-7) = 02h CEST sig. dia
+    isoDate: '2026-07-10', timeESP: '21:00',  // 7pm LA (UTC-7) = 02h CEST sig. dia
     dur: 2, alarmMin: 30,
     loc: 'SoFi Stadium, Los Angeles',
     title: 'Espana - Cuartos Final Mundial 2026',
@@ -86,7 +86,7 @@ const EVENTS = [
   },
   {
     uid: 'esp-wc26-semis',
-    isoDate: '2026-07-15', timeESP: '01:00',  // 6pm Dallas (UTC-5) = 01h CEST sig. dia
+    isoDate: '2026-07-14', timeESP: '21:00',  // 6pm Dallas (UTC-5) = 01h CEST sig. dia
     dur: 2, alarmMin: 30,
     loc: 'AT&T Stadium, Dallas',
     title: 'Espana - Semifinal Mundial 2026',

@@ -1,0 +1,37 @@
+name: Actualizar ICS Mundial 2026
+
+on:
+  schedule:
+    # Cada 10 minutos durante el Mundial (11 Jun – 19 Jul 2026)
+    - cron: '*/10 * * * *'
+  workflow_dispatch:  # permite lanzarlo manualmente desde GitHub
+
+permissions:
+  contents: write   # necesario para hacer commit del .ics
+
+jobs:
+  update-ics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Instalar dependencias
+        run: npm install node-fetch@3
+
+      - name: Generar ICS con datos en vivo
+        run: node generate-ics.mjs
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add espana-mundial-2026.ics
+          # Solo hace commit si el archivo cambió
+          git diff --staged --quiet || git commit -m "♻️ ICS actualizado $(date -u '+%Y-%m-%d %H:%M UTC')"
+          git push

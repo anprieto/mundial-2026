@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🇪🇸 España · Camino al Mundial 2026</title>
-<meta name="description" content="Camino de España en el Mundial 2026. Probabilidades Polymarket + resultados reales en tiempo real.">
+<meta name="description" content="España 1ª del Grupo H. Camino eliminatorio con probabilidades en tiempo real de Polymarket.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -23,23 +23,28 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
 .hdr h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,9vw,3.2rem);letter-spacing:4px;color:var(--amarillo);position:relative;z-index:1;text-shadow:0 2px 0 #6b0000}
 .hdr-sub{font-size:.77rem;color:rgba(255,255,255,.5);margin-top:4px;position:relative;z-index:1}
 
+/* GRUPO */
 .gw{padding:12px 14px 0}
 .gc{background:var(--card);border:1px solid var(--borde);border-top:3px solid var(--amarillo);border-radius:10px;padding:12px 14px}
 .gt{font-family:'Bebas Neue',sans-serif;font-size:.8rem;letter-spacing:2.5px;color:var(--amarillo);margin-bottom:8px}
-.gteams{display:flex;gap:6px;flex-wrap:wrap}
+.esp-match{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--borde)}
+.esp-match:last-child{border:none}
+.esp-m-teams{display:flex;align-items:center;gap:5px;flex-shrink:0}
+.esp-flag{font-size:1.1rem}
+.esp-score{font-size:.75rem;font-weight:700;color:var(--t2);min-width:36px;text-align:center}
+.esp-score.win{color:var(--verde);background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);border-radius:4px;padding:1px 5px}
+.esp-score.draw{color:var(--naranja);background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:4px;padding:1px 5px}
+.esp-score.loss{color:#f87171;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);border-radius:4px;padding:1px 5px}
+.esp-m-info{display:flex;flex-direction:column;gap:1px;flex:1}
+.esp-rival{font-size:.78rem;font-weight:600;color:var(--texto)}
+.esp-time{font-size:.67rem;color:var(--t3)}
+.gteams{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;padding-top:8px;border-top:1px solid var(--borde)}
 .chip{background:rgba(255,255,255,.05);border:1px solid var(--borde);border-radius:20px;padding:3px 10px;font-size:.73rem;font-weight:500;display:flex;align-items:center;gap:5px}
 .chip.es{background:rgba(198,11,30,.2);border-color:rgba(198,11,30,.5);color:#fca5a5}
+.chip.elim{opacity:.4;text-decoration:line-through}
 
-.tw{padding:12px 14px 0}
-.tlbl{font-size:.67rem;font-weight:600;color:var(--t3);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
-.trow{display:flex;background:var(--card);border:1px solid var(--borde);border-radius:10px;padding:3px;gap:3px}
-.tbtn{flex:1;padding:8px 6px;border:none;border-radius:7px;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;font-size:.74rem;background:transparent;color:var(--t3);line-height:1.3;transition:all .2s}
-.tbtn .ic{display:block;font-size:.9rem;margin-bottom:2px}
-.tbtn.on1{background:linear-gradient(135deg,#9b0a1a,var(--rojo));color:#fff;box-shadow:0 2px 10px rgba(198,11,30,.35)}
-.tbtn.on2{background:linear-gradient(135deg,#1a40a0,var(--azul));color:#fff;box-shadow:0 2px 10px rgba(59,130,246,.35)}
-
-/* STATUS BAR */
-.sbar{margin:9px 14px 0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+/* STATUS */
+.sbar{margin:10px 14px 0;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
 .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;background:var(--naranja);transition:background .4s}
 .dot.live{background:var(--verde)}.dot.err{background:#ef4444}
 .smsg{font-size:.68rem;color:var(--t3)}
@@ -49,6 +54,15 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
 .rbtn.spinning .ri{animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 .ri{display:inline-block}
+
+/* CAL BUTTONS */
+.cal-row{margin:10px 14px 0;display:flex;gap:7px}
+.cal-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 8px;border-radius:8px;cursor:pointer;font-family:'Inter',sans-serif;font-size:.73rem;font-weight:600;transition:all .15s;border:none;line-height:1.2}
+.cal-dl{background:rgba(255,255,255,.06);border:1px solid var(--borde2);color:var(--t2)}
+.cal-dl:hover{background:rgba(255,255,255,.11);color:var(--texto)}
+.cal-gc{background:#1a73e8;color:#fff}
+.cal-gc:hover{background:#1558b0}
+.cal-dl:active,.cal-gc:active{transform:scale(.97)}
 
 /* SLUG PANEL */
 .slug-panel{margin:8px 14px 0;background:rgba(0,0,0,.3);border:1px solid var(--borde);border-radius:8px;overflow:hidden;max-height:0;transition:max-height .3s ease}
@@ -60,22 +74,19 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
 .slug-body{padding:0 11px 9px;max-height:230px;overflow-y:auto}
 .slug-item{display:flex;align-items:flex-start;gap:7px;padding:3.5px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.65rem}
 .slug-item:last-child{border:none}
-.slug-key{color:var(--t3);flex-shrink:0;width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.slug-key{color:var(--t3);flex-shrink:0;width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .slug-val{font-family:monospace;word-break:break-all;flex:1}
 .slug-val.ok{color:#4ade80}.slug-val.miss{color:#ef4444}.slug-val.pending{color:var(--naranja)}
-
-/* SCENE TAG */
-.stag{margin:9px 14px 0;padding:6px 11px;border-radius:7px;font-size:.72rem;font-weight:600;display:flex;align-items:center;gap:6px}
-.stag.s1{background:rgba(198,11,30,.12);border:1px solid rgba(198,11,30,.35);color:#fca5a5}
-.stag.s2{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.35);color:#93c5fd}
 
 /* BRACKET */
 .bracket{padding:9px 14px 28px;display:flex;flex-direction:column;gap:6px}
 .pcard{background:var(--card);border:1px solid var(--borde);border-radius:11px;overflow:hidden}
 .pcard.final{background:linear-gradient(135deg,rgba(198,11,30,.12) 0%,rgba(241,191,0,.06) 100%);border-color:rgba(241,191,0,.35)}
+.pcard.confirmed{border-color:rgba(34,197,94,.3)}
 .phead{padding:7px 12px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--borde)}
 .pname{font-family:'Bebas Neue',sans-serif;font-size:.78rem;letter-spacing:2px;color:var(--t2)}
 .final .pname{color:var(--amarillo)}
+.confirmed .pname{color:var(--verde)}
 .pdate{font-size:.65rem;color:var(--t3)}
 .vsrow{padding:10px 12px 6px;display:grid;grid-template-columns:1fr auto 1fr;gap:7px;align-items:center}
 .tes{display:flex;align-items:center;gap:6px}
@@ -99,15 +110,12 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
 .cb.t1{background:var(--verde)}
 .cpct{font-size:.71rem;font-weight:600;color:var(--t2);width:30px;text-align:right;flex-shrink:0}
 .cpct.lv{color:var(--verde)}
+.psrc{font-size:.58rem;color:var(--t3);padding:0 12px 6px}
 .arrow{text-align:center;color:var(--borde2);font-size:.95rem;line-height:1}
 
-/* ═══════════════════════════════════════
-   POPUP — aparece al hacer clic,
-   a la altura del cursor
-═══════════════════════════════════════ */
+/* POPUP */
 #popup{
-  position:fixed;z-index:9999;
-  background:#1a1d26;border:1px solid var(--borde2);border-radius:12px;
+  position:fixed;z-index:9999;background:#1a1d26;border:1px solid var(--borde2);border-radius:12px;
   width:300px;max-height:80vh;overflow-y:auto;
   box-shadow:0 8px 32px rgba(0,0,0,.75);
   opacity:0;pointer-events:none;
@@ -132,94 +140,64 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
 .pu-line{width:1.5px;flex:1;min-height:12px;background:var(--borde)}
 .pu-info{flex:1;min-width:0}
 .pu-round{font-size:.62rem;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.7px}
-.pu-match{font-size:.74rem;color:var(--texto);margin-top:1px;line-height:1.35}
+.pu-match{font-size:.74rem;margin-top:1px;line-height:1.35}
 .pu-score{display:inline-flex;align-items:center;gap:3px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.3);border-radius:4px;padding:0 5px;font-size:.66rem;font-weight:700;color:var(--verde);margin-left:4px}
 .pu-score.draw{background:rgba(241,191,0,.1);border-color:rgba(241,191,0,.3);color:var(--amarillo)}
 .pu-score.loss{background:rgba(239,68,68,.1);border-color:rgba(239,68,68,.3);color:#f87171}
 .pu-date{font-size:.61rem;color:var(--t3);margin-top:2px}
 .pu-footer{padding:6px 13px 8px;border-top:1px solid var(--borde);font-size:.61rem;color:var(--t3);display:flex;align-items:center;gap:5px}
 
-/* Spain matches */
-.esp-match{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid var(--borde)}
-.esp-match:last-child{border:none}
-.esp-m-teams{display:flex;align-items:center;gap:5px;flex-shrink:0}
-.esp-flag{font-size:1.1rem}
-.esp-score{font-size:.75rem;font-weight:700;color:var(--t2);min-width:36px;text-align:center}
-.esp-score.win{color:var(--verde);background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);border-radius:4px;padding:1px 5px}
-.esp-score.draw{color:var(--naranja);background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.3);border-radius:4px;padding:1px 5px}
-.esp-score.loss{color:#f87171;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);border-radius:4px;padding:1px 5px}
-.esp-m-info{display:flex;flex-direction:column;gap:1px;flex:1}
-.esp-rival{font-size:.78rem;font-weight:600;color:var(--texto)}
-.esp-time{font-size:.67rem;color:var(--t3)}
+/* FOOTER */
 .fnote{margin:0 14px 5px;padding:9px 12px;background:rgba(241,191,0,.04);border:1px solid rgba(241,191,0,.12);border-radius:8px;font-size:.67rem;color:var(--t3);line-height:1.6}
 .fsrc{margin:5px 14px 24px;font-size:.65rem;color:var(--t3);display:flex;align-items:center;gap:5px;flex-wrap:wrap}
 .fsrc a{color:#60a5fa;text-decoration:none}
 .fsrc a:hover{text-decoration:underline}
-/* CAL BUTTONS */
-.cal-row{margin:10px 14px 0;display:flex;gap:7px}
-.cal-btn{
-  flex:1;display:flex;align-items:center;justify-content:center;gap:5px;
-  padding:9px 8px;border-radius:8px;cursor:pointer;
-  font-family:'Inter',sans-serif;font-size:.73rem;font-weight:600;
-  transition:all .15s;border:none;line-height:1.2;
-}
-.cal-dl{background:rgba(255,255,255,.06);border:1px solid var(--borde2);color:var(--t2)}
-.cal-dl:hover{background:rgba(255,255,255,.11);color:var(--texto)}
-.cal-gc{background:#1a73e8;color:#fff}
-.cal-gc:hover{background:#1558b0}
-.cal-dl:active,.cal-gc:active{transform:scale(.97)}
 </style>
 </head>
 <body>
 
-<div id="popup" role="dialog" aria-label="Ruta del rival">
+<div id="popup" role="dialog">
   <div class="pu-head">
     <span class="pu-flag" id="puFlag"></span>
     <div><div class="pu-country" id="puCountry"></div><div class="pu-sub" id="puSub"></div></div>
-    <span class="pu-close" onclick="closePopup()" title="Cerrar">✕</span>
+    <span class="pu-close" onclick="closePopup()">✕</span>
   </div>
   <div class="pu-body" id="puBody"></div>
-  <div class="pu-footer">⚔️ = posible cruce con España &nbsp;·&nbsp; ✓ = resultado real</div>
+  <div class="pu-footer">⚔️ = cruce con España &nbsp;·&nbsp; ✓ = resultado real</div>
 </div>
 
 <div class="hdr">
   <span class="hdr-flag">🇪🇸</span>
   <h1>España · Mundial 2026</h1>
-  <p class="hdr-sub">Camino por fase · resultados reales + probabilidades Polymarket</p>
+  <p class="hdr-sub">1ª del Grupo H · Camino eliminatorio con probabilidades en vivo</p>
 </div>
 
+<!-- GRUPO H: partidos de España -->
 <div class="gw"><div class="gc">
-  <div class="gt">⚽ Grupo H · Partidos de España</div>
+  <div class="gt">⚽ Grupo H — España 1ª</div>
   <div id="espMatches">
-    <div class="esp-match" id="espm0">
+    <div class="esp-match">
       <div class="esp-m-teams"><span class="esp-flag">🇪🇸</span><span class="esp-score" id="sc0">vs</span><span class="esp-flag">🇨🇻</span></div>
-      <div class="esp-m-info"><span class="esp-rival">Cabo Verde</span><span class="esp-time">Lun 15 Jun · <strong>18:00h</strong> · Atlanta</span></div>
+      <div class="esp-m-info"><span class="esp-rival">Cabo Verde</span><span class="esp-time">Dom 15 Jun · 18:00h · Atlanta</span></div>
     </div>
-    <div class="esp-match" id="espm1">
+    <div class="esp-match">
       <div class="esp-m-teams"><span class="esp-flag">🇪🇸</span><span class="esp-score" id="sc1">vs</span><span class="esp-flag">🇸🇦</span></div>
-      <div class="esp-m-info"><span class="esp-rival">Arabia Saudí</span><span class="esp-time">Dom 21 Jun · <strong>18:00h</strong> · Atlanta</span></div>
+      <div class="esp-m-info"><span class="esp-rival">Arabia Saudí</span><span class="esp-time">Dom 21 Jun · 18:00h · Atlanta</span></div>
     </div>
-    <div class="esp-match" id="espm2">
+    <div class="esp-match">
       <div class="esp-m-teams"><span class="esp-flag">🇺🇾</span><span class="esp-score" id="sc2">vs</span><span class="esp-flag">🇪🇸</span></div>
-      <div class="esp-m-info"><span class="esp-rival">Uruguay</span><span class="esp-time">Vie 27 Jun · <strong>03:00h</strong> · Guadalajara 🌙</span></div>
+      <div class="esp-m-info"><span class="esp-rival">Uruguay</span><span class="esp-time">Vie 27 Jun · 03:00h · Guadalajara 🌙</span></div>
     </div>
   </div>
-  <div class="gteams" style="margin-top:10px;padding-top:8px;border-top:1px solid var(--borde)">
-    <div class="chip es">🇪🇸 España</div>
-    <div class="chip">🇺🇾 Uruguay</div>
-    <div class="chip">🇸🇦 Arabia Saudí</div>
-    <div class="chip">🇨🇻 Cabo Verde</div>
+  <div class="gteams">
+    <div class="chip es">🇪🇸 España · 1ª</div>
+    <div class="chip">🇨🇻 Cabo Verde · 2ª</div>
+    <div class="chip elim">🇺🇾 Uruguay · elim.</div>
+    <div class="chip elim">🇸🇦 Arabia Saudí · elim.</div>
   </div>
 </div></div>
 
-<div class="tw">
-  <div class="tlbl">Escenario</div>
-  <div class="trow">
-    <button class="tbtn on1" id="btn1" onclick="setScenario(1)"><span class="ic">🥇</span>1ª del Grupo H</button>
-    <button class="tbtn" id="btn2" onclick="setScenario(2)"><span class="ic">🥈</span>2ª del Grupo H</button>
-  </div>
-</div>
-
+<!-- STATUS -->
 <div class="sbar">
   <span class="dot" id="dot"></span>
   <span class="smsg" id="smsg">Cargando datos…</span>
@@ -227,6 +205,7 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
   <button class="rbtn" id="rbtn" onclick="triggerRefresh()"><span class="ri" id="ri">↻</span> Actualizar</button>
 </div>
 
+<!-- CAL BUTTONS -->
 <div class="cal-row">
   <button class="cal-btn cal-dl" onclick="downloadICS()">📅 Descargar .ics</button>
   <button class="cal-btn cal-gc" onclick="openGoogleCalendar()">
@@ -235,6 +214,7 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
   </button>
 </div>
 
+<!-- SLUG PANEL -->
 <div class="slug-panel" id="slugPanel">
   <div class="slug-head" onclick="toggleSlugPanel()">
     <span class="slug-title">🔍 Fuentes de datos</span>
@@ -243,40 +223,39 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
   <div class="slug-body" id="slugBody"></div>
 </div>
 
-<div class="stag s1" id="stag">🔴 Si España queda 1ª → 16avos vs 2º del Grupo J (Austria/Argelia, no Argentina)</div>
 <div class="bracket" id="bracket"></div>
 <div class="fnote" id="fnote"></div>
 <div class="fsrc">
-  <span>📊 Probabilidades:</span><a href="https://polymarket.com/sports/world-cup" target="_blank" rel="noopener">Polymarket</a>
-  · <span>⚽ Resultados:</span><a href="https://github.com/openfootball/worldcup.json" target="_blank" rel="noopener">openfootball</a>
+  <span>📊</span><a href="https://polymarket.com/sports/world-cup" target="_blank" rel="noopener">Polymarket</a>
+  · <span>⚽</span><a href="https://github.com/openfootball/worldcup.json" target="_blank" rel="noopener">openfootball</a>
   · <span id="fsup"></span>
 </div>
 
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   DATOS DEL BRACKET (estructura fija del torneo)
+   MAPA DE NOMBRES (openfootball → canónico)
 ═══════════════════════════════════════════════════════════════ */
-
-/* Mapeo nombre openfootball → nombre canónico en la app */
 const NAME_MAP = {
-  'Mexico':'México','South Africa':'Sudáfrica','South Korea':'Corea del Sur',
-  'Czech Republic':'Rep. Checa','Canada':'Canadá','Bosnia & Herzegovina':'Bosnia',
-  'Qatar':'Qatar','Switzerland':'Suiza','USA':'EE.UU.','Paraguay':'Paraguay',
-  'Australia':'Australia','Turkey':'Turquía','Brazil':'Brasil','Morocco':'Marruecos',
-  'Haiti':'Haití','Scotland':'Escocia','Germany':'Alemania','Curaçao':'Curazao',
-  'Ivory Coast':'Costa de Marfil','Ecuador':'Ecuador','Netherlands':'Países Bajos',
-  'Japan':'Japón','Sweden':'Suecia','Tunisia':'Túnez','Belgium':'Bélgica',
-  'Egypt':'Egipto','Iran':'Irán','New Zealand':'Nueva Zelanda',
-  'Spain':'España','Uruguay':'Uruguay','Saudi Arabia':'Arabia Saudí',
-  'Cape Verde':'Cabo Verde','France':'Francia','Senegal':'Senegal',
-  'Iraq':'Irak','Norway':'Noruega','Argentina':'Argentina','Algeria':'Argelia',
-  'Austria':'Austria','Jordan':'Jordania','Portugal':'Portugal',
-  'DR Congo':'RD Congo','Uzbekistan':'Uzbekistán','Colombia':'Colombia',
+  'Spain':'España','Uruguay':'Uruguay','Saudi Arabia':'Arabia Saudí','Cape Verde':'Cabo Verde',
+  'Austria':'Austria','Algeria':'Argelia','Argentina':'Argentina','Jordan':'Jordania',
+  'Mexico':'México','South Africa':'Sudáfrica','Korea Republic':'Corea del Sur',
+  'Czech Republic':'Rep. Checa','Czechia':'Rep. Checa',
+  'Canada':'Canadá','Bosnia & Herzegovina':'Bosnia','Bosnia':'Bosnia','Qatar':'Qatar',
+  'Switzerland':'Suiza','USA':'EE.UU.','United States':'EE.UU.',
+  'Paraguay':'Paraguay','Australia':'Australia','Turkey':'Turquía',
+  'Brazil':'Brasil','Morocco':'Marruecos','Haiti':'Haití','Scotland':'Escocia',
+  'Germany':'Alemania','Curaçao':'Curazao','Ivory Coast':'Costa de Marfil',
+  'Cote d\'Ivoire':'Costa de Marfil','Ecuador':'Ecuador',
+  'Netherlands':'Países Bajos','Japan':'Japón','Sweden':'Suecia','Tunisia':'Túnez',
+  'Belgium':'Bélgica','Egypt':'Egipto','Iran':'Irán','New Zealand':'Nueva Zelanda',
+  'France':'Francia','Senegal':'Senegal','Norway':'Noruega','Iraq':'Irak',
+  'Portugal':'Portugal','DR Congo':'RD Congo','Uzbekistan':'Uzbekistán','Colombia':'Colombia',
   'England':'Inglaterra','Croatia':'Croacia','Ghana':'Ghana','Panama':'Panamá',
-  'Korea Republic':'Corea del Sur','Czechia':'Rep. Checa',
-  'Cabo Verde':'Cabo Verde',
+  'Cabo Verde':'Cabo Verde','South Korea':'Corea del Sur','Korea DPR':'Corea del Norte',
 };
 const FLAGS = {
+  'España':'🇪🇸','Cabo Verde':'🇨🇻','Uruguay':'🇺🇾','Arabia Saudí':'🇸🇦',
+  'Austria':'🇦🇹','Argelia':'🇩🇿','Argentina':'🇦🇷','Jordania':'🇯🇴',
   'México':'🇲🇽','Sudáfrica':'🇿🇦','Corea del Sur':'🇰🇷','Rep. Checa':'🇨🇿',
   'Canadá':'🇨🇦','Bosnia':'🇧🇦','Qatar':'🇶🇦','Suiza':'🇨🇭',
   'EE.UU.':'🇺🇸','Paraguay':'🇵🇾','Australia':'🇦🇺','Turquía':'🇹🇷',
@@ -284,16 +263,436 @@ const FLAGS = {
   'Alemania':'🇩🇪','Curazao':'🇨🇼','Costa de Marfil':'🇨🇮','Ecuador':'🇪🇨',
   'Países Bajos':'🇳🇱','Japón':'🇯🇵','Suecia':'🇸🇪','Túnez':'🇹🇳',
   'Bélgica':'🇧🇪','Egipto':'🇪🇬','Irán':'🇮🇷','Nueva Zelanda':'🇳🇿',
-  'España':'🇪🇸','Uruguay':'🇺🇾','Arabia Saudí':'🇸🇦','Cabo Verde':'🇨🇻',
-  'Francia':'🇫🇷','Senegal':'🇸🇳','Irak':'🇮🇶','Noruega':'🇳🇴',
-  'Argentina':'🇦🇷','Argelia':'🇩🇿','Austria':'🇦🇹','Jordania':'🇯🇴',
+  'Francia':'🇫🇷','Senegal':'🇸🇳','Noruega':'🇳🇴','Irak':'🇮🇶',
   'Portugal':'🇵🇹','RD Congo':'🇨🇩','Uzbekistán':'🇺🇿','Colombia':'🇨🇴',
   'Inglaterra':'🏴󠁧󠁢󠁥󠁮󠁧󠁿','Croacia':'🇭🇷','Ghana':'🇬🇭','Panamá':'🇵🇦',
-  'Bosnia':'🇧🇦',
+  'RD Congo':'🇨🇩',
 };
 const f = n => FLAGS[n] || '🏳️';
+const resolve = r => NAME_MAP[r] || r;
 
-/* Grupos del torneo */
+/* ═══════════════════════════════════════════════════════════════
+   DATOS REALES DEL MUNDIAL 2026 — actualizados 27 Jun 2026
+
+   CUADRO CONFIRMADO (España siempre 1ªH):
+
+   P84: España (1ºH) vs Austria (2ºJ)        → P93
+   P83: Portugal (2ºK) vs Ghana (2ºL)         → P93
+   P93: Gan.P83 vs Gan.P84  ← OCTAVOS ESPAÑA
+   P94: Gan.P81 vs Gan.P82
+   P98: Gan.P93 vs Gan.P94  ← CUARTOS ESPAÑA
+   P97: Gan.P89 vs Gan.P90
+   P101: Gan.P97 vs Gan.P98 ← SEMIS ESPAÑA
+   Final: Gan.P101 vs Gan.P102
+
+   OTROS 16AVOS DEL CUADRO DE ESPAÑA:
+   P74: Alemania vs Paraguay (confirmado)       → P89
+   P77: Francia vs Suecia (confirmado)          → P89
+   P89: Gan.P74 vs Gan.P77 → P97
+   P73: Sudáfrica vs Canadá (confirmado)        → P90
+   P75: Países Bajos vs Marruecos (confirmado)  → P90
+   P90: Gan.P73 vs Gan.P75 → P97
+   P81: EE.UU. vs Bosnia (confirmado)           → P94
+   P82: Egipto vs Corea del Sur                 → P94
+
+   CUADRO OPUESTO (final):
+   P76: Brasil vs Japón (confirmado)
+   P78: Costa de Marfil vs Noruega (confirmado)
+   P79: México vs Escocia (confirmado)
+   P80: Inglaterra vs Argelia
+   P85: Suiza vs Bélgica
+   P86: Argentina vs Cabo Verde (2ºH)
+   P87: Colombia vs Croacia (confirmado)
+   P88: Australia vs Irán
+═══════════════════════════════════════════════════════════════ */
+
+/* ── PARTIDOS DE GRUPO DE ESPAÑA (para marcadores) ── */
+const ESP_GROUP_MATCHES = [
+  {team1:'Spain', team2:'Cape Verde',   elId:'sc0', esHome:true,  date:'15 Jun'},
+  {team1:'Spain', team2:'Saudi Arabia', elId:'sc1', esHome:true,  date:'21 Jun'},
+  {team1:'Uruguay',team2:'Spain',       elId:'sc2', esHome:false, date:'27 Jun'},
+];
+
+/* ── PARTIDOS RELEVANTES PARA EL BRACKET ──
+   Todos los 16avos del cuadro de España con sus equipos confirmados
+   y el resultado si ya se jugó. */
+const BRACKET_MATCHES = {
+  // 16avos cuadro España
+  P73: {t1:'Sudáfrica',     t2:'Canadá',         confirmed:true, played:false, score:null, date:'28 Jun · Los Ángeles, SoFi · 22:00h 🇪🇸'},
+  P74: {t1:'Alemania',      t2:'Paraguay',        confirmed:true, played:false, score:null, date:'29 Jun · Boston, Gillette · 22:30h 🇪🇸'},
+  P75: {t1:'Países Bajos',  t2:'Marruecos',       confirmed:true, played:false, score:null, date:'30 Jun · Monterrey, BBVA · 03:00h 🇪🇸'},
+  P77: {t1:'Francia',       t2:'Suecia',          confirmed:true, played:false, score:null, date:'1 Jul · MetLife · 23:00h 🇪🇸'},
+  P81: {t1:'EE.UU.',        t2:'Bosnia',          confirmed:true, played:false, score:null, date:'2 Jul · San Francisco, Levis · 03:00h 🇪🇸'},
+  P82: {t1:'Egipto',        t2:'Corea del Sur',   confirmed:false,played:false, score:null, date:'2 Jul · Seattle, Lumen · 20:00h 🇪🇸'},
+  P83: {t1:'Portugal',      t2:'Ghana',           confirmed:true, played:false, score:null, date:'2 Jul · Toronto, BMO · 02:00h 🇪🇸'},
+  P84: {t1:'España',        t2:'Austria',         confirmed:true, played:false, score:null, date:'2 Jul · Los Ángeles, SoFi · 20:00h 🇪🇸'},
+  // 16avos cuadro opuesto (para final)
+  P76: {t1:'Brasil',        t2:'Japón',           confirmed:true, played:false, score:null, date:'29 Jun · Houston, NRG · 20:00h 🇪🇸'},
+  P78: {t1:'Costa de Marfil',t2:'Noruega',        confirmed:true, played:false, score:null, date:'30 Jun · Dallas, AT&T · 19:00h 🇪🇸'},
+  P79: {t1:'México',        t2:'Escocia',         confirmed:true, played:false, score:null, date:'1 Jul · México DF, Azteca · 03:00h 🇪🇸'},
+  P80: {t1:'Inglaterra',    t2:'Argelia',         confirmed:true, played:false, score:null, date:'2 Jul · Atlanta, M-B · 22:00h 🇪🇸'},
+  P85: {t1:'Suiza',         t2:'Bélgica',         confirmed:true, played:false, score:null, date:'3 Jul · Vancouver, BC · 22:00h 🇪🇸'},
+  P86: {t1:'Argentina',     t2:'Cabo Verde',      confirmed:true, played:false, score:null, date:'3 Jul · Miami, Hard Rock · 01:00h 🇪🇸'},
+  P87: {t1:'Colombia',      t2:'Croacia',         confirmed:true, played:false, score:null, date:'3 Jul · Kansas City, Arrow · 02:00h 🇪🇸'},
+  P88: {t1:'Australia',     t2:'Irán',            confirmed:true, played:false, score:null, date:'4 Jul · Dallas, AT&T · 22:00h 🇪🇸'},
+};
+
+/* ── FASES DEL BRACKET DE ESPAÑA (solo escenario 1ª) ──
+   probType:
+     'match'         → usa probabilidad de ganar ese partido concreto (Polymarket match)
+     'tournament'    → usa world-cup-winner reescalado dentro del subset
+     'confirmed'     → rival único confirmado, no hay probabilidad que mostrar
+═══════════════════════════════════════════════════════════════ */
+const PHASES = [
+  /* ── 16avos P84: España vs Austria ── */
+  {
+    id:'P84', round:'16avos · P84',
+    date:'2 Jul · Los Ángeles, SoFi · 20:00h 🇪🇸',
+    note:'✓ Confirmado: España (1ºH) vs Austria (2ºJ)',
+    probType:'confirmed',
+    isFinal:false,
+    candidates:[
+      {name:'Austria', flag:'🇦🇹', pct:null, fallback:100, note:'Confirmado'},
+    ],
+  },
+  /* ── Octavos P93: Gan.P83 vs España ── */
+  {
+    id:'P93', round:'Octavos · P93',
+    date:'6 Jul · Dallas, AT&T · 22:00h 🇪🇸',
+    note:'Portugal vs Ghana (P83) → el ganador enfrenta a España',
+    probType:'match',        // probabilidad de que gane cada uno en P83
+    matchSlug:'portugal-ghana-world-cup-2026',
+    matchPair:['Portugal','Ghana'],
+    isFinal:false,
+    candidates:[
+      {name:'Portugal', flag:'🇵🇹', matchOutcome:'Portugal', fallback:78},
+      {name:'Ghana',    flag:'🇬🇭', matchOutcome:'Ghana',    fallback:22},
+    ],
+  },
+  /* ── Cuartos P98: Gan.P93 vs Gan.P94 ── */
+  {
+    id:'P98', round:'Cuartos · P98',
+    date:'10 Jul · SoFi Stadium · 22:00h 🇪🇸',
+    note:'Gan.P94 = EE.UU./Bosnia vs Egipto/Corea del Sur → favorito EE.UU.',
+    probType:'tournament',
+    slugKey:'tournament-winner',
+    subset:['United States','Egypt','Bosnia','South Korea'],
+    isFinal:false,
+    candidates:[
+      {name:'EE.UU.',        flag:'🇺🇸', matchOutcome:'United States', fallback:65},
+      {name:'Egipto',        flag:'🇪🇬', matchOutcome:'Egypt',         fallback:15},
+      {name:'Bosnia',        flag:'🇧🇦', matchOutcome:'Bosnia',        fallback:12},
+      {name:'Corea del Sur', flag:'🇰🇷', matchOutcome:'South Korea',   fallback:8},
+    ],
+  },
+  /* ── Semis P101: Gan.P97 vs Gan.P98 ── */
+  {
+    id:'P101', round:'Semis · P101',
+    date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸',
+    note:'P97 = Gan(Alemania/Paraguay) vs Gan(Países Bajos/Marruecos/Sudáfrica/Canadá)',
+    probType:'tournament',
+    slugKey:'tournament-winner',
+    subset:['Germany','France','Netherlands','Morocco','Sweden','Canada'],
+    isFinal:false,
+    candidates:[
+      {name:'Alemania',     flag:'🇩🇪', matchOutcome:'Germany',     fallback:34},
+      {name:'Francia',      flag:'🇫🇷', matchOutcome:'France',      fallback:28},
+      {name:'Países Bajos', flag:'🇳🇱', matchOutcome:'Netherlands', fallback:22},
+      {name:'Marruecos',    flag:'🇲🇦', matchOutcome:'Morocco',     fallback:10},
+      {name:'Suecia',       flag:'🇸🇪', matchOutcome:'Sweden',      fallback:6},
+    ],
+  },
+  /* ── Final ── */
+  {
+    id:'Final', round:'🏆 Final · MetLife Stadium, NJ',
+    date:'19 Jul · 20:00h 🇪🇸',
+    note:'Campeón del sub-cuadro opuesto (Brasil, Argentina, Inglaterra, Colombia...)',
+    probType:'tournament',
+    slugKey:'tournament-winner',
+    subset:['Argentina','Brazil','England','Colombia','Mexico','Switzerland'],
+    isFinal:true,
+    candidates:[
+      {name:'Argentina', flag:'🇦🇷', matchOutcome:'Argentina', fallback:30},
+      {name:'Brasil',    flag:'🇧🇷', matchOutcome:'Brazil',    fallback:25},
+      {name:'Inglaterra',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿', matchOutcome:'England',  fallback:18},
+      {name:'Colombia',  flag:'🇨🇴', matchOutcome:'Colombia',  fallback:14},
+      {name:'México',    flag:'🇲🇽', matchOutcome:'Mexico',    fallback:8},
+      {name:'Suiza',     flag:'🇨🇭', matchOutcome:'Switzerland',fallback:5},
+    ],
+  },
+];
+
+/* ═══════════════════════════════════════════════════════════════
+   RUTAS DE CADA RIVAL EN EL POPUP
+   Solo mostramos hasta el cruce con España (clash:true).
+═══════════════════════════════════════════════════════════════ */
+const ROUTES = {
+  /* 16avos directo */
+  'Austria':[
+    {round:'16avos · P84', match:'Austria vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'2 Jul · Los Ángeles, SoFi · 20:00h 🇪🇸', clash:true},
+  ],
+  /* Octavos: ganador P83 */
+  'Portugal':[
+    {round:'16avos · P83', match:'Portugal vs Ghana',
+     priorRival:'Ghana (2ºL)', priorFlag:'🇬🇭',
+     date:'28 Jun · Toronto, BMO · 02:00h 🇪🇸'},
+    {round:'Octavos · P93', match:'Gan.P83 vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'6 Jul · Dallas, AT&T · 22:00h 🇪🇸', clash:true},
+  ],
+  'Ghana':[
+    {round:'16avos · P83', match:'Ghana vs Portugal',
+     priorRival:'Portugal (2ºK)', priorFlag:'🇵🇹',
+     date:'28 Jun · Toronto, BMO · 02:00h 🇪🇸'},
+    {round:'Octavos · P93', match:'Gan.P83 vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'6 Jul · Dallas, AT&T · 22:00h 🇪🇸', clash:true},
+  ],
+  /* Cuartos: ganador P94 = Gan.P81 vs Gan.P82 */
+  'EE.UU.':[
+    {round:'16avos · P81', match:'EE.UU. vs Bosnia',
+     priorRival:'Bosnia (3º mejor)', priorFlag:'🇧🇦',
+     date:'2 Jul · San Francisco, Levis · 03:00h 🇪🇸'},
+    {round:'Octavos · P94', match:'Gan.P81 vs Gan.P82',
+     priorRival:'Egipto/Corea del Sur (gan.P82)', priorFlag:'🇪🇬',
+     date:'6 Jul · Seattle, Lumen · 02:00h 🇪🇸'},
+    {round:'Cuartos · P98', match:'Gan.P93 vs Gan.P94',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'10 Jul · SoFi Stadium · 22:00h 🇪🇸', clash:true},
+  ],
+  'Bosnia':[
+    {round:'16avos · P81', match:'Bosnia vs EE.UU.',
+     priorRival:'EE.UU. (1ºD)', priorFlag:'🇺🇸',
+     date:'2 Jul · San Francisco, Levis · 03:00h 🇪🇸'},
+    {round:'Octavos · P94', match:'Gan.P81 vs Gan.P82',
+     priorRival:'Egipto/Corea del Sur (gan.P82)', priorFlag:'🇪🇬',
+     date:'6 Jul · Seattle, Lumen · 02:00h 🇪🇸'},
+    {round:'Cuartos · P98', match:'Gan.P93 vs Gan.P94',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'10 Jul · SoFi Stadium · 22:00h 🇪🇸', clash:true},
+  ],
+  'Egipto':[
+    {round:'16avos · P82', match:'Egipto vs Corea del Sur',
+     priorRival:'Corea del Sur (2ºA)', priorFlag:'🇰🇷',
+     date:'2 Jul · Seattle, Lumen · 20:00h 🇪🇸'},
+    {round:'Octavos · P94', match:'Gan.P82 vs Gan.P81',
+     priorRival:'EE.UU./Bosnia (gan.P81)', priorFlag:'🇺🇸',
+     date:'6 Jul · Seattle, Lumen · 02:00h 🇪🇸'},
+    {round:'Cuartos · P98', match:'Gan.P93 vs Gan.P94',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'10 Jul · SoFi Stadium · 22:00h 🇪🇸', clash:true},
+  ],
+  'Corea del Sur':[
+    {round:'16avos · P82', match:'Corea del Sur vs Egipto',
+     priorRival:'Egipto (2ºG)', priorFlag:'🇪🇬',
+     date:'2 Jul · Seattle, Lumen · 20:00h 🇪🇸'},
+    {round:'Octavos · P94', match:'Gan.P82 vs Gan.P81',
+     priorRival:'EE.UU./Bosnia (gan.P81)', priorFlag:'🇺🇸',
+     date:'6 Jul · Seattle, Lumen · 02:00h 🇪🇸'},
+    {round:'Cuartos · P98', match:'Gan.P93 vs Gan.P94',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'10 Jul · SoFi Stadium · 22:00h 🇪🇸', clash:true},
+  ],
+  /* Semis: ganador P97 = Gan.P89 vs Gan.P90 */
+  'Alemania':[
+    {round:'16avos · P74', match:'Alemania vs Paraguay',
+     priorRival:'Paraguay (3º mejor)', priorFlag:'🇵🇾',
+     date:'29 Jun · Boston, Gillette · 22:30h 🇪🇸'},
+    {round:'Octavos · P89', match:'Gan.P74 vs Gan.P77',
+     priorRival:'Francia/Suecia (gan.P77)', priorFlag:'🇫🇷',
+     date:'4 Jul · Houston, NRG · 02:00h 🇪🇸'},
+    {round:'Cuartos · P97', match:'Gan.P89 vs Gan.P90',
+     priorRival:'Países Bajos/Marruecos (gan.P90)', priorFlag:'🇳🇱',
+     date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
+    {round:'Semis · P101', match:'Gan.P97 vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+  ],
+  'Francia':[
+    {round:'16avos · P77', match:'Francia vs Suecia',
+     priorRival:'Suecia (3º mejor)', priorFlag:'🇸🇪',
+     date:'1 Jul · MetLife · 23:00h 🇪🇸'},
+    {round:'Octavos · P89', match:'Gan.P74 vs Gan.P77',
+     priorRival:'Alemania/Paraguay (gan.P74)', priorFlag:'🇩🇪',
+     date:'4 Jul · Houston, NRG · 02:00h 🇪🇸'},
+    {round:'Cuartos · P97', match:'Gan.P89 vs Gan.P90',
+     priorRival:'Países Bajos/Marruecos (gan.P90)', priorFlag:'🇳🇱',
+     date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
+    {round:'Semis · P101', match:'Gan.P97 vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+  ],
+  'Países Bajos':[
+    {round:'16avos · P75', match:'Países Bajos vs Marruecos',
+     priorRival:'Marruecos (2ºC)', priorFlag:'🇲🇦',
+     date:'30 Jun · Monterrey, BBVA · 03:00h 🇪🇸'},
+    {round:'Octavos · P90', match:'Gan.P73 vs Gan.P75',
+     priorRival:'Sudáfrica/Canadá (gan.P73)', priorFlag:'🇿🇦',
+     date:'4 Jul · Filadelfia · 22:00h 🇪🇸'},
+    {round:'Cuartos · P97', match:'Gan.P89 vs Gan.P90',
+     priorRival:'Alemania/Francia (gan.P89)', priorFlag:'🇩🇪',
+     date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
+    {round:'Semis · P101', match:'Gan.P97 vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+  ],
+  'Marruecos':[
+    {round:'16avos · P75', match:'Marruecos vs Países Bajos',
+     priorRival:'Países Bajos (1ºF)', priorFlag:'🇳🇱',
+     date:'30 Jun · Monterrey, BBVA · 03:00h 🇪🇸'},
+    {round:'Octavos · P90', match:'Gan.P73 vs Gan.P75',
+     priorRival:'Sudáfrica/Canadá (gan.P73)', priorFlag:'🇿🇦',
+     date:'4 Jul · Filadelfia · 22:00h 🇪🇸'},
+    {round:'Cuartos · P97', match:'Gan.P89 vs Gan.P90',
+     priorRival:'Alemania/Francia (gan.P89)', priorFlag:'🇩🇪',
+     date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
+    {round:'Semis · P101', match:'Gan.P97 vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+  ],
+  'Suecia':[
+    {round:'16avos · P77', match:'Suecia vs Francia',
+     priorRival:'Francia (1ºI)', priorFlag:'🇫🇷',
+     date:'1 Jul · MetLife · 23:00h 🇪🇸'},
+    {round:'Octavos · P89', match:'Gan.P74 vs Gan.P77',
+     priorRival:'Alemania/Paraguay (gan.P74)', priorFlag:'🇩🇪',
+     date:'4 Jul · Houston, NRG · 02:00h 🇪🇸'},
+    {round:'Cuartos · P97', match:'Gan.P89 vs Gan.P90',
+     priorRival:'Países Bajos/Marruecos (gan.P90)', priorFlag:'🇳🇱',
+     date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
+    {round:'Semis · P101', match:'Gan.P97 vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+  ],
+  'Canadá':[
+    {round:'16avos · P73', match:'Canadá vs Sudáfrica',
+     priorRival:'Sudáfrica (2ºA)', priorFlag:'🇿🇦',
+     date:'28 Jun · Los Ángeles, SoFi · 22:00h 🇪🇸'},
+    {round:'Octavos · P90', match:'Gan.P73 vs Gan.P75',
+     priorRival:'Países Bajos/Marruecos (gan.P75)', priorFlag:'🇳🇱',
+     date:'4 Jul · Filadelfia · 22:00h 🇪🇸'},
+    {round:'Cuartos · P97', match:'Gan.P89 vs Gan.P90',
+     priorRival:'Alemania/Francia (gan.P89)', priorFlag:'🇩🇪',
+     date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
+    {round:'Semis · P101', match:'Gan.P97 vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+  ],
+  /* FINAL: cuadro opuesto */
+  'Argentina':[
+    {round:'16avos · P86', match:'Argentina vs Cabo Verde',
+     priorRival:'Cabo Verde (2ºH)', priorFlag:'🇨🇻',
+     date:'3 Jul · Miami, Hard Rock · 01:00h 🇪🇸'},
+    {round:'Octavos · P95', match:'Gan.P86 vs Gan.P88',
+     priorRival:'Australia/Irán (gan.P88)', priorFlag:'🇦🇺',
+     date:'7 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+    {round:'Cuartos · P100', match:'Gan.P95 vs Gan.P96',
+     priorRival:'Colombia/Croacia o Suiza/Bélgica', priorFlag:'🇨🇴',
+     date:'11 Jul · Kansas City · 22:00h 🇪🇸'},
+    {round:'Semis · P102', match:'Gan.P99 vs Gan.P100',
+     priorRival:'Brasil/Inglaterra/México', priorFlag:'🇧🇷',
+     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+    {round:'Final', match:'vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+  ],
+  'Brasil':[
+    {round:'16avos · P76', match:'Brasil vs Japón',
+     priorRival:'Japón (2ºF)', priorFlag:'🇯🇵',
+     date:'29 Jun · Houston, NRG · 20:00h 🇪🇸'},
+    {round:'Octavos · P91', match:'Gan.P76 vs Gan.P78',
+     priorRival:'Costa de Marfil/Noruega (gan.P78)', priorFlag:'🇨🇮',
+     date:'5 Jul · MetLife · 01:00h 🇪🇸'},
+    {round:'Semis · P102', match:'Gan.P99 vs Gan.P100',
+     priorRival:'Argentina/Colombia (gan.P100)', priorFlag:'🇦🇷',
+     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+    {round:'Final', match:'vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+  ],
+  'Inglaterra':[
+    {round:'16avos · P80', match:'Inglaterra vs Argelia',
+     priorRival:'Argelia (3º mejor)', priorFlag:'🇩🇿',
+     date:'2 Jul · Atlanta, M-B · 22:00h 🇪🇸'},
+    {round:'Octavos · P92', match:'Gan.P79 vs Gan.P80',
+     priorRival:'México/Escocia (gan.P79)', priorFlag:'🇲🇽',
+     date:'5 Jul · México DF, Azteca · 02:00h 🇪🇸'},
+    {round:'Semis · P102', match:'Gan.P99 vs Gan.P100',
+     priorRival:'Argentina/Colombia (gan.P100)', priorFlag:'🇦🇷',
+     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+    {round:'Final', match:'vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+  ],
+  'Colombia':[
+    {round:'16avos · P87', match:'Colombia vs Croacia',
+     priorRival:'Croacia (2ºL)', priorFlag:'🇭🇷',
+     date:'3 Jul · Kansas City · 02:00h 🇪🇸'},
+    {round:'Octavos · P96', match:'Gan.P85 vs Gan.P87',
+     priorRival:'Suiza/Bélgica (gan.P85)', priorFlag:'🇨🇭',
+     date:'7 Jul · Vancouver, BC · 22:00h 🇪🇸'},
+    {round:'Cuartos · P100', match:'Gan.P95 vs Gan.P96',
+     priorRival:'Argentina (gan.P95)', priorFlag:'🇦🇷',
+     date:'11 Jul · Kansas City · 22:00h 🇪🇸'},
+    {round:'Semis · P102', match:'Gan.P99 vs Gan.P100',
+     priorRival:'Brasil/Inglaterra/México', priorFlag:'🇧🇷',
+     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+    {round:'Final', match:'vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+  ],
+  'México':[
+    {round:'16avos · P79', match:'México vs Escocia',
+     priorRival:'Escocia (3º mejor)', priorFlag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+     date:'1 Jul · México DF, Azteca · 03:00h 🇪🇸'},
+    {round:'Octavos · P92', match:'Gan.P79 vs Gan.P80',
+     priorRival:'Inglaterra/Argelia (gan.P80)', priorFlag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+     date:'5 Jul · México DF, Azteca · 02:00h 🇪🇸'},
+    {round:'Semis · P102', match:'Gan.P91 vs Gan.P92',
+     priorRival:'Brasil/Costa de Marfil (gan.P91)', priorFlag:'🇧🇷',
+     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+    {round:'Final', match:'vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+  ],
+  'Suiza':[
+    {round:'16avos · P85', match:'Suiza vs Bélgica',
+     priorRival:'Bélgica (1ºG)', priorFlag:'🇧🇪',
+     date:'3 Jul · Vancouver, BC · 22:00h 🇪🇸'},
+    {round:'Octavos · P96', match:'Gan.P85 vs Gan.P87',
+     priorRival:'Colombia/Croacia (gan.P87)', priorFlag:'🇨🇴',
+     date:'7 Jul · Vancouver, BC · 22:00h 🇪🇸'},
+    {round:'Cuartos · P100', match:'Gan.P95 vs Gan.P96',
+     priorRival:'Argentina (gan.P95)', priorFlag:'🇦🇷',
+     date:'11 Jul · Kansas City · 22:00h 🇪🇸'},
+    {round:'Semis · P102', match:'Gan.P99 vs Gan.P100',
+     priorRival:'Brasil/Inglaterra/México', priorFlag:'🇧🇷',
+     date:'15 Jul · Atlanta, M-B · 02:00h 🇪🇸'},
+    {round:'Final', match:'vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
+  ],
+  'Paraguay':[
+    {round:'16avos · P74', match:'Paraguay vs Alemania',
+     priorRival:'Alemania (1ºE)', priorFlag:'🇩🇪',
+     date:'29 Jun · Boston, Gillette · 22:30h 🇪🇸'},
+    {round:'Octavos · P89', match:'Gan.P74 vs Gan.P77',
+     priorRival:'Francia/Suecia (gan.P77)', priorFlag:'🇫🇷',
+     date:'4 Jul · Houston, NRG · 02:00h 🇪🇸'},
+    {round:'Cuartos · P97', match:'Gan.P89 vs Gan.P90',
+     priorRival:'Países Bajos/Marruecos (gan.P90)', priorFlag:'🇳🇱',
+     date:'9 Jul · Boston, Gillette · 22:00h 🇪🇸'},
+    {round:'Semis · P101', match:'Gan.P97 vs España',
+     priorRival:'España', priorFlag:'🇪🇸',
+     date:'14 Jul · Dallas, AT&T · 02:00h 🇪🇸', clash:true},
+  ],
+};
+
+/* ═══════════════════════════════════════════════════════════════
+   GRUPOS (para calcular standings desde openfootball)
+═══════════════════════════════════════════════════════════════ */
 const GROUPS = {
   'Group A':['México','Sudáfrica','Corea del Sur','Rep. Checa'],
   'Group B':['Canadá','Bosnia','Qatar','Suiza'],
@@ -308,677 +707,47 @@ const GROUPS = {
   'Group K':['Portugal','RD Congo','Uzbekistán','Colombia'],
   'Group L':['Inglaterra','Croacia','Ghana','Panamá'],
 };
-
-/* Para cada selección: su grupo y sus partidos de fase de grupos */
-const GROUP_MATCHES = {
-  'Argentina':{g:'J',matches:[
-    {vs:'Argelia', date:'19 Jun',  ground:'Kansas City'},
-    {vs:'Austria', date:'21 Jun',  ground:'Houston'},
-    {vs:'Jordania', date:'26 Jun', ground:'Dallas'},
-  ]},
-  'Austria':{g:'J',matches:[
-    {vs:'Jordania', date:'19 Jun', ground:'Toronto'},
-    {vs:'Argentina',date:'21 Jun', ground:'Houston'},
-    {vs:'Argelia',  date:'26 Jun', ground:'Kansas City'},
-  ]},
-  'Argelia':{g:'J',matches:[
-    {vs:'Argentina',date:'19 Jun', ground:'Kansas City'},
-    {vs:'Jordania', date:'22 Jun', ground:'Seattle'},
-    {vs:'Austria',  date:'26 Jun', ground:'Kansas City'},
-  ]},
-  'Jordania':{g:'J',matches:[
-    {vs:'Austria',  date:'19 Jun', ground:'Toronto'},
-    {vs:'Argelia',  date:'22 Jun', ground:'Seattle'},
-    {vs:'Argentina',date:'26 Jun', ground:'Dallas'},
-  ]},
-  'México':{g:'A',matches:[
-    {vs:'Sudáfrica',    date:'11 Jun', ground:'México D.F.'},
-    {vs:'Corea del Sur',date:'18 Jun', ground:'Guadalajara'},
-    {vs:'Rep. Checa',   date:'24 Jun', ground:'México D.F.'},
-  ]},
-  'Suiza':{g:'B',matches:[
-    {vs:'Qatar',  date:'13 Jun', ground:'San Francisco'},
-    {vs:'Bosnia', date:'18 Jun', ground:'Los Ángeles'},
-    {vs:'Canadá', date:'24 Jun', ground:'Vancouver'},
-  ]},
-  'Canadá':{g:'B',matches:[
-    {vs:'Bosnia',date:'12 Jun', ground:'Toronto'},
-    {vs:'Qatar', date:'18 Jun', ground:'Vancouver'},
-    {vs:'Suiza', date:'24 Jun', ground:'Vancouver'},
-  ]},
-  'Corea del Sur':{g:'A',matches:[
-    {vs:'Rep. Checa',   date:'11 Jun', ground:'Guadalajara'},
-    {vs:'México',       date:'18 Jun', ground:'Guadalajara'},
-    {vs:'Sudáfrica',    date:'24 Jun', ground:'Monterrey'},
-  ]},
-  'Brasil':{g:'C',matches:[
-    {vs:'Marruecos',date:'13 Jun', ground:'Nueva York/NJ'},
-    {vs:'Haití',    date:'19 Jun', ground:'Filadelfia'},
-    {vs:'Escocia',  date:'24 Jun', ground:'Miami'},
-  ]},
-  'Países Bajos':{g:'F',matches:[
-    {vs:'Japón',  date:'14 Jun', ground:'Dallas'},
-    {vs:'Suecia', date:'20 Jun', ground:'Houston'},
-    {vs:'Túnez',  date:'25 Jun', ground:'Kansas City'},
-  ]},
-  'Portugal':{g:'K',matches:[
-    {vs:'RD Congo',    date:'16 Jun', ground:'Miami'},
-    {vs:'Uzbekistán',  date:'22 Jun', ground:'Houston'},
-    {vs:'Colombia',    date:'27 Jun', ground:'Miami'},
-  ]},
-  'Marruecos':{g:'C',matches:[
-    {vs:'Brasil',  date:'13 Jun', ground:'Nueva York/NJ'},
-    {vs:'Escocia', date:'19 Jun', ground:'Boston'},
-    {vs:'Haití',   date:'24 Jun', ground:'Atlanta'},
-  ]},
-  'Francia':{g:'I',matches:[
-    {vs:'Senegal',date:'16 Jun', ground:'Nueva York/NJ'},
-    {vs:'Irak',   date:'22 Jun', ground:'Filadelfia'},
-    {vs:'Noruega',date:'26 Jun', ground:'Boston'},
-  ]},
-  'Inglaterra':{g:'L',matches:[
-    {vs:'Panamá', date:'16 Jun', ground:'Nueva York/NJ'},
-    {vs:'Ghana',  date:'21 Jun', ground:'Dallas'},
-    {vs:'Croacia',date:'26 Jun', ground:'Filadelfia'},
-  ]},
-  'Senegal':{g:'I',matches:[
-    {vs:'Francia',date:'16 Jun', ground:'Nueva York/NJ'},
-    {vs:'Noruega',date:'21 Jun', ground:'Seattle'},
-    {vs:'Irak',   date:'26 Jun', ground:'Boston'},
-  ]},
-  'Noruega':{g:'I',matches:[
-    {vs:'Irak',   date:'15 Jun', ground:'Dallas'},
-    {vs:'Senegal',date:'21 Jun', ground:'Seattle'},
-    {vs:'Francia',date:'26 Jun', ground:'Boston'},
-  ]},
-  'Alemania':{g:'E',matches:[
-    {vs:'Curazao',        date:'14 Jun', ground:'Houston'},
-    {vs:'Costa de Marfil',date:'20 Jun', ground:'Toronto'},
-    {vs:'Ecuador',        date:'25 Jun', ground:'Nueva York/NJ'},
-  ]},
-  'EE.UU.':{g:'D',matches:[
-    {vs:'Paraguay',  date:'12 Jun', ground:'Los Ángeles'},
-    {vs:'Australia', date:'19 Jun', ground:'Seattle'},
-    {vs:'Turquía',   date:'25 Jun', ground:'Los Ángeles'},
-  ]},
-  'Bélgica':{g:'G',matches:[
-    {vs:'Egipto',       date:'15 Jun', ground:'Seattle'},
-    {vs:'Irán',         date:'21 Jun', ground:'Dallas'},
-    {vs:'Nueva Zelanda',date:'26 Jun', ground:'Seattle'},
-  ]},
-  'Paraguay':{g:'D',matches:[
-    {vs:'EE.UU.',    date:'12 Jun', ground:'Los Ángeles'},
-    {vs:'Turquía',   date:'19 Jun', ground:'San Francisco'},
-    {vs:'Australia', date:'25 Jun', ground:'San Francisco'},
-  ]},
-  'Turquía':{g:'D',matches:[
-    {vs:'Australia',date:'13 Jun', ground:'Vancouver'},
-    {vs:'Paraguay', date:'19 Jun', ground:'San Francisco'},
-    {vs:'EE.UU.',   date:'25 Jun', ground:'Los Ángeles'},
-  ]},
-  'Colombia':{g:'K',matches:[
-    {vs:'Uzbekistán',date:'15 Jun', ground:'Boston'},
-    {vs:'RD Congo',  date:'21 Jun', ground:'Dallas'},
-    {vs:'Portugal',  date:'27 Jun', ground:'Miami'},
-  ]},
-  'Croacia':{g:'L',matches:[
-    {vs:'Ghana',    date:'16 Jun', ground:'Filadelfia'},
-    {vs:'Panamá',   date:'22 Jun', ground:'Filadelfia'},
-    {vs:'Inglaterra',date:'26 Jun', ground:'Filadelfia'},
-  ]},
+const GROUP_MATCHES_DEF = {
+  'Portugal':   {g:'K', matches:[{vs:'RD Congo',   date:'17 Jun',ground:'Houston'},{vs:'Uzbekistán', date:'23 Jun',ground:'Houston'},{vs:'Colombia',   date:'27 Jun',ground:'Miami'}]},
+  'Ghana':      {g:'L', matches:[{vs:'Croacia',    date:'16 Jun',ground:'Filadelfia'},{vs:'Panamá',     date:'22 Jun',ground:'Filadelfia'},{vs:'Inglaterra', date:'26 Jun',ground:'Filadelfia'}]},
+  'EE.UU.':     {g:'D', matches:[{vs:'Paraguay',   date:'12 Jun',ground:'Los Ángeles'},{vs:'Australia',  date:'19 Jun',ground:'Seattle'},{vs:'Turquía',    date:'25 Jun',ground:'Los Ángeles'}]},
+  'Bosnia':     {g:'B', matches:[{vs:'Canadá',     date:'12 Jun',ground:'Toronto'},{vs:'Qatar',      date:'18 Jun',ground:'Vancouver'},{vs:'Suiza',      date:'24 Jun',ground:'Vancouver'}]},
+  'Egipto':     {g:'G', matches:[{vs:'Bélgica',    date:'15 Jun',ground:'Seattle'},{vs:'Irán',       date:'21 Jun',ground:'Dallas'},{vs:'Nueva Zelanda',date:'26 Jun',ground:'Seattle'}]},
+  'Corea del Sur':{g:'A',matches:[{vs:'Rep. Checa', date:'11 Jun',ground:'Guadalajara'},{vs:'México',     date:'18 Jun',ground:'Guadalajara'},{vs:'Sudáfrica',  date:'24 Jun',ground:'Monterrey'}]},
+  'Alemania':   {g:'E', matches:[{vs:'Curazao',    date:'14 Jun',ground:'Houston'},{vs:'Costa de Marfil',date:'20 Jun',ground:'Toronto'},{vs:'Ecuador',    date:'25 Jun',ground:'Nueva York/NJ'}]},
+  'Francia':    {g:'I', matches:[{vs:'Senegal',    date:'16 Jun',ground:'Nueva York/NJ'},{vs:'Irak',       date:'22 Jun',ground:'Filadelfia'},{vs:'Noruega',    date:'26 Jun',ground:'Boston'}]},
+  'Países Bajos':{g:'F',matches:[{vs:'Japón',      date:'14 Jun',ground:'Dallas'},{vs:'Suecia',     date:'20 Jun',ground:'Houston'},{vs:'Túnez',      date:'25 Jun',ground:'Kansas City'}]},
+  'Marruecos':  {g:'C', matches:[{vs:'Brasil',     date:'13 Jun',ground:'Nueva York/NJ'},{vs:'Escocia',    date:'19 Jun',ground:'Boston'},{vs:'Haití',      date:'24 Jun',ground:'Atlanta'}]},
+  'Argentina':  {g:'J', matches:[{vs:'Argelia',    date:'19 Jun',ground:'Kansas City'},{vs:'Austria',    date:'21 Jun',ground:'Houston'},{vs:'Jordania',   date:'26 Jun',ground:'Dallas'}]},
+  'Brasil':     {g:'C', matches:[{vs:'Marruecos',  date:'13 Jun',ground:'Nueva York/NJ'},{vs:'Haití',      date:'19 Jun',ground:'Filadelfia'},{vs:'Escocia',    date:'24 Jun',ground:'Miami'}]},
+  'Inglaterra': {g:'L', matches:[{vs:'Panamá',     date:'16 Jun',ground:'Nueva York/NJ'},{vs:'Ghana',      date:'21 Jun',ground:'Dallas'},{vs:'Croacia',    date:'26 Jun',ground:'Filadelfia'}]},
+  'Colombia':   {g:'K', matches:[{vs:'Uzbekistán', date:'15 Jun',ground:'Boston'},{vs:'RD Congo',   date:'21 Jun',ground:'Dallas'},{vs:'Portugal',   date:'27 Jun',ground:'Miami'}]},
+  'México':     {g:'A', matches:[{vs:'Sudáfrica',  date:'11 Jun',ground:'México D.F.'},{vs:'Corea del Sur',date:'18 Jun',ground:'Guadalajara'},{vs:'Rep. Checa',  date:'24 Jun',ground:'México D.F.'}]},
+  'Suiza':      {g:'B', matches:[{vs:'Qatar',      date:'13 Jun',ground:'San Francisco'},{vs:'Bosnia',     date:'18 Jun',ground:'Los Ángeles'},{vs:'Canadá',     date:'24 Jun',ground:'Vancouver'}]},
+  'Paraguay':   {g:'D', matches:[{vs:'EE.UU.',     date:'12 Jun',ground:'Los Ángeles'},{vs:'Turquía',    date:'19 Jun',ground:'San Francisco'},{vs:'Australia',  date:'25 Jun',ground:'San Francisco'}]},
+  'Austria':    {g:'J', matches:[{vs:'Jordania',   date:'19 Jun',ground:'Toronto'},{vs:'Argentina',  date:'21 Jun',ground:'Houston'},{vs:'Argelia',    date:'26 Jun',ground:'Kansas City'}]},
+  'Suecia':     {g:'F', matches:[{vs:'Países Bajos',date:'14 Jun',ground:'Dallas'},{vs:'Japón',      date:'20 Jun',ground:'Houston'},{vs:'Túnez',      date:'25 Jun',ground:'Kansas City'}]},
+  'Canadá':     {g:'B', matches:[{vs:'Bosnia',     date:'12 Jun',ground:'Toronto'},{vs:'Qatar',      date:'18 Jun',ground:'Vancouver'},{vs:'Suiza',      date:'24 Jun',ground:'Vancouver'}]},
 };
 
-/* ═══════════════════════════════════════════════════════
-   RUTA ELIMINATORIA DE CADA RIVAL
-   Cada paso tiene:
-     round       — nombre de la ronda
-     match       — cruce oficial del bracket
-     priorRival  — rival MÁS PROBABLE en ese cruce (para mostrar en popup)
-     priorFlag   — bandera del rival probable
-     date        — fecha + hora en España peninsular (CEST = UTC+2)
-     clash       — true si es el cruce con España
-   Solo se renderizan los pasos hasta clash (inclusive).
-═══════════════════════════════════════════════════════ */
-const KNOCKOUT_ROUTES = {
-  /* ── Grupo J: 16avos directos vs España ────────────── */
-  /* Argentina tiene DOS rutas posibles según el contexto:
-     - Si aparece en 16avos (escenario 2): cruce directo con España
-     - Si aparece en la Final (candidata a campeón del cuadro J): ruta completa
-     Usamos 'Argentina' para el caso de 16avos (el más común) y
-     'Argentina-final' para cuando se la pincha en la tarjeta de Final. */
-  'Argentina':[
-    {round:'Dieciseisavos', match:'1ºJ vs 2ºH',
-     priorRival:'España 2ª', priorFlag:'🇪🇸',
-     date:'3 Jul · Miami · 22:00h 🇪🇸', clash:true},
-  ],
-  'Argentina-final':[
-    {round:'Dieciseisavos', match:'1ºJ vs 2ºH',
-     priorRival:'España (si 2ª) o rival directo', priorFlag:'🇪🇸',
-     date:'3 Jul · Miami · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P86 vs P88',
-     priorRival:'EE.UU. (favorito 2ºD/2ºG)', priorFlag:'🇺🇸',
-     date:'7 Jul · Atlanta · 02:00h 🇪🇸'},
-    {round:'Cuartos', match:'P95 vs P96',
-     priorRival:'Francia (favorito P95/96)', priorFlag:'🇫🇷',
-     date:'11 Jul · Atlanta · 22:00h 🇪🇸'},
-    {round:'Semifinal', match:'P99 vs P100',
-     priorRival:'Brasil (favorito cuadro C/F/K)', priorFlag:'🇧🇷',
-     date:'14–15 Jul · Dallas · 02:00h 🇪🇸'},
-    {round:'Final', match:'vs España',
-     priorRival:'España', priorFlag:'🇪🇸',
-     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
-  ],
-  'Austria':[
-    {round:'Dieciseisavos', match:'2ºJ vs 1ºH',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'2 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
-  ],
-  'Argelia':[
-    {round:'Dieciseisavos', match:'2ºJ vs 1ºH',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'2 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
-  ],
-  'Jordania':[
-    {round:'Dieciseisavos', match:'2ºJ vs 1ºH',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'2 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
-  ],
+/* ═══════════════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════════════ */
+let matchData=[], slugMap={}, slugLog={}, slugPanelOpen=false, refreshing=false, refreshTimer=null, activeRow=null;
 
-  /* ── Octavos vs España (escenario 1ª) ─────────────── */
-  'México':[
-    {round:'Dieciseisavos', match:'1ºA vs 3º mejor',
-     priorRival:'Uruguay (3º probable)', priorFlag:'🇺🇾',
-     date:'30 Jun · México D.F. · 03:00h 🇪🇸'},
-    {round:'Octavos', match:'P73 vs P84',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'6 Jul · Dallas · 01:00h 🇪🇸', clash:true},
-  ],
-  'Suiza':[
-    {round:'Dieciseisavos', match:'2ºB vs 2ºA',
-     priorRival:'México (2ºA)', priorFlag:'🇲🇽',
-     date:'28 Jun · SoFi · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P73 vs P84',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'6 Jul · Dallas · 01:00h 🇪🇸', clash:true},
-  ],
-  'Canadá':[
-    {round:'Dieciseisavos', match:'1ºB vs 3º mejor',
-     priorRival:'Uruguay (3º probable)', priorFlag:'🇺🇾',
-     date:'29 Jun · Vancouver · 01:00h 🇪🇸'},
-    {round:'Octavos', match:'P73 vs P84',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'6 Jul · Dallas · 01:00h 🇪🇸', clash:true},
-  ],
-  'Corea del Sur':[
-    {round:'Dieciseisavos', match:'2ºA vs 2ºB',
-     priorRival:'Suiza (2ºB)', priorFlag:'🇨🇭',
-     date:'28 Jun · SoFi · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P73 vs P84',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'6 Jul · Dallas · 01:00h 🇪🇸', clash:true},
-  ],
-
-  /* ── Cuartos vs España (escenario 1ª) ─────────────── */
-  'Brasil':[
-    {round:'Dieciseisavos', match:'1ºC vs 2ºF',
-     priorRival:'Japón (2ºF probable)', priorFlag:'🇯🇵',
-     date:'29 Jun · Boston · 01:00h 🇪🇸'},
-    {round:'Octavos', match:'P75 vs P76',
-     priorRival:'Países Bajos (1ºF)', priorFlag:'🇳🇱',
-     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
-    {round:'Cuartos', match:'P93 vs ganador P84',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
-  ],
-  'Países Bajos':[
-    {round:'Dieciseisavos', match:'1ºF vs 2ºC',
-     priorRival:'Marruecos (2ºC probable)', priorFlag:'🇲🇦',
-     date:'29 Jun · Monterrey · 21:00h 🇪🇸'},
-    {round:'Octavos', match:'P75 vs P76',
-     priorRival:'Brasil (1ºC)', priorFlag:'🇧🇷',
-     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
-    {round:'Cuartos', match:'P93 vs ganador P84',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
-  ],
-  'Portugal':[
-    {round:'Dieciseisavos', match:'1ºK vs 3º mejor',
-     priorRival:'Escocia (3º probable)', priorFlag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-     date:'3 Jul · Kansas City · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P87 vs P85',
-     priorRival:'Colombia (2ºK probable)', priorFlag:'🇨🇴',
-     date:'7 Jul · Vancouver · 22:00h 🇪🇸'},
-    {round:'Cuartos', match:'P93 vs ganador P84',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
-  ],
-  'Marruecos':[
-    {round:'Dieciseisavos', match:'2ºC vs 1ºF',
-     priorRival:'Países Bajos (1ºF)', priorFlag:'🇳🇱',
-     date:'29 Jun · Monterrey · 21:00h 🇪🇸'},
-    {round:'Octavos', match:'P75 vs P76',
-     priorRival:'Brasil (1ºC)', priorFlag:'🇧🇷',
-     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
-    {round:'Cuartos', match:'P93 vs ganador P84',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸', clash:true},
-  ],
-
-  /* ── Semis vs España (escenario 1ª) ───────────────── */
-  'Francia':[
-    {round:'Dieciseisavos', match:'1ºI vs 3ºC/D/F/G/H',
-     priorRival:'Irak (3º probable)', priorFlag:'🇮🇶',
-     date:'30 Jun · Dallas · 01:00h 🇪🇸'},
-    {round:'Octavos', match:'P77 vs P74',
-     priorRival:'Alemania (1ºE)', priorFlag:'🇩🇪',
-     date:'4 Jul · Filadelfia · 22:00h 🇪🇸'},
-    {round:'Cuartos', match:'P95 vs P96',
-     priorRival:'EE.UU. (favorito P95/96)', priorFlag:'🇺🇸',
-     date:'11 Jul · Atlanta · 22:00h 🇪🇸'},
-    {round:'Semifinal', match:'vs España 1ª',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'15 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
-  ],
-  'Inglaterra':[
-    {round:'Dieciseisavos', match:'1ºL vs 3ºE/H/I/J/K',
-     priorRival:'Ecuador (3º probable)', priorFlag:'🇪🇨',
-     date:'1 Jul · Seattle · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P80 vs P77',
-     priorRival:'Francia (1ºI)', priorFlag:'🇫🇷',
-     date:'5 Jul · Seattle · 22:00h 🇪🇸'},
-    {round:'Cuartos', match:'P95 vs P96',
-     priorRival:'EE.UU. (favorito P95/96)', priorFlag:'🇺🇸',
-     date:'11 Jul · Atlanta · 22:00h 🇪🇸'},
-    {round:'Semifinal', match:'vs España 1ª',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'15 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
-  ],
-  'Senegal':[
-    {round:'Dieciseisavos', match:'2ºI vs 2ºE',
-     priorRival:'Ecuador (2ºE probable)', priorFlag:'🇪🇨',
-     date:'28 Jun · Nueva York/NJ · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P78 vs P74',
-     priorRival:'Alemania (1ºE)', priorFlag:'🇩🇪',
-     date:'5 Jul · Filadelfia · 02:00h 🇪🇸'},
-    {round:'Cuartos', match:'P95 vs P96',
-     priorRival:'EE.UU. (favorito P95/96)', priorFlag:'🇺🇸',
-     date:'11 Jul · Atlanta · 22:00h 🇪🇸'},
-    {round:'Semifinal', match:'vs España 1ª',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'15 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
-  ],
-  'Noruega':[
-    {round:'Dieciseisavos', match:'2ºI / 3º mejor',
-     priorRival:'Ecuador (3º probable)', priorFlag:'🇪🇨',
-     date:'28–30 Jun'},
-    {round:'Octavos', match:'P77/P78',
-     priorRival:'Alemania (1ºE favorito)', priorFlag:'🇩🇪',
-     date:'4–5 Jul'},
-    {round:'Cuartos', match:'P95 vs P96',
-     priorRival:'EE.UU. (favorito P95/96)', priorFlag:'🇺🇸',
-     date:'11 Jul · Atlanta · 22:00h 🇪🇸'},
-    {round:'Semifinal', match:'vs España 1ª',
-     priorRival:'España 1ª', priorFlag:'🇪🇸',
-     date:'15 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
-  ],
-
-  /* ── Final vs España ───────────────────────────────── */
-  'Alemania':[
-    {round:'Dieciseisavos', match:'1ºE vs 3ºA/B/C/D/F',
-     priorRival:'Uruguay (3º probable)', priorFlag:'🇺🇾',
-     date:'29 Jun · Houston · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P74 vs P77',
-     priorRival:'Francia (1ºI)', priorFlag:'🇫🇷',
-     date:'4 Jul · Filadelfia · 22:00h 🇪🇸'},
-    {round:'Cuartos', match:'P89 vs P90',
-     priorRival:'EE.UU. (favorito P89/90)', priorFlag:'🇺🇸',
-     date:'9 Jul · Boston · 22:00h 🇪🇸'},
-    {round:'Semifinal', match:'P97 vs P98',
-     priorRival:'Brasil (favorito cuadro C/F/K)', priorFlag:'🇧🇷',
-     date:'14 Jul · Dallas · 02:00h 🇪🇸'},
-    {round:'Final', match:'vs España',
-     priorRival:'España', priorFlag:'🇪🇸',
-     date:'19 Jul · MetLife · 20:00h 🇪🇸', clash:true},
-  ],
-
-  /* ── Octavos vs España (escenario 2ª) ─────────────── */
-  'EE.UU.':[
-    {round:'Dieciseisavos', match:'1ºD vs 3ºB/E/F/I/J',
-     priorRival:'Argelia (3º probable)', priorFlag:'🇩🇿',
-     date:'1 Jul · San Francisco · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P88 vs P86',
-     priorRival:'España 2ª', priorFlag:'🇪🇸',
-     date:'7 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
-  ],
-  'Bélgica':[
-    {round:'Dieciseisavos', match:'1ºG vs 3ºA/E/H/I/J',
-     priorRival:'Uruguay (3º probable)', priorFlag:'🇺🇾',
-     date:'1 Jul · Seattle · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P88 vs P86',
-     priorRival:'España 2ª', priorFlag:'🇪🇸',
-     date:'7 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
-  ],
-  'Paraguay':[
-    {round:'Dieciseisavos', match:'2ºD vs 2ºG',
-     priorRival:'Bélgica (2ºG)', priorFlag:'🇧🇪',
-     date:'3 Jul · Dallas · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P88 vs P86',
-     priorRival:'España 2ª', priorFlag:'🇪🇸',
-     date:'7 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
-  ],
-  'Turquía':[
-    {round:'Dieciseisavos', match:'2ºD vs 2ºG',
-     priorRival:'Bélgica (2ºG)', priorFlag:'🇧🇪',
-     date:'3 Jul · Dallas · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P88 vs P86',
-     priorRival:'España 2ª', priorFlag:'🇪🇸',
-     date:'7 Jul · Atlanta · 02:00h 🇪🇸', clash:true},
-  ],
-
-  /* ── Cuartos vs España (escenario 2ª) ─────────────── */
-  'Croacia':[
-    {round:'Dieciseisavos', match:'2ºL vs 2ºK',
-     priorRival:'Colombia (2ºK)', priorFlag:'🇨🇴',
-     date:'2 Jul · Vancouver · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P83 vs P85/P87',
-     priorRival:'Portugal (1ºK)', priorFlag:'🇵🇹',
-     date:'6 Jul · Dallas · 22:00h 🇪🇸'},
-    {round:'Cuartos', match:'P95 vs P86',
-     priorRival:'España 2ª', priorFlag:'🇪🇸',
-     date:'11 Jul · Atlanta · 22:00h 🇪🇸', clash:true},
-  ],
-  'Colombia':[
-    {round:'Dieciseisavos', match:'2ºK vs 2ºL',
-     priorRival:'Croacia (2ºL)', priorFlag:'🇭🇷',
-     date:'2 Jul · Vancouver · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P83 vs P86',
-     priorRival:'EE.UU. (favorito P86)', priorFlag:'🇺🇸',
-     date:'6 Jul · Dallas · 22:00h 🇪🇸'},
-    {round:'Cuartos', match:'P95 vs P86',
-     priorRival:'España 2ª', priorFlag:'🇪🇸',
-     date:'11 Jul · Atlanta · 22:00h 🇪🇸', clash:true},
-  ],
-
-  /* ── Semis vs España (escenario 2ª) ───────────────── */
-  'Brasil':[
-    {round:'Dieciseisavos', match:'1ºC vs 2ºF',
-     priorRival:'Japón (2ºF probable)', priorFlag:'🇯🇵',
-     date:'29 Jun · Boston · 01:00h 🇪🇸'},
-    {round:'Octavos', match:'P75 vs P76',
-     priorRival:'Países Bajos (1ºF)', priorFlag:'🇳🇱',
-     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
-    {round:'Cuartos', match:'P93 vs P94',
-     priorRival:'Portugal (favorito P93/94)', priorFlag:'🇵🇹',
-     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸'},
-    {round:'Semifinal', match:'vs España 2ª',
-     priorRival:'España 2ª', priorFlag:'🇪🇸',
-     date:'14 Jul · Dallas · 02:00h 🇪🇸', clash:true},
-  ],
-  'Portugal':[
-    {round:'Dieciseisavos', match:'1ºK vs 3º mejor',
-     priorRival:'Escocia (3º probable)', priorFlag:'🏴󠁧󠁢󠁳󠁣󠁴󠁿',
-     date:'3 Jul · Kansas City · 22:00h 🇪🇸'},
-    {round:'Octavos', match:'P87 vs P85',
-     priorRival:'Colombia (2ºK probable)', priorFlag:'🇨🇴',
-     date:'7 Jul · Vancouver · 22:00h 🇪🇸'},
-    {round:'Cuartos', match:'P93 vs P94',
-     priorRival:'Brasil (favorito P93/94)', priorFlag:'🇧🇷',
-     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸'},
-    {round:'Semifinal', match:'vs España 2ª',
-     priorRival:'España 2ª', priorFlag:'🇪🇸',
-     date:'14 Jul · Dallas · 02:00h 🇪🇸', clash:true},
-  ],
-  'Marruecos':[
-    {round:'Dieciseisavos', match:'2ºC vs 1ºF',
-     priorRival:'Países Bajos (1ºF)', priorFlag:'🇳🇱',
-     date:'29 Jun · Monterrey · 21:00h 🇪🇸'},
-    {round:'Octavos', match:'P75 vs P76',
-     priorRival:'Brasil (1ºC)', priorFlag:'🇧🇷',
-     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
-    {round:'Cuartos', match:'P93 vs P94',
-     priorRival:'Brasil (favorito P93/94)', priorFlag:'🇧🇷',
-     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸'},
-    {round:'Semifinal', match:'vs España 2ª',
-     priorRival:'España 2ª', priorFlag:'🇪🇸',
-     date:'14 Jul · Dallas · 02:00h 🇪🇸', clash:true},
-  ],
-  'Países Bajos':[
-    {round:'Dieciseisavos', match:'1ºF vs 2ºC',
-     priorRival:'Marruecos (2ºC probable)', priorFlag:'🇲🇦',
-     date:'29 Jun · Monterrey · 21:00h 🇪🇸'},
-    {round:'Octavos', match:'P75 vs P76',
-     priorRival:'Brasil (1ºC)', priorFlag:'🇧🇷',
-     date:'5 Jul · Nueva York/NJ · 01:00h 🇪🇸'},
-    {round:'Cuartos', match:'P93 vs P94',
-     priorRival:'Brasil (favorito P93/94)', priorFlag:'🇧🇷',
-     date:'10 Jul · Los Ángeles · 22:00h 🇪🇸'},
-    {round:'Semifinal', match:'vs España 2ª',
-     priorRival:'España 2ª', priorFlag:'🇪🇸',
-     date:'14 Jul · Dallas · 02:00h 🇪🇸', clash:true},
-  ],
-};
-
-/* Fases del bracket de España */
-const PHASES = {
-  1:[
-    /* 16avos: fuente = mercado de clasificación del Grupo J (quién queda 2º) */
-    {round:'Dieciseisavos · 1ªH vs 2ªJ',date:'2 Jul · Los Ángeles · 22:00h 🇪🇸',
-     matchNote:'España 1ª enfrenta al 2º clasificado del Grupo J',
-     searchQuery:'world cup group j second place',
-     slugKey:'group-j-2nd', probType:'group',
-     candidates:[
-       {name:'Austria',  flag:'🇦🇹',matchOutcome:'Austria',  fallback:57},
-       {name:'Argelia',  flag:'🇩🇿',matchOutcome:'Algeria',  fallback:29},
-       {name:'Argentina',flag:'🇦🇷',matchOutcome:'Argentina',fallback:8,note:'Solo si cae 2º'},
-       {name:'Jordania', flag:'🇯🇴',matchOutcome:'Jordan',   fallback:6},
-     ]},
-    /* Octavos: fuente = world-cup-winner, subset del cuadro A/B */
-    {round:'Octavos · P84 vs P73',date:'6 Jul · Dallas · 01:00h 🇪🇸',
-     matchNote:'Cruce 2ºA vs 2ºB: probable México o Suiza',
-     searchQuery:'world cup winner',
-     slugKey:'tournament-winner', probType:'winner-subset',
-     subset:['Mexico','Switzerland','Canada','South Korea'],
-     candidates:[
-       {name:'México',       flag:'🇲🇽',matchOutcome:'Mexico',      fallback:45},
-       {name:'Suiza',        flag:'🇨🇭',matchOutcome:'Switzerland', fallback:30},
-       {name:'Canadá',       flag:'🇨🇦',matchOutcome:'Canada',      fallback:15},
-       {name:'Corea del Sur',flag:'🇰🇷',matchOutcome:'South Korea', fallback:10},
-     ]},
-    /* Cuartos: fuente = world-cup-winner, subset cuadro C/F/K */
-    {round:'Cuartos · P93',date:'10 Jul · Los Ángeles · 22:00h 🇪🇸',
-     matchNote:'Mejor del cuadro C/F/K',
-     searchQuery:'world cup winner',
-     slugKey:'tournament-winner', probType:'winner-subset',
-     subset:['Brazil','Netherlands','Portugal','Morocco'],
-     candidates:[
-       {name:'Brasil',      flag:'🇧🇷',matchOutcome:'Brazil',      fallback:38},
-       {name:'Países Bajos',flag:'🇳🇱',matchOutcome:'Netherlands', fallback:28},
-       {name:'Portugal',    flag:'🇵🇹',matchOutcome:'Portugal',    fallback:22},
-       {name:'Marruecos',   flag:'🇲🇦',matchOutcome:'Morocco',     fallback:12},
-     ]},
-    /* Semis: fuente = world-cup-winner, subset cuadro I/L */
-    {round:'Semifinal · P98',date:'15 Jul · Atlanta · 02:00h 🇪🇸',
-     matchNote:'Cuadro I/L: Francia o Inglaterra probables',
-     searchQuery:'world cup winner',
-     slugKey:'tournament-winner', probType:'winner-subset',
-     subset:['France','England','Senegal','Norway'],
-     candidates:[
-       {name:'Francia',    flag:'🇫🇷',matchOutcome:'France',  fallback:50},
-       {name:'Inglaterra', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',matchOutcome:'England', fallback:30},
-       {name:'Senegal',    flag:'🇸🇳',matchOutcome:'Senegal', fallback:12},
-       {name:'Noruega',    flag:'🇳🇴',matchOutcome:'Norway',  fallback:8},
-     ]},
-    /* Final: fuente = world-cup-winner, subset otro cuadro */
-    {round:'🏆 Final · MetLife Stadium, NJ',date:'19 Jul · 20:00h 🇪🇸',isFinal:true,
-     searchQuery:'world cup winner',
-     slugKey:'tournament-winner', probType:'winner-subset',
-     subset:['Germany','Argentina','England','France'],
-     candidates:[
-       {name:'Alemania',  flag:'🇩🇪',matchOutcome:'Germany',  fallback:36},
-       {name:'Argentina', flag:'🇦🇷',matchOutcome:'Argentina',fallback:28},
-       {name:'Inglaterra',flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',matchOutcome:'England',  fallback:22},
-       {name:'Francia',   flag:'🇫🇷',matchOutcome:'France',   fallback:14},
-     ]},
-  ],
-  2:[
-    /* 16avos: fuente = mercado de clasificación del Grupo J (quién queda 1º) */
-    {round:'Dieciseisavos · 2ªH vs 1ªJ',date:'3 Jul · Miami · 22:00h 🇪🇸',
-     matchNote:'España 2ª enfrenta al 1º del Grupo J: Argentina favorita',
-     searchQuery:'world cup group j winner',
-     slugKey:'group-j-winner', probType:'group',
-     candidates:[
-       {name:'Argentina',flag:'🇦🇷',matchOutcome:'Argentina',fallback:72},
-       {name:'Austria',  flag:'🇦🇹',matchOutcome:'Austria',  fallback:19},
-       {name:'Argelia',  flag:'🇩🇿',matchOutcome:'Algeria',  fallback:8},
-       {name:'Jordania', flag:'🇯🇴',matchOutcome:'Jordan',   fallback:1},
-     ]},
-    /* Octavos: fuente = world-cup-winner, subset cuadro D/G */
-    {round:'Octavos · P86 vs P88',date:'7 Jul · Atlanta · 02:00h 🇪🇸',
-     matchNote:'Cruce 2ºD vs 2ºG: EE.UU. o Bélgica favoritos',
-     searchQuery:'world cup winner',
-     slugKey:'tournament-winner', probType:'winner-subset',
-     subset:['United States','Belgium','Paraguay','Turkey'],
-     candidates:[
-       {name:'EE.UU.',  flag:'🇺🇸',matchOutcome:'United States',fallback:42},
-       {name:'Bélgica', flag:'🇧🇪',matchOutcome:'Belgium',      fallback:33},
-       {name:'Paraguay',flag:'🇵🇾',matchOutcome:'Paraguay',     fallback:14},
-       {name:'Turquía', flag:'🇹🇷',matchOutcome:'Turkey',       fallback:11},
-     ]},
-    /* Cuartos: fuente = world-cup-winner, subset cuadro I/L */
-    {round:'Cuartos · P95',date:'11 Jul · Atlanta · 22:00h 🇪🇸',
-     matchNote:'Cuadro I/L: Francia o Inglaterra',
-     searchQuery:'world cup winner',
-     slugKey:'tournament-winner', probType:'winner-subset',
-     subset:['France','England','Senegal','Croatia'],
-     candidates:[
-       {name:'Francia',    flag:'🇫🇷',matchOutcome:'France',  fallback:48},
-       {name:'Inglaterra', flag:'🏴󠁧󠁢󠁥󠁮󠁧󠁿',matchOutcome:'England', fallback:33},
-       {name:'Senegal',    flag:'🇸🇳',matchOutcome:'Senegal', fallback:12},
-       {name:'Croacia',    flag:'🇭🇷',matchOutcome:'Croatia', fallback:7},
-     ]},
-    /* Semis: fuente = world-cup-winner, subset cuadro C/K */
-    {round:'Semifinal · P97',date:'14 Jul · Dallas · 02:00h 🇪🇸',
-     matchNote:'Cuadro C/K: Brasil o Portugal probables',
-     searchQuery:'world cup winner',
-     slugKey:'tournament-winner', probType:'winner-subset',
-     subset:['Brazil','Portugal','Morocco','Colombia'],
-     candidates:[
-       {name:'Brasil',   flag:'🇧🇷',matchOutcome:'Brazil',   fallback:45},
-       {name:'Portugal', flag:'🇵🇹',matchOutcome:'Portugal', fallback:32},
-       {name:'Marruecos',flag:'🇲🇦',matchOutcome:'Morocco',  fallback:14},
-       {name:'Colombia', flag:'🇨🇴',matchOutcome:'Colombia', fallback:9},
-     ]},
-    /* Final: fuente = world-cup-winner, subset otro cuadro */
-    {round:'🏆 Final · MetLife Stadium, NJ',date:'19 Jul · 20:00h 🇪🇸',isFinal:true,
-     matchNote:'Campeón del otro cuadro',
-     searchQuery:'world cup winner',
-     slugKey:'tournament-winner', probType:'winner-subset',
-     subset:['Germany','Argentina','Netherlands','Brazil'],
-     candidates:[
-       {name:'Alemania',     flag:'🇩🇪',matchOutcome:'Germany',    fallback:34},
-       {name:'Argentina',    flag:'🇦🇷',matchOutcome:'Argentina',  fallback:30},
-       {name:'Países Bajos', flag:'🇳🇱',matchOutcome:'Netherlands',fallback:22},
-       {name:'Brasil',       flag:'🇧🇷',matchOutcome:'Brazil',     fallback:14},
-     ]},
-  ]
-};
-
-const FOOTERS={
-  1:'📌 Si España queda 1ª del Grupo H, en 16avos se enfrenta al 2º del Grupo J — casi seguro Austria o Argelia, NO Argentina. El cuadro se endurece a partir de cuartos.',
-  2:'📌 Si España queda 2ª, el 16avos es directamente contra Argentina (1ª del Grupo J con ~72%). Si supera ese escollo, los octavos y cuartos son algo más llevaderos.'
-};
-const STAGS={
-  1:{cls:'s1',txt:'🔴 Si España queda 1ª → 16avos vs 2º del Grupo J (Austria/Argelia, no Argentina)'},
-  2:{cls:'s2',txt:'🔵 Si España queda 2ª → 16avos directamente vs Argentina (1ª del Grupo J)'}
-};
-
-/* ═══ STATE ═══ */
-let scenario=1, slugMap={}, slugLog={}, matchData=[], slugPanelOpen=false;
-let refreshing=false, refreshTimer=null, activeRow=null;
-
-/* ═══════════════════════════════════════════════════════
-   FUENTE 1: openfootball worldcup.json (resultados reales)
-   https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json
-═══════════════════════════════════════════════════════ */
-async function fetchResults(){
-  try{
-    const url='https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
-    const r=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(8000)});
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    const d=await r.json();
-    matchData=d.matches||[];
-    updateSrcLog('openfootball','ok',`${matchData.filter(m=>m.score).length} partidos con resultado`);
-  }catch(e){
-    updateSrcLog('openfootball','miss',e.message);
-  }
-}
-
-/* Calcula standings de un grupo a partir de matchData */
-function calcStandings(groupName){
-  const gMatches=matchData.filter(m=>m.group===groupName&&m.score);
-  const pts={},gd={},gf={};
-  const teamsRaw=GROUPS[groupName]||[];
-  // nombre canónico → raw (para buscar en matchData)
-  const raw2can={};
-  Object.entries(NAME_MAP).forEach(([r,c])=>{raw2can[r]=c;});
-  const can2raw={}; // canonical → raw list
-  teamsRaw.forEach(c=>{
-    pts[c]=0;gd[c]=0;gf[c]=0;
-    can2raw[c]=Object.entries(NAME_MAP).filter(([r,cv])=>cv===c).map(([r])=>r);
-  });
-  const resolve=raw=>NAME_MAP[raw]||raw;
-  gMatches.forEach(m=>{
-    const t1=resolve(m.team1),t2=resolve(m.team2);
-    const s1=m.score.ft[0],s2=m.score.ft[1];
-    if(pts[t1]===undefined) pts[t1]=0,gd[t1]=0,gf[t1]=0;
-    if(pts[t2]===undefined) pts[t2]=0,gd[t2]=0,gf[t2]=0;
-    gf[t1]+=s1;gf[t2]+=s2;
-    gd[t1]+=(s1-s2);gd[t2]+=(s2-s1);
-    if(s1>s2){pts[t1]+=3;}
-    else if(s1===s2){pts[t1]+=1;pts[t2]+=1;}
-    else{pts[t2]+=3;}
-  });
-  return teamsRaw.map(t=>({name:t,pts:pts[t]||0,gd:gd[t]||0,gf:gf[t]||0}))
-    .sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf);
-}
-
-/* Obtiene resultados de un equipo en su grupo */
-function getTeamGroupResults(canonicalName){
-  const info=GROUP_MATCHES[canonicalName];
-  if(!info) return [];
-  const rawName=Object.entries(NAME_MAP).filter(([r,c])=>c===canonicalName).map(([r])=>r);
-  const resolve=r=>NAME_MAP[r]||r;
-  return info.matches.map(def=>{
-    // buscar en matchData
-    const found=matchData.find(m=>{
-      const r1=resolve(m.team1),r2=resolve(m.team2);
-      return (r1===canonicalName&&r2===def.vs)||(r2===canonicalName&&r1===def.vs);
-    });
-    if(!found||!found.score) return {...def,score:null};
-    const isHome=resolve(found.team1)===canonicalName;
-    const s1=found.score.ft[isHome?0:1];
-    const s2=found.score.ft[isHome?1:0];
-    return{...def,score:{for:s1,against:s2}};
-  });
-}
-
-/* ═══════════════════════════════════════════════════════
-   FUENTE 2: Polymarket — slugs hardcodeados directos
-   (El auto-discovery fallaba porque los mercados de grupo
-   son eventos multi-outcome en /events, no en /markets)
-═══════════════════════════════════════════════════════ */
-
-/* Slugs reales verificados de Polymarket */
+/* ═══════════════════════════════════════════════════════════════
+   POLYMARKET — slugs hardcodeados directos
+═══════════════════════════════════════════════════════════════ */
 const POLY_SLUGS = {
-  'group-j-winner':    'world-cup-group-j-winner',
-  'group-j-2nd':       'world-cup-group-j-second-place-20260605152843566',
   'tournament-winner': 'world-cup-winner',
+  // Slug del partido Portugal vs Ghana — si no existe en Polymarket, fallback a fixture FIFA
+  'match-portugal-ghana': 'portugal-vs-ghana-2026-world-cup',
 };
 
 async function fetchSlugDirect(slugKey){
   const eventSlug = POLY_SLUGS[slugKey];
   if(!eventSlug) return;
-  slugLog[slugKey]={status:'pending',slug:eventSlug}; renderSlugPanel();
+  slugLog[slugKey]={status:'pending', slug:eventSlug}; renderSlugPanel();
   try{
     const url=`https://gamma-api.polymarket.com/events?slug=${eventSlug}`;
     const r=await fetch(url,{signal:AbortSignal.timeout(10000)});
@@ -989,152 +758,211 @@ async function fetchSlugDirect(slugKey){
     (arr[0].markets||[]).forEach(m=>{
       try{
         const outs=JSON.parse(m.outcomes||'[]');
-        const prs =JSON.parse(m.outcomePrices||'[]');
+        const prs=JSON.parse(m.outcomePrices||'[]');
         outs.forEach((o,i)=>{
           const p=parseFloat(prs[i]);
-          if(!isNaN(p)) outMap.set(o,Math.round(p*100));
+          if(!isNaN(p)) outMap.set(o, Math.round(p*100));
         });
       }catch(_){}
     });
     if(!outMap.size) throw new Error('sin outcomes');
-    slugMap[slugKey]={slug:eventSlug,markets:outMap};
-    slugLog[slugKey]={status:'ok',slug:eventSlug,question:`${outMap.size} outcomes cargados`};
+    slugMap[slugKey]={slug:eventSlug, markets:outMap};
+    slugLog[slugKey]={status:'ok', slug:eventSlug, question:`${outMap.size} outcomes`};
   }catch(e){
-    slugLog[slugKey]={status:'miss',slug:e.message};
+    slugLog[slugKey]={status:'miss', slug:e.message};
   }
   renderSlugPanel();
 }
 
-/* ═══════════════════════════════════════════════════════
-   PROBABILIDAD DESDE STANDINGS REALES (openfootball)
-
-   Para los 16avos de final, mientras la fase de grupos
-   está en curso, calculamos la probabilidad de que cada
-   equipo quede 1º o 2º usando los resultados reales.
-
-   Si la fase ya terminó (3 partidos jugados por equipo),
-   el resultado es determinista (0% o 100%).
-   Si está en curso, usamos simulación de partidos restantes.
-═══════════════════════════════════════════════════════ */
-function calcGroupProb(groupName, targetOutcome){
-  /* targetOutcome: 'winner' o 'second' */
-  const resolve = r => NAME_MAP[r] || r;
-  const teams   = GROUPS[groupName] || [];
-  const played  = matchData.filter(m => m.group === groupName && m.score);
-  const total   = teams.length * (teams.length - 1) / 2; // 6 partidos en grupo de 4
-
-  /* Calcular puntos/GD/GF actuales */
-  const stats = {};
-  teams.forEach(t => { stats[t] = {pts:0, gd:0, gf:0, played:0}; });
-  played.forEach(m => {
-    const t1=resolve(m.team1), t2=resolve(m.team2);
-    const s1=m.score.ft[0],    s2=m.score.ft[1];
-    if(!stats[t1]) stats[t1]={pts:0,gd:0,gf:0,played:0};
-    if(!stats[t2]) stats[t2]={pts:0,gd:0,gf:0,played:0};
-    stats[t1].played++; stats[t2].played++;
-    stats[t1].gf+=s1;   stats[t2].gf+=s2;
-    stats[t1].gd+=(s1-s2); stats[t2].gd+=(s2-s1);
-    if(s1>s2){ stats[t1].pts+=3; }
-    else if(s1===s2){ stats[t1].pts+=1; stats[t2].pts+=1; }
-    else { stats[t2].pts+=3; }
-  });
-
-  /* Si todos los partidos jugados: resultado determinista */
-  if(played.length === total){
-    const sorted = teams.slice().sort((a,b) =>
-      (stats[b].pts - stats[a].pts) ||
-      (stats[b].gd  - stats[a].gd)  ||
-      (stats[b].gf  - stats[a].gf)
-    );
-    const pos = sorted.indexOf; // no usado
-    const resultMap = {};
-    sorted.forEach((t,i) => {
-      resultMap[t] = {winner: i===0, second: i===1};
+/* También buscamos el partido específico Portugal-Ghana por keyword */
+async function fetchMatchProb(phase){
+  if(phase.probType !== 'match') return;
+  const slugKey = 'match-p83-portugal-ghana';
+  slugLog[slugKey]={status:'pending',slug:'buscando Portugal vs Ghana...'}; renderSlugPanel();
+  try{
+    // Buscar por keyword en markets
+    const url=`https://gamma-api.polymarket.com/markets?keyword=portugal+ghana+world+cup&limit=10&active=true`;
+    const r=await fetch(url,{signal:AbortSignal.timeout(10000)});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const ms=await r.json();
+    // Filtrar: partido binario Portugal vs Ghana
+    const match=ms.find(m=>{
+      const q=(m.question||'').toLowerCase();
+      return q.includes('portugal') && q.includes('ghana') &&
+             (q.includes('world cup') || q.includes('2026')) && !m.closed;
     });
-    return teams.reduce((acc, t) => {
-      acc[t] = (targetOutcome==='winner' ? resultMap[t].winner : resultMap[t].second) ? 100 : 0;
-      return acc;
-    }, {});
+    if(!match) throw new Error('no encontrado');
+    const outs=JSON.parse(match.outcomes||'[]');
+    const prs=JSON.parse(match.outcomePrices||'[]');
+    const outMap=new Map();
+    outs.forEach((o,i)=>{const p=parseFloat(prs[i]);if(!isNaN(p))outMap.set(o,Math.round(p*100));});
+    slugMap[slugKey]={slug:match.slug,markets:outMap};
+    slugLog[slugKey]={status:'ok',slug:match.slug,question:match.question};
+    // Guardar en phase para que getProb lo use
+    phase.matchSlugKey=slugKey;
+  }catch(e){
+    slugLog[slugKey]={status:'miss',slug:e.message};
+    // fallback: usar ranking FIFA (Portugal ~6, Ghana ~60)
+    slugMap[slugKey]={slug:'fifa-ranking',markets:new Map([['Portugal',78],['Ghana',22]])};
+    slugLog[slugKey]={status:'ok',slug:'Ranking FIFA (fallback)',question:'Portugal ~6 · Ghana ~60'};
+    phase.matchSlugKey=slugKey;
   }
+  renderSlugPanel();
+}
 
-  /* Partidos por jugar */
-  const allPairs = [];
-  for(let i=0;i<teams.length;i++)
-    for(let j=i+1;j<teams.length;j++)
-      allPairs.push([teams[i],teams[j]]);
-  const remaining = allPairs.filter(([a,b]) =>
-    !played.some(m => {
-      const r1=resolve(m.team1),r2=resolve(m.team2);
-      return (r1===a&&r2===b)||(r1===b&&r2===a);
-    })
-  );
-
-  /* Monte Carlo simplificado: simulamos los partidos restantes.
-     Para cada partido asumimos P(gana A) = 40%, P(empate) = 25%, P(gana B) = 35%
-     (ligera ventaja para el primero de cada par por orden de lista de GROUPS,
-     en la práctica los equipos más fuertes están primeros en GROUPS).
-     Esto es una aproximación — lo ideal sería usar Polymarket por partido. */
-  const SIMS = 2000;
-  const wins = {};
-  teams.forEach(t => { wins[t] = 0; });
-
-  for(let s=0;s<SIMS;s++){
-    const simStats = {};
-    teams.forEach(t => { simStats[t] = {...stats[t]}; });
-    remaining.forEach(([a,b]) => {
-      const r = Math.random();
-      if(r < 0.38)      { simStats[a].pts+=3; simStats[a].gd++; simStats[b].gd--; }
-      else if(r < 0.63) { simStats[a].pts+=1; simStats[b].pts+=1; }
-      else              { simStats[b].pts+=3; simStats[b].gd++; simStats[a].gd--; }
-    });
-    const sorted = teams.slice().sort((a,b) =>
-      (simStats[b].pts - simStats[a].pts) ||
-      (simStats[b].gd  - simStats[a].gd)  ||
-      Math.random() - 0.5
-    );
-    const winner = sorted[0], second = sorted[1];
-    if(targetOutcome==='winner') wins[winner]++;
-    else                         wins[second]++;
+/* ═══════════════════════════════════════════════════════════════
+   OPENFOOTBALL — resultados reales
+═══════════════════════════════════════════════════════════════ */
+async function fetchResults(){
+  try{
+    const url='https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
+    const r=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(8000)});
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const d=await r.json();
+    matchData=d.matches||[];
+    const played=matchData.filter(m=>m.score).length;
+    updateSrcLog('openfootball','ok',`${played} partidos con resultado`);
+    // Actualizar también resultados de partidos de 16avos que ya se hayan jugado
+    updateBracketResults();
+  }catch(e){
+    updateSrcLog('openfootball','miss',e.message);
   }
-  const result = {};
-  teams.forEach(t => { result[t] = Math.round(wins[t]/SIMS*100); });
-  return result;
 }
 
 function updateSrcLog(key,status,msg){
-  slugLog[key]={status,slug:msg};renderSlugPanel();
+  slugLog[key]={status,slug:msg}; renderSlugPanel();
 }
 
-/* ═══════════════════════════════════════════════════════
-   REFRESH PRINCIPAL
-═══════════════════════════════════════════════════════ */
+function updateBracketResults(){
+  // Busca resultados de los partidos de 16avos en matchData
+  Object.entries(BRACKET_MATCHES).forEach(([pid,bm])=>{
+    const found=matchData.find(m=>{
+      const r1=resolve(m.team1), r2=resolve(m.team2);
+      return (r1===bm.t1&&r2===bm.t2)||(r1===bm.t2&&r2===bm.t1);
+    });
+    if(found&&found.score){
+      bm.played=true;
+      const isHome=resolve(found.team1)===bm.t1;
+      bm.score={t1:found.score.ft[isHome?0:1], t2:found.score.ft[isHome?1:0]};
+    }
+  });
+}
+
+/* Marcadores España en grupos */
+function updateSpainScores(){
+  ESP_GROUP_MATCHES.forEach(def=>{
+    const found=matchData.find(m=>{
+      const r1=resolve(m.team1).toLowerCase(), r2=resolve(m.team2).toLowerCase();
+      const d1=def.team1.toLowerCase(), d2=def.team2.toLowerCase();
+      return (r1.includes(d1.split(' ')[0])&&r2.includes(d2.split(' ')[0]))
+          || (r2.includes(d1.split(' ')[0])&&r1.includes(d2.split(' ')[0]));
+    });
+    const el=document.getElementById(def.elId);
+    if(!el) return;
+    if(!found||!found.score){el.textContent='vs';el.className='esp-score';return;}
+    const ft=found.score.ft;
+    const esG=def.esHome?ft[0]:ft[1], rivG=def.esHome?ft[1]:ft[0];
+    const cls=esG>rivG?'win':esG===rivG?'draw':'loss';
+    el.textContent=`${esG}–${rivG}`; el.className='esp-score '+cls;
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PROBABILIDADES
+═══════════════════════════════════════════════════════════════ */
+function getProb(phase, cand){
+  if(phase.probType==='confirmed') return 100;
+
+  if(phase.probType==='match'){
+    // Usar el mercado específico del partido P83
+    const key=phase.matchSlugKey;
+    if(!key||!slugMap[key]) return null;
+    const map=slugMap[key].markets;
+    // El mercado puede usar "Portugal", "Ghana" como outcomes
+    const raw=map.get(cand.matchOutcome)||map.get(cand.name);
+    return raw!=null?raw:null;
+  }
+
+  if(phase.probType==='tournament'){
+    const entry=slugMap[phase.slugKey];
+    if(!entry||!cand.matchOutcome) return null;
+    const map=entry.markets;
+    const subset=phase.subset||[];
+    const total=subset.reduce((s,k)=>s+(map.get(k)||0),0);
+    if(!total) return null;
+    return Math.round(((map.get(cand.matchOutcome)||0)/total)*100);
+  }
+
+  return null;
+}
+
+/* Calcular standings de grupo desde openfootball */
+function calcStandings(groupName){
+  const teams=GROUPS[groupName]||[];
+  const stats={};
+  teams.forEach(t=>{stats[t]={pts:0,gd:0,gf:0,played:0};});
+  matchData.filter(m=>m.group===groupName&&m.score).forEach(m=>{
+    const t1=resolve(m.team1),t2=resolve(m.team2);
+    const s1=m.score.ft[0],s2=m.score.ft[1];
+    if(!stats[t1]) stats[t1]={pts:0,gd:0,gf:0,played:0};
+    if(!stats[t2]) stats[t2]={pts:0,gd:0,gf:0,played:0};
+    stats[t1].played++;stats[t2].played++;
+    stats[t1].gf+=s1;stats[t2].gf+=s2;
+    stats[t1].gd+=(s1-s2);stats[t2].gd+=(s2-s1);
+    if(s1>s2)stats[t1].pts+=3;
+    else if(s1===s2){stats[t1].pts++;stats[t2].pts++;}
+    else stats[t2].pts+=3;
+  });
+  return teams.map(t=>({name:t,...stats[t]})).sort((a,b)=>b.pts-a.pts||b.gd-a.gd||b.gf-a.gf);
+}
+
+/* Resultados de grupo de un equipo */
+function getGroupResults(name){
+  const info=GROUP_MATCHES_DEF[name]; if(!info) return [];
+  return info.matches.map((def,i)=>{
+    const found=matchData.find(m=>{
+      const r1=resolve(m.team1),r2=resolve(m.team2);
+      return (r1===name&&r2===def.vs)||(r1===def.vs&&r2===name);
+    });
+    if(!found||!found.score) return{...def,score:null};
+    const isHome=resolve(found.team1)===name;
+    return{...def,score:{for:found.score.ft[isHome?0:1],against:found.score.ft[isHome?1:0]}};
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   REFRESH
+═══════════════════════════════════════════════════════════════ */
 async function doRefresh(){
   if(refreshing)return;
-  refreshing=true;
-  setStatus('loading');
+  refreshing=true; setStatus('loading');
   document.getElementById('rbtn').classList.add('spinning');
 
-  // Fetch resultados reales + Polymarket en paralelo
-  // Usamos slugs hardcodeados directos (no auto-discovery)
-  const slugKeys = ['group-j-winner', 'group-j-2nd', 'tournament-winner'];
+  const p93Phase=PHASES.find(p=>p.id==='P93');
   await Promise.all([
     fetchResults(),
-    ...slugKeys.map(k => fetchSlugDirect(k))
+    fetchSlugDirect('tournament-winner'),
+    fetchMatchProb(p93Phase),
   ]);
+
+  const ok=Object.values(slugLog).filter(v=>v.status==='ok').length;
+  setStatus(ok>0?'live':'fallback');
   const now=new Date().toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'});
   document.getElementById('sup').textContent='Act. '+now;
   document.getElementById('fsup').textContent='Última act.: '+now;
   document.getElementById('rbtn').classList.remove('spinning');
   refreshing=false;
+  updateSpainScores();
   render();
   clearTimeout(refreshTimer);
   refreshTimer=setTimeout(doRefresh,600_000);
 }
+
 function triggerRefresh(){doRefresh();}
 function setStatus(s){
   const dot=document.getElementById('dot'),msg=document.getElementById('smsg');
   const m={loading:['dot','Actualizando datos…'],live:['dot live','Datos en vivo ✦'],fallback:['dot err','Sin conexión · estimaciones']};
-  const[cls,txt]=m[s]||m.loading;dot.className=cls;msg.textContent=txt;
+  const[cls,txt]=m[s]||m.loading; dot.className=cls; msg.textContent=txt;
 }
 
 /* SLUG PANEL */
@@ -1146,154 +974,113 @@ function toggleSlugPanel(){
 function renderSlugPanel(){
   const body=document.getElementById('slugBody');
   const entries=Object.entries(slugLog);
-  if(!entries.length){body.innerHTML='<div style="font-size:.67rem;color:var(--t3);padding:3px 0">Pulsa "Actualizar" para buscar.</div>';return;}
+  if(!entries.length){body.innerHTML='<div style="font-size:.67rem;color:var(--t3);padding:3px 0">Cargando…</div>';return;}
   body.innerHTML=entries.map(([k,v])=>`<div class="slug-item"><span class="slug-key">${k}</span><span class="slug-val ${v.status}">${v.status==='ok'?'✓ '+v.slug:v.status==='pending'?'⏳ …':'✗ '+v.slug}</span></div>`).join('');
 }
 
-/* ═══════════════════════════════════════════════════════
-   POPUP — clic en la fila, a la altura del cursor
-   Usa event delegation: el bracket escucha clicks en .crow
-═══════════════════════════════════════════════════════ */
-
-// Event delegation: un solo listener en el bracket
-document.addEventListener('click', function(e){
-  const row = e.target.closest('.crow');
-  if(!row){
-    // Clic fuera de una fila: cerrar si el popup está abierto y no se clicó en él
-    if(!e.target.closest('#popup')) closePopup();
-    return;
-  }
+/* ═══════════════════════════════════════════════════════════════
+   POPUP
+═══════════════════════════════════════════════════════════════ */
+document.addEventListener('click', e=>{
+  const row=e.target.closest('.crow');
+  if(!row){ if(!e.target.closest('#popup')) closePopup(); return; }
   e.stopPropagation();
-  const name = row.dataset.name;
-  if(!name) return;
+  const name=row.dataset.name; if(!name) return;
   openPopup(name, e.clientY, row);
 });
 
-function openPopup(routeKey, clientY, rowEl){
-  const route=KNOCKOUT_ROUTES[routeKey];
-  // displayName: el nombre real del país (sin el sufijo -final usado solo para rutas alternativas)
-  const displayName = routeKey.replace(/-final$/, '');
-  const groupInfo=GROUP_MATCHES[displayName];
-  if(!route&&!groupInfo){ closePopup(); return; }
+function openPopup(name, clientY, rowEl){
+  const route=ROUTES[name];
+  const groupInfo=GROUP_MATCHES_DEF[name];
+  if(!route&&!groupInfo){closePopup();return;}
 
-  // Toggle: si ya está activa la misma fila, cerrar
-  if(activeRow===rowEl){
-    closePopup();
-    return;
-  }
+  if(activeRow===rowEl){closePopup();return;}
   if(activeRow) activeRow.classList.remove('active');
-  rowEl.classList.add('active');
-  activeRow=rowEl;
+  rowEl.classList.add('active'); activeRow=rowEl;
 
-  /* ── Construir contenido ── */
-  document.getElementById('puFlag').textContent=f(displayName);
-  document.getElementById('puCountry').textContent=displayName;
+  document.getElementById('puFlag').textContent=f(name);
+  document.getElementById('puCountry').textContent=name;
 
   // Posición en grupo
-  const grpKey=groupInfo?'Group '+groupInfo.g:null;
   let posText='';
-  if(grpKey){
+  if(groupInfo){
+    const grpKey='Group '+groupInfo.g;
     const standings=calcStandings(grpKey);
-    const pos=standings.findIndex(t=>t.name===displayName)+1;
-    const played=standings.find(t=>t.name===displayName);
-    if(pos>0&&played) posText=`Grupo ${groupInfo.g} · ${pos}º actual (${played.pts}pts)`;
+    const pos=standings.findIndex(t=>t.name===name)+1;
+    const st=standings.find(t=>t.name===name);
+    if(pos>0&&st) posText=`Grupo ${groupInfo.g} · ${pos}º actual (${st.pts}pts)`;
     else posText=`Grupo ${groupInfo.g}`;
   }
   document.getElementById('puSub').textContent=posText;
 
-  /* Pasos: fase de grupos + eliminatorias */
-  const groupResults=getTeamGroupResults(displayName);
-  let stepsHtml='';
+  // Pasos
+  let html='';
 
-  if(groupResults.length){
-    stepsHtml+=groupResults.map((r,i,arr)=>{
-      const isDone=r.score!==null;
-      const dotCls=isDone?'pu-dot done':'pu-dot future';
+  // Fase de grupos
+  if(groupInfo){
+    const results=getGroupResults(name);
+    results.forEach((r,i,arr)=>{
+      const done=r.score!==null;
+      const dotCls=done?'pu-dot done':'pu-dot future';
       const showLine=i<arr.length-1||(route&&route.length>0);
       let scoreHtml='';
-      if(isDone){
+      if(done){
         const win=r.score.for>r.score.against,draw=r.score.for===r.score.against;
         const cls=win?'pu-score':draw?'pu-score draw':'pu-score loss';
         scoreHtml=`<span class="${cls}">${r.score.for}–${r.score.against}</span>`;
       }
-      return`<div class="pu-step">
+      html+=`<div class="pu-step">
         <div class="pu-dc"><div class="${dotCls}"></div>${showLine?'<div class="pu-line"></div>':''}</div>
         <div class="pu-info">
           <div class="pu-round">Grupo ${groupInfo.g} · J${i+1}</div>
-          <div class="pu-match">vs ${f(r.vs)} ${r.vs}${scoreHtml}</div>
+          <div class="pu-match" style="color:var(--texto)">vs ${f(r.vs)} ${r.vs}${scoreHtml}</div>
           <div class="pu-date">${r.date} · ${r.ground}</div>
         </div>
       </div>`;
-    }).join('');
+    });
   }
 
+  // Eliminatorias hasta el clash
   if(route){
-    // Mostrar solo hasta el cruce con España (inclusive)
-    const clashIdx = route.findIndex(s => s.clash);
-    const stepsToShow = clashIdx >= 0 ? route.slice(0, clashIdx + 1) : route;
-
-    stepsToShow.forEach((s, i, arr) => {
-      const isClash = s.clash;
-      const dotCls  = isClash ? 'pu-dot clash' : 'pu-dot future';
-      const showLine = i < arr.length - 1;
-      // El código de cruce (P95 vs P96, 1ºJ vs 2ºH...) va en gris tenue, siempre
-      const matchCodeStyle = 'color:var(--t3);font-weight:400';
-      // El rival/equipo real va en blanco y resaltado, salvo el clash que va en amarillo
-      const rivalStyle = isClash ? 'color:var(--amarillo);font-weight:700' : 'color:var(--texto);font-weight:600';
-
-      // Rival probable del cruce (si no es el clash con España)
-      let rivalHtml = '';
-      if(!isClash && s.priorRival){
-        rivalHtml = `<span style="${rivalStyle}"> · vs ${s.priorFlag} ${s.priorRival}</span>`;
+    const clashIdx=route.findIndex(s=>s.clash);
+    const steps=clashIdx>=0?route.slice(0,clashIdx+1):route;
+    steps.forEach((s,i,arr)=>{
+      const isClash=s.clash;
+      const dotCls=isClash?'pu-dot clash':'pu-dot future';
+      const showLine=i<arr.length-1;
+      const codeStyle='color:var(--t3);font-weight:400';
+      const rivalStyle=isClash?'color:var(--amarillo);font-weight:700':'color:var(--texto);font-weight:600';
+      let rivalHtml='';
+      if(!isClash&&s.priorRival){
+        rivalHtml=`<span style="${rivalStyle}"> · vs ${s.priorFlag} ${s.priorRival}</span>`;
       }
-
-      // En el clash, el texto del match ya nombra a España directamente → resaltarlo en amarillo
-      const matchSpanStyle = isClash ? rivalStyle : matchCodeStyle;
-
-
-      stepsHtml += `<div class="pu-step">
-        <div class="pu-dc">
-          <div class="${dotCls}"></div>
-          ${showLine ? '<div class="pu-line"></div>' : ''}
-        </div>
+      const matchStyle=isClash?rivalStyle:codeStyle;
+      html+=`<div class="pu-step">
+        <div class="pu-dc"><div class="${dotCls}"></div>${showLine?'<div class="pu-line"></div>':''}</div>
         <div class="pu-info">
           <div class="pu-round">${s.round}</div>
-          <div class="pu-match">${isClash ? '⚔️ ' : ''}<span style="${matchSpanStyle}">${s.match}</span>${rivalHtml}</div>
+          <div class="pu-match">${isClash?'⚔️ ':''}<span style="${matchStyle}">${s.match}</span>${rivalHtml}</div>
           <div class="pu-date">${s.date}</div>
         </div>
       </div>`;
     });
   }
 
-  document.getElementById('puBody').innerHTML=stepsHtml;
+  document.getElementById('puBody').innerHTML=html;
 
-  /* Posicionar a la altura del cursor.
-     position:fixed → clientY es la coordenada correcta, sin scrollY. */
+  // Posicionar
   const pop=document.getElementById('popup');
-  // Quitar visible temporalmente para medir, pero mantener en DOM
-  pop.classList.remove('visible');
-  pop.style.top='-9999px';
-  pop.style.left='-9999px';
-  // Forzar que sea visible para medir scrollHeight
-  pop.style.opacity='0';
-  pop.style.pointerEvents='none';
-  pop.style.display='block';
-
-  // Dos frames: uno para que el browser pinte el contenido, otro para medir
+  pop.style.visibility='hidden';
+  pop.classList.add('visible');
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    const pw=300;
-    const ph=Math.min(pop.scrollHeight||300, window.innerHeight*0.82);
-    const margin=10;
-    let top=clientY - ph/2;
-    top=Math.max(margin, Math.min(top, window.innerHeight - ph - margin));
+    const pw=300, ph=Math.min(pop.scrollHeight,window.innerHeight*.82), margin=10;
+    let top=clientY-ph/2;
+    top=Math.max(margin,Math.min(top,window.innerHeight-ph-margin));
     const bodyRect=document.body.getBoundingClientRect();
-    let left=bodyRect.left + (bodyRect.width - pw)/2;
-    left=Math.max(margin, Math.min(left, window.innerWidth - pw - margin));
-    pop.style.top=top+'px';
-    pop.style.left=left+'px';
-    pop.style.opacity='';
-    pop.style.pointerEvents='';
-    pop.classList.add('visible');
+    let left=bodyRect.left+(bodyRect.width-pw)/2;
+    left=Math.max(margin,Math.min(left,window.innerWidth-pw-margin));
+    pop.style.top=top+'px'; pop.style.left=left+'px';
+    pop.style.visibility='visible';
   }));
 }
 
@@ -1301,310 +1088,173 @@ function closePopup(){
   document.getElementById('popup').classList.remove('visible');
   if(activeRow){activeRow.classList.remove('active');activeRow=null;}
 }
-
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closePopup();});
 
-/* ═══════════════════════════════════════════════════════
-   ACTUALIZAR MARCADORES DE ESPAÑA
-═══════════════════════════════════════════════════════ */
-function updateSpainScores(){
-  const espMatches=[
-    {team1:'Spain',team2:'Cape Verde', elId:'sc0', esHome:true},
-    {team1:'Spain',team2:'Saudi Arabia',elId:'sc1', esHome:true},
-    {team1:'Uruguay',team2:'Spain',    elId:'sc2', esHome:false},
-  ];
-  const resolve=r=>NAME_MAP[r]||r;
-  espMatches.forEach(def=>{
-    const found=matchData.find(m=>{
-      const r1=m.team1.toLowerCase(),r2=m.team2.toLowerCase();
-      const d1=def.team1.toLowerCase(),d2=def.team2.toLowerCase();
-      return (r1.includes(d1.split(' ')[0].toLowerCase())&&r2.includes(d2.split(' ')[0].toLowerCase()))
-          || (r2.includes(d1.split(' ')[0].toLowerCase())&&r1.includes(d2.split(' ')[0].toLowerCase()));
-    });
-    const el=document.getElementById(def.elId);
-    if(!el)return;
-    if(!found||!found.score){el.textContent='vs';el.className='esp-score';return;}
-    const ft=found.score.ft;
-    const esG=def.esHome?ft[0]:ft[1];
-    const rivG=def.esHome?ft[1]:ft[0];
-    const txt=`${esG}–${rivG}`;
-    const cls=esG>rivG?'win':esG===rivG?'draw':'loss';
-    el.textContent=txt;el.className='esp-score '+cls;
-  });
-}
-
-/* ═══════════════════════════════════════════════════════
-   PROBABILIDADES
-
-   probType:'group'         → Prioridad 1: standings reales (openfootball)
-                              Monte Carlo sobre partidos restantes.
-                              Prioridad 2: Polymarket evento de grupo.
-                              Refleja si Jordania está eliminada, etc.
-
-   probType:'winner-subset' → Polymarket world-cup-winner
-                              reescalado dentro del subset del cuadro.
-═══════════════════════════════════════════════════════ */
-function getProb(phase, cand){
-  if(phase.probType === 'group'){
-    /* Determinar si es 1º o 2º del grupo */
-    const isWinner = phase.slugKey === 'group-j-winner';
-    const target   = isWinner ? 'winner' : 'second';
-
-    /* Intentar con standings reales primero */
-    if(matchData.length > 0){
-      const probs = calcGroupProb('Group J', target);
-      /* matchOutcome puede ser 'Argentina', 'Austria', 'Algeria', 'Jordan' */
-      const key = cand.matchOutcome;
-      /* Mapear nombre Polymarket al nombre canónico para buscar en probs */
-      const canonMap = {'Argentina':'Argentina','Austria':'Austria','Algeria':'Argelia','Jordan':'Jordania'};
-      const canon = canonMap[key];
-      if(canon && probs[canon] !== undefined) return probs[canon];
-    }
-
-    /* Fallback: Polymarket evento de grupo */
-    const entry = slugMap[phase.slugKey];
-    if(entry && entry.markets && cand.matchOutcome){
-      const raw = entry.markets.get(cand.matchOutcome);
-      if(raw != null) return raw;
-    }
-    return null;
-  }
-
-  if(phase.probType === 'winner-subset'){
-    const entry = slugMap[phase.slugKey];
-    if(!entry || !entry.markets || !cand.matchOutcome) return null;
-    const map    = entry.markets;
-    const subset = phase.subset || [];
-    const total  = subset.reduce((s,k) => s + (map.get(k) || 0), 0);
-    if(!total) return null;
-    return Math.round(((map.get(cand.matchOutcome) || 0) / total) * 100);
-  }
-
-  return null;
-}
-
-/* ═══════════════════════════════════════════════════════
+/* ═══════════════════════════════════════════════════════════════
    RENDER
-═══════════════════════════════════════════════════════ */
+═══════════════════════════════════════════════════════════════ */
 function render(){
-  const phases=PHASES[scenario];
   let html='';
-  phases.forEach((phase,pi)=>{
+  PHASES.forEach((phase,pi)=>{
     const cands=phase.candidates.map(c=>{
       const live=getProb(phase,c);
-      return{...c,pct:live!==null?live:c.fallback,live:live!==null};
+      return{...c, pct:live!==null?live:c.fallback, live:live!==null&&phase.probType!=='confirmed'};
     }).sort((a,b)=>b.pct-a.pct);
-    const top=cands[0],maxP=Math.max(1,top.pct);
-    html+=`<div class="pcard${phase.isFinal?' final':''}">
-      <div class="phead"><span class="pname">${phase.round}</span><span class="pdate">${phase.date}</span></div>
+
+    const top=cands[0], maxP=Math.max(1,top.pct);
+    const isConfirmed=phase.probType==='confirmed';
+
+    // Fuente de probabilidad
+    let srcLabel='';
+    if(phase.probType==='match'){
+      const mk=phase.matchSlugKey;
+      srcLabel=mk&&slugMap[mk]?`Polymarket: ${slugMap[mk].slug}`:'Ranking FIFA (fallback)';
+    } else if(phase.probType==='tournament'){
+      const ok=slugMap['tournament-winner'];
+      srcLabel=ok?'Polymarket: world-cup-winner':'sin datos';
+    } else if(isConfirmed){
+      srcLabel='Confirmado por FIFA';
+    }
+
+    html+=`<div class="pcard${phase.isFinal?' final':''}${isConfirmed?' confirmed':''}">
+      <div class="phead">
+        <span class="pname">${phase.round}</span>
+        <span class="pdate">${phase.date}</span>
+      </div>
       <div class="vsrow">
         <div class="tes"><span class="flag">🇪🇸</span>
-          <div><div class="tname es">España</div><div class="tsub">${scenario===1?'1ª':'2ª'} Grupo H</div></div></div>
+          <div><div class="tname es">España</div><div class="tsub">1ª Grupo H</div></div>
+        </div>
         <div class="vsbox">VS</div>
         <div class="trv"><span class="flag">${top.flag}</span>
-          <div style="text-align:right"><div class="tname">${top.name}</div>
-          <div class="tsub">${top.pct}%${top.live?' ✦':''} · más probable</div></div></div>
+          <div style="text-align:right">
+            <div class="tname">${top.name}</div>
+            <div class="tsub">${isConfirmed?'Confirmado':top.pct+'%'+(top.live?' ✦':'')+'  · más probable'}</div>
+          </div>
+        </div>
       </div>
       <div class="cands">
-        <div class="clbl">${phase.matchNote} <span style="font-size:.59rem;color:var(--t3)">· clic para ver la ruta del rival 🗺</span></div>
-        ${cands.map((c,i)=>{
-          const routeKey = (phase.isFinal && c.name==='Argentina') ? 'Argentina-final' : c.name;
-          return `
-          <div class="crow" data-name="${routeKey.replace(/"/g,'&quot;')}">
-            <span class="crank">${i+1}.</span>
+        <div class="clbl">${phase.note} <span style="font-size:.59rem;color:var(--t3)">· clic para ver ruta 🗺</span></div>
+        ${cands.map((c,i)=>`
+          <div class="crow" data-name="${c.name.replace(/"/g,'&quot;')}">
+            <span class="crank">${isConfirmed?'✓':i+1+'.'}</span>
             <span class="cflag">${c.flag}</span>
             <span class="cname">${c.name}${c.note?`<span class="cnote"> · ${c.note}</span>`:''}${c.live?' <span style="font-size:.58rem;color:var(--verde)">✦</span>':''}</span>
-            <div class="cbw"><div class="cb${i===0?' t1':''}" style="width:${Math.max(2,Math.round(c.pct/maxP*100))}%"></div></div>
-            <span class="cpct${c.live?' lv':''}">${c.pct}%</span>
-          </div>`;}).join('')}
-      </div></div>`;
-    if(pi<phases.length-1)html+='<div class="arrow">↓</div>';
+            ${!isConfirmed?`<div class="cbw"><div class="cb${i===0?' t1':''}" style="width:${Math.max(2,Math.round(c.pct/maxP*100))}%"></div></div>
+            <span class="cpct${c.live?' lv':''}">${c.pct}%</span>`:''}
+          </div>`).join('')}
+      </div>
+      ${srcLabel?`<div class="psrc">📊 ${srcLabel}</div>`:''}
+    </div>`;
+    if(pi<PHASES.length-1) html+='<div class="arrow">↓</div>';
   });
   document.getElementById('bracket').innerHTML=html;
-  document.getElementById('fnote').textContent=FOOTERS[scenario];
-  updateSpainScores();
+  document.getElementById('fnote').textContent='📌 España 1ª del Grupo H. Octavos: Portugal vs Ghana (P83) → el ganador se enfrenta a España. Cuartos: EE.UU. o Bosnia (favoritos). Semis: Alemania o Francia (favoritos). Final: Argentina, Brasil o Inglaterra desde el otro sub-cuadro.';
 }
 
-function setScenario(n){
-  scenario=n;
-  document.getElementById('btn1').className='tbtn'+(n===1?' on1':'');
-  document.getElementById('btn2').className='tbtn'+(n===2?' on2':'');
-  const t=STAGS[n];
-  const el=document.getElementById('stag');
-  el.className='stag '+t.cls;el.textContent=t.txt;
-  closePopup();render();
+/* ═══════════════════════════════════════════════════════════════
+   ICS / GOOGLE CALENDAR
+═══════════════════════════════════════════════════════════════ */
+const ICS_URL = 'https://anprieto.github.io/mundial-2026/espana-mundial-2026.ics';
+const pad = n => String(n).padStart(2,'0');
+
+function toUTC(isoDate, timeESP){
+  const [y,m,d]=isoDate.split('-').map(Number);
+  const [h,mi]=timeESP.split(':').map(Number);
+  const dt=new Date(Date.UTC(y,m-1,d,h-2,mi));
+  return `${dt.getUTCFullYear()}${pad(dt.getUTCMonth()+1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}00Z`;
+}
+function addH(isoDate,timeESP,hours){
+  const [y,m,d]=isoDate.split('-').map(Number);
+  const [h,mi]=timeESP.split(':').map(Number);
+  const dt=new Date(Date.UTC(y,m-1,d,h-2+hours,mi));
+  return `${dt.getUTCFullYear()}${pad(dt.getUTCMonth()+1)}${pad(dt.getUTCDate())}T${pad(dt.getUTCHours())}${pad(dt.getUTCMinutes())}00Z`;
+}
+function vAlarm(min,desc){
+  const h=Math.floor(min/60),m=min%60;
+  return `BEGIN:VALARM\r\nTRIGGER:-${h?'PT'+h+'H'+(m?m+'M':''):'PT'+m+'M'}\r\nACTION:DISPLAY\r\nDESCRIPTION:${desc}\r\nEND:VALARM`;
 }
 
-/* ═══════════════════════════════════════════════════════
-   GENERADOR DE ICS — usa los datos en vivo (Polymarket +
-   resultados reales) que ya tiene cargados la web.
-   Se genera en el momento del clic, siempre actualizado.
-═══════════════════════════════════════════════════════ */
-
-function pad(n){ return String(n).padStart(2,'0'); }
-
-function toICSDate(dateStr, timeStr){
-  /* dateStr: '2026-07-02'  timeStr: '22:00'  → CEST = UTC+2 → UTC = 20:00 */
-  const [y,m,d] = dateStr.split('-');
-  const [h,mi]  = timeStr.split(':').map(Number);
-  /* Convertir hora España (CEST UTC+2) a UTC restando 2h */
-  const utcH = h - 2;
-  if(utcH < 0){
-    /* pasa a día anterior */
-    const prevDay = new Date(Date.UTC(+y,+m-1,+d));
-    prevDay.setUTCDate(prevDay.getUTCDate()-1);
-    return `${prevDay.getUTCFullYear()}${pad(prevDay.getUTCMonth()+1)}${pad(prevDay.getUTCDate())}T${pad(24+utcH)}${pad(mi)}00Z`;
-  }
-  return `${y}${pad(+m)}${pad(+d)}T${pad(utcH)}${pad(mi)}00Z`;
-}
-
-function formatAlarm(minutesBefore, label){
-  const h = Math.floor(minutesBefore/60), m = minutesBefore%60;
-  const dur = h ? `PT${h}H${m?m+'M':''}` : `PT${m}M`;
-  return `BEGIN:VALARM\r\nTRIGGER:-${dur}\r\nACTION:DISPLAY\r\nDESCRIPTION:${label}\r\nEND:VALARM`;
-}
-
-/* Construye los eventos del ICS usando los datos en vivo */
-function buildEvents(){
-  const events = [];
-
-  /* Datos de cada fase: fecha/hora en España, fecha ISO, uid */
-  const phases_meta = {
-    1: [
-      {uid:'16avos-1',isoDate:'2026-07-02',time:'22:00',location:'SoFi Stadium · Los Ángeles'},
-      {uid:'oct-1',   isoDate:'2026-07-06',time:'01:00',location:'AT&T Stadium · Dallas'},
-      {uid:'qtr-1',   isoDate:'2026-07-10',time:'22:00',location:'SoFi Stadium · Los Ángeles'},
-      {uid:'sf-1',    isoDate:'2026-07-15',time:'02:00',location:'Mercedes-Benz Stadium · Atlanta'},
-      {uid:'final',   isoDate:'2026-07-19',time:'20:00',location:'MetLife Stadium · Nueva Jersey'},
-    ],
-    2: [
-      {uid:'16avos-2',isoDate:'2026-07-03',time:'22:00',location:'Hard Rock Stadium · Miami'},
-      {uid:'oct-2',   isoDate:'2026-07-07',time:'02:00',location:'Mercedes-Benz Stadium · Atlanta'},
-      {uid:'qtr-2',   isoDate:'2026-07-11',time:'22:00',location:'Mercedes-Benz Stadium · Atlanta'},
-      {uid:'sf-2',    isoDate:'2026-07-14',time:'02:00',location:'AT&T Stadium · Dallas'},
-      {uid:'final',   isoDate:'2026-07-19',time:'20:00',location:'MetLife Stadium · Nueva Jersey'},
-    ]
-  };
-
-  const roundNames = [
-    'Dieciseisavos', 'Octavos', 'Cuartos', 'Semifinal', '🏆 Final'
-  ];
-  const scenLabel = ['1ª','2ª'];
-
-  [1,2].forEach(sc => {
-    const phases  = PHASES[sc];
-    const metas   = phases_meta[sc];
-
-    phases.forEach((phase, i) => {
-      /* Si es la final y ya existe del escenario 1, no duplicar */
-      if(sc===2 && i===4) return;
-
-      const meta = metas[i];
-      const cands = phase.candidates.map(c => {
-        const live = getProb(phase,c);
-        return {...c, pct: live!==null ? live : c.fallback, live: live!==null};
-      }).sort((a,b) => b.pct-a.pct);
-
-      const top3 = cands.slice(0,3);
-      const isLive = cands.some(c=>c.live);
-      const dataSource = isLive ? 'Polymarket (en vivo)' : 'estimación (sin datos en vivo)';
-
-      const roundName  = roundNames[i];
-      const scLbl      = sc===1?'1ª':'2ª';
-      const summary    = i===4
-        ? `🏆 España · FINAL Mundial 2026`
-        : `⚽ España (${scLbl}) · ${roundName} Mundial 2026`;
-
-      const rivalLine = top3.map((c,j)=>`${j+1}. ${c.flag} ${c.name} (${c.pct}%)`).join('\\n');
-      const desc = [
-        `${roundName} del Mundial 2026`,
-        `España (${i===4?'':'si quedó '+scLbl+' del Grupo H'})`,
-        '',
-        `Rivales más probables (${dataSource}):`,
-        rivalLine,
-        '',
-        i===4 ? '' : '⚠️ Solo se juega si España avanza.',
-        `Actualizado: ${new Date().toLocaleString('es-ES')}`,
-        'https://polymarket.com/sports/world-cup',
-      ].filter(l=>l!==undefined).join('\\n');
-
-      const dtStart = toICSDate(meta.isoDate, meta.time);
-      /* duración 2h → sumar 2h en UTC */
-      const dtEndDate = meta.isoDate;
-      const [eh,em] = meta.time.split(':').map(Number);
-      const endH = eh+2-2; /* +2h duración -2h CEST→UTC = misma hora local +2h */
-      const dtEnd = toICSDate(meta.isoDate, `${pad((eh+2)%24)}:${pad(em)}`);
-
-      const alarmMin = i===4 ? 60 : 30;
-      const alarmLabel = i===4
-        ? `¡FINAL del Mundial! España`
-        : `En ${alarmMin}min · España · ${roundName} Mundial`;
-
-      events.push([
-        'BEGIN:VEVENT',
-        `UID:esp-wc26-${meta.uid}-sc${sc}@mundial2026`,
-        `SUMMARY:${summary}`,
-        `DTSTART:${dtStart}`,
-        `DTEND:${dtEnd}`,
-        `LOCATION:${meta.location}`,
-        `DESCRIPTION:${desc}`,
-        `STATUS:CONFIRMED`,
-        `TRANSP:OPAQUE`,
-        formatAlarm(alarmMin, alarmLabel),
-        ...(i===4 ? [formatAlarm(24*60,'Mañana · FINAL Mundial · España 🏆')] : []),
-        'END:VEVENT',
-      ].join('\r\n'));
-    });
-  });
-
-  return events;
-}
+const ICS_EVENTS=[
+  {uid:'16avos', isoDate:'2026-07-02', timeESP:'20:00', dur:2, loc:'SoFi Stadium - Los Angeles',
+   title:'Esp vs Austria - 16avos Mundial 2026',
+   desc:'Espana (1aH) vs Austria (2oJ) - Confirmado\n16avos de final del Mundial 2026', alarm:30},
+  {uid:'octavos', isoDate:'2026-07-06', timeESP:'22:00', dur:2, loc:'AT&T Stadium - Dallas',
+   title:'Esp - Octavos Mundial 2026',
+   getDesc:()=>{
+     const phase=PHASES.find(p=>p.id==='P93');
+     const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
+     return 'Octavos P93\nEspana vs '+cands.map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nGanador Portugal vs Ghana\nFuente: Polymarket';
+   }, alarm:30},
+  {uid:'cuartos', isoDate:'2026-07-10', timeESP:'22:00', dur:2, loc:'SoFi Stadium - Los Angeles',
+   title:'Esp - Cuartos Final Mundial 2026',
+   getDesc:()=>{
+     const phase=PHASES.find(p=>p.id==='P98');
+     const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
+     return 'Cuartos P98\nEspana vs '+cands.slice(0,3).map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nFuente: Polymarket';
+   }, alarm:30},
+  {uid:'semis', isoDate:'2026-07-14', timeESP:'02:00', dur:2, loc:'AT&T Stadium - Dallas',
+   title:'Esp - Semifinal Mundial 2026',
+   getDesc:()=>{
+     const phase=PHASES.find(p=>p.id==='P101');
+     const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
+     return 'Semifinal P101\nEspana vs '+cands.slice(0,3).map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nFuente: Polymarket';
+   }, alarm:30},
+  {uid:'final', isoDate:'2026-07-19', timeESP:'20:00', dur:2, loc:'MetLife Stadium - Nueva Jersey',
+   title:'Esp - FINAL Mundial 2026',
+   getDesc:()=>{
+     const phase=PHASES.find(p=>p.isFinal);
+     const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
+     return 'FINAL del Mundial 2026\nEspana busca su 2a estrella\n'+cands.slice(0,3).map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nFuente: Polymarket';
+   }, alarm:60},
+];
 
 function generateICS(){
-  const events = buildEvents();
-  const lines = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//España Mundial 2026//ES',
-    'CALSCALE:GREGORIAN',
-    'METHOD:PUBLISH',
-    'X-WR-CALNAME:🇪🇸 España · Mundial 2026',
-    'X-WR-CALDESC:Cruces eliminatorios de España con probabilidades en vivo de Polymarket',
+  const now=new Date();
+  const dtstamp=toUTC(now.toISOString().slice(0,10), now.toISOString().slice(11,16));
+  const events=ICS_EVENTS.map(ev=>{
+    const desc=(ev.getDesc?ev.getDesc():ev.desc).replace(/\n/g,'\\n');
+    const dtStart=toUTC(ev.isoDate,ev.timeESP);
+    const dtEnd=addH(ev.isoDate,ev.timeESP,ev.dur);
+    return ['BEGIN:VEVENT',
+      'UID:esp-wc26-'+ev.uid+'@anprieto.github.io',
+      'DTSTAMP:'+dtstamp,
+      'SUMMARY:'+ev.title,
+      'DTSTART:'+dtStart,
+      'DTEND:'+dtEnd,
+      'LOCATION:'+ev.loc,
+      'DESCRIPTION:'+desc,
+      'STATUS:CONFIRMED','TRANSP:OPAQUE',
+      vAlarm(ev.alarm,'En '+ev.alarm+'min - '+ev.title),
+      'END:VEVENT'].join('\r\n');
+  });
+  return ['BEGIN:VCALENDAR','VERSION:2.0',
+    'PRODID:-//Espana Mundial 2026//ES','CALSCALE:GREGORIAN','METHOD:PUBLISH',
+    'X-WR-CALNAME:Espana - Mundial 2026',
+    'X-WR-CALDESC:Cruces eliminatorios de Espana con probabilidades Polymarket',
     'X-WR-TIMEZONE:Europe/Madrid',
-    ...events,
-    'END:VCALENDAR',
-  ].join('\r\n');
-  return lines;
+    'REFRESH-INTERVAL;VALUE=DURATION:PT10M',
+    ...events,'END:VCALENDAR'].join('\r\n');
 }
 
 function downloadICS(){
-  const ics = generateICS();
-  const blob = new Blob([ics], {type:'text/calendar;charset=utf-8'});
-  const url  = URL.createObjectURL(blob);
-  const a    = Object.assign(document.createElement('a'),{href:url,download:'espana-mundial-2026.ics'});
-  document.body.appendChild(a); a.click();
-  document.body.removeChild(a);
-  setTimeout(()=>URL.revokeObjectURL(url), 5000);
+  const ics=generateICS();
+  const blob=new Blob([ics],{type:'text/calendar;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=Object.assign(document.createElement('a'),{href:url,download:'espana-mundial-2026.ics'});
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(()=>URL.revokeObjectURL(url),5000);
 }
-
-/* ── Botón Google Calendar ────────────────────────────
-   El .ics en GitHub Pages se regenera cada 10 min
-   automáticamente via GitHub Actions.
-   Google Calendar, al suscribirse por URL, lo refresca
-   automáticamente (cada 12-24h según el cliente).
-   La URL webcal:// abre el diálogo de suscripción
-   directamente en Google Calendar.
-──────────────────────────────────────────────────────── */
-const ICS_URL = 'https://anprieto.github.io/mundial-2026/espana-mundial-2026.ics';
 
 function openGoogleCalendar(){
-  /* webcal:// → Google Calendar lo intercepta y ofrece suscripción */
-  const webcalURL = ICS_URL.replace('https://', 'webcal://');
-  const gcURL = `https://calendar.google.com/calendar/render?cid=${encodeURIComponent(webcalURL)}`;
-  window.open(gcURL, '_blank');
+  const ICS_URL='https://anprieto.github.io/mundial-2026/espana-mundial-2026.ics';
+  const webcalURL=ICS_URL.replace('https://','webcal://');
+  window.open('https://calendar.google.com/calendar/render?cid='+encodeURIComponent(webcalURL),'_blank');
 }
 
-render();doRefresh();
+/* INIT */
+render();
+doRefresh();
 </script>
 </body>
 </html>

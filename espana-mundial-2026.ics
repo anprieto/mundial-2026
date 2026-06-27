@@ -4,177 +4,179 @@ PRODID:-//España Mundial 2026//ES
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME:🇪🇸 España · Mundial 2026
-X-WR-CALDESC:Cruces eliminatorios de España en el Mundial 2026 con horario peninsular
+X-WR-CALDESC:Cruces eliminatorios de España con probabilidades de Polymarket actualizadas cada 10 minutos
 X-WR-TIMEZONE:Europe/Madrid
-X-WR-RELCALID:espana-mundial-2026
-REFRESH-INTERVAL;VALUE=DURATION:PT12H
-X-PUBLISHED-TTL:PT12H
-
-BEGIN:VTIMEZONE
-TZID:Europe/Madrid
-BEGIN:STANDARD
-DTSTART:19701025T030000
-RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=10
-TZNAME:CET
-TZOFFSETFROM:+0200
-TZOFFSETTO:+0100
-END:STANDARD
-BEGIN:DAYLIGHT
-DTSTART:19700329T020000
-RRULE:FREQ=YEARLY;BYDAY=-1SU;BYMONTH=3
-TZNAME:CEST
-TZOFFSETFROM:+0100
-TZOFFSETTO:+0200
-END:DAYLIGHT
-END:VTIMEZONE
-
+REFRESH-INTERVAL;VALUE=DURATION:PT10M
+X-PUBLISHED-TTL:PT10M
 BEGIN:VEVENT
-UID:esp-wc26-16avos-1ero@espana-mundial-2026
-SUMMARY:⚽ España (1ª) vs 2º Grupo J · 16avos
-DTSTART;TZID=Europe/Madrid:20260702T220000
-DTEND;TZID=Europe/Madrid:20260703T000000
-LOCATION:SoFi Stadium · Los Ángeles, California
-DESCRIPTION:Dieciseisavos de final del Mundial 2026\n\nEspaña (1ª del Grupo H) vs 2º del Grupo J\n\nFavoritos: 🇦🇹 Austria (~57%) · 🇩🇿 Argelia (~29%)\n\nActualizado con probabilidades de Polymarket.\nhttps://polymarket.com/event/world-cup-group-j-second-place-20260605152843566
+UID:esp-wc26-16avos-1@anprieto.github.io
+DTSTAMP:20260627T124900Z
+SUMMARY:⚽ España (1ª) vs 2º Grupo J · 16avos Mundial 2026
+DTSTART:20260702T200000Z
+DTEND:20260702T220000Z
+LOCATION:SoFi Stadium · Los Ángeles
+DESCRIPTION:⚽ España (1ª) vs 2º Grupo J · 16avos Mundial 2026\n\nSolo si España queda 1ª del Grupo H\n\nRivales más probables [estimación (sin datos en vivo)]:\n1. 🇦🇹 Austria (57%)
+2. 🇩🇿 Argelia (29%)
+3. 🇦🇷 Argentina (8%)\n\nActualizado: 27/6/2026, 16:49:00\nFuente: https://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY
-DESCRIPTION:En 30 min · España vs 2ºJ · 16avos Mundial
+DESCRIPTION:En 30 min · ⚽ España (1ª) vs 2º Grupo J · 16avos Mundial 2026
 END:VALARM
+X-APPLE-DEFAULT-ALARM:FALSE
 END:VEVENT
-
 BEGIN:VEVENT
-UID:esp-wc26-16avos-2ndo@espana-mundial-2026
-SUMMARY:⚽ España (2ª) vs 1º Grupo J · 16avos
-DTSTART;TZID=Europe/Madrid:20260703T220000
-DTEND;TZID=Europe/Madrid:20260704T000000
-LOCATION:Hard Rock Stadium · Miami, Florida
-DESCRIPTION:Dieciseisavos de final del Mundial 2026\n\nEspaña (2ª del Grupo H) vs 1º del Grupo J\n\nFavoritos: 🇦🇷 Argentina (~72%) · 🇦🇹 Austria (~19%)\n\nActualizado con probabilidades de Polymarket.\nhttps://polymarket.com/event/world-cup-group-j-winner
+UID:esp-wc26-oct-1@anprieto.github.io
+DTSTAMP:20260627T124900Z
+SUMMARY:⚽ España (1ª) · Octavos de Final · Mundial 2026
+DTSTART:20260705T230000Z
+DTEND:20260706T010000Z
+LOCATION:AT&T Stadium · Dallas
+DESCRIPTION:⚽ España (1ª) · Octavos de Final · Mundial 2026\n\nSolo si España queda 1ª y supera 16avos\n\nRivales más probables [estimación (sin datos en vivo)]:\n1. 🇲🇽 México (45%)
+2. 🇨🇭 Suiza (30%)
+3. 🇨🇦 Canadá (15%)\n\nActualizado: 27/6/2026, 16:49:00\nFuente: https://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY
-DESCRIPTION:En 30 min · España vs 1ºJ · 16avos Mundial
+DESCRIPTION:En 30 min · ⚽ España (1ª) · Octavos de Final · Mundial 2026
 END:VALARM
+X-APPLE-DEFAULT-ALARM:FALSE
 END:VEVENT
-
 BEGIN:VEVENT
-UID:esp-wc26-octavos-1ero@espana-mundial-2026
-SUMMARY:⚽ España (1ª) · Octavos de Final
-DTSTART;TZID=Europe/Madrid:20260706T010000
-DTEND;TZID=Europe/Madrid:20260706T030000
-LOCATION:AT&T Stadium · Dallas, Texas
-DESCRIPTION:Octavos de final del Mundial 2026\n\nEspaña (si quedó 1ª del Grupo H) vs 2ºA/2ºB\n\nFavoritos: 🇲🇽 México (~45%) · 🇨🇭 Suiza (~30%)\n\n⚠️ Solo se juega si España quedó 1ª del Grupo H.
+UID:esp-wc26-qtr-1@anprieto.github.io
+DTSTAMP:20260627T124900Z
+SUMMARY:⚽ España (1ª) · Cuartos de Final · Mundial 2026
+DTSTART:20260710T200000Z
+DTEND:20260710T220000Z
+LOCATION:SoFi Stadium · Los Ángeles
+DESCRIPTION:⚽ España (1ª) · Cuartos de Final · Mundial 2026\n\nSolo si España queda 1ª y llega a cuartos\n\nRivales más probables [estimación (sin datos en vivo)]:\n1. 🇧🇷 Brasil (38%)
+2. 🇳🇱 Países Bajos (28%)
+3. 🇵🇹 Portugal (22%)\n\nActualizado: 27/6/2026, 16:49:00\nFuente: https://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY
-DESCRIPTION:En 30 min · España · Octavos Mundial (si quedó 1ª)
+DESCRIPTION:En 30 min · ⚽ España (1ª) · Cuartos de Final · Mundial 2026
 END:VALARM
+X-APPLE-DEFAULT-ALARM:FALSE
 END:VEVENT
-
 BEGIN:VEVENT
-UID:esp-wc26-octavos-2ndo@espana-mundial-2026
-SUMMARY:⚽ España (2ª) · Octavos de Final
-DTSTART;TZID=Europe/Madrid:20260707T020000
-DTEND;TZID=Europe/Madrid:20260707T040000
-LOCATION:Mercedes-Benz Stadium · Atlanta, Georgia
-DESCRIPTION:Octavos de final del Mundial 2026\n\nEspaña (si quedó 2ª del Grupo H) vs 2ºD/2ºG\n\nFavoritos: 🇺🇸 EE.UU. (~42%) · 🇧🇪 Bélgica (~33%)\n\n⚠️ Solo se juega si España quedó 2ª del Grupo H.
+UID:esp-wc26-sf-1@anprieto.github.io
+DTSTAMP:20260627T124900Z
+SUMMARY:⚽ España (1ª) · Semifinal · Mundial 2026
+DTSTART:20260715T000000Z
+DTEND:20260715T020000Z
+LOCATION:Mercedes-Benz Stadium · Atlanta
+DESCRIPTION:⚽ España (1ª) · Semifinal · Mundial 2026\n\nSolo si España queda 1ª y llega a semis\n\nRivales más probables [estimación (sin datos en vivo)]:\n1. 🇫🇷 Francia (50%)
+2. 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra (30%)
+3. 🇸🇳 Senegal (12%)\n\nActualizado: 27/6/2026, 16:49:00\nFuente: https://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY
-DESCRIPTION:En 30 min · España · Octavos Mundial (si quedó 2ª)
+DESCRIPTION:En 30 min · ⚽ España (1ª) · Semifinal · Mundial 2026
 END:VALARM
+X-APPLE-DEFAULT-ALARM:FALSE
 END:VEVENT
-
 BEGIN:VEVENT
-UID:esp-wc26-cuartos-1ero@espana-mundial-2026
-SUMMARY:⚽ España (1ª) · Cuartos de Final
-DTSTART;TZID=Europe/Madrid:20260710T220000
-DTEND;TZID=Europe/Madrid:20260711T000000
-LOCATION:SoFi Stadium · Los Ángeles, California
-DESCRIPTION:Cuartos de final del Mundial 2026\n\nEspaña (si quedó 1ª) vs mejor del cuadro C/F/K\n\nFavoritos: 🇧🇷 Brasil (~38%) · 🇳🇱 Países Bajos (~28%) · 🇵🇹 Portugal (~22%)\n\n⚠️ Solo si España superó 16avos y octavos.
+UID:esp-wc26-16avos-2@anprieto.github.io
+DTSTAMP:20260627T124900Z
+SUMMARY:⚽ España (2ª) vs 1º Grupo J · 16avos Mundial 2026
+DTSTART:20260703T200000Z
+DTEND:20260703T220000Z
+LOCATION:Hard Rock Stadium · Miami
+DESCRIPTION:⚽ España (2ª) vs 1º Grupo J · 16avos Mundial 2026\n\nSolo si España queda 2ª del Grupo H\n\nRivales más probables [estimación (sin datos en vivo)]:\n1. 🇦🇷 Argentina (72%)
+2. 🇦🇹 Austria (19%)
+3. 🇩🇿 Argelia (8%)\n\nActualizado: 27/6/2026, 16:49:00\nFuente: https://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY
-DESCRIPTION:En 30 min · España · Cuartos Mundial (si quedó 1ª)
+DESCRIPTION:En 30 min · ⚽ España (2ª) vs 1º Grupo J · 16avos Mundial 2026
 END:VALARM
+X-APPLE-DEFAULT-ALARM:FALSE
 END:VEVENT
-
 BEGIN:VEVENT
-UID:esp-wc26-cuartos-2ndo@espana-mundial-2026
-SUMMARY:⚽ España (2ª) · Cuartos de Final
-DTSTART;TZID=Europe/Madrid:20260711T220000
-DTEND;TZID=Europe/Madrid:20260712T000000
-LOCATION:Mercedes-Benz Stadium · Atlanta, Georgia
-DESCRIPTION:Cuartos de final del Mundial 2026\n\nEspaña (si quedó 2ª) vs mejor del cuadro I/L\n\nFavoritos: 🇫🇷 Francia (~48%) · 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra (~33%)\n\n⚠️ Solo si España superó 16avos y octavos.
+UID:esp-wc26-oct-2@anprieto.github.io
+DTSTAMP:20260627T124900Z
+SUMMARY:⚽ España (2ª) · Octavos de Final · Mundial 2026
+DTSTART:20260707T000000Z
+DTEND:20260707T020000Z
+LOCATION:Mercedes-Benz Stadium · Atlanta
+DESCRIPTION:⚽ España (2ª) · Octavos de Final · Mundial 2026\n\nSolo si España queda 2ª y supera 16avos\n\nRivales más probables [estimación (sin datos en vivo)]:\n1. 🇺🇸 EE.UU. (42%)
+2. 🇧🇪 Bélgica (33%)
+3. 🇵🇾 Paraguay (14%)\n\nActualizado: 27/6/2026, 16:49:00\nFuente: https://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY
-DESCRIPTION:En 30 min · España · Cuartos Mundial (si quedó 2ª)
+DESCRIPTION:En 30 min · ⚽ España (2ª) · Octavos de Final · Mundial 2026
 END:VALARM
+X-APPLE-DEFAULT-ALARM:FALSE
 END:VEVENT
-
 BEGIN:VEVENT
-UID:esp-wc26-semis-1ero@espana-mundial-2026
-SUMMARY:⚽ España (1ª) · Semifinal
-DTSTART;TZID=Europe/Madrid:20260715T020000
-DTEND;TZID=Europe/Madrid:20260715T040000
-LOCATION:Mercedes-Benz Stadium · Atlanta, Georgia
-DESCRIPTION:Semifinal del Mundial 2026\n\nEspaña (si quedó 1ª) vs mejor del cuadro I/L\n\nFavoritos: 🇫🇷 Francia (~50%) · 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra (~30%)\n\n⚠️ Solo si España llegó a semifinales.
+UID:esp-wc26-qtr-2@anprieto.github.io
+DTSTAMP:20260627T124900Z
+SUMMARY:⚽ España (2ª) · Cuartos de Final · Mundial 2026
+DTSTART:20260711T200000Z
+DTEND:20260711T220000Z
+LOCATION:Mercedes-Benz Stadium · Atlanta
+DESCRIPTION:⚽ España (2ª) · Cuartos de Final · Mundial 2026\n\nSolo si España queda 2ª y llega a cuartos\n\nRivales más probables [estimación (sin datos en vivo)]:\n1. 🇫🇷 Francia (48%)
+2. 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra (33%)
+3. 🇸🇳 Senegal (12%)\n\nActualizado: 27/6/2026, 16:49:00\nFuente: https://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY
-DESCRIPTION:En 30 min · España · Semifinal Mundial (si quedó 1ª)
+DESCRIPTION:En 30 min · ⚽ España (2ª) · Cuartos de Final · Mundial 2026
 END:VALARM
+X-APPLE-DEFAULT-ALARM:FALSE
 END:VEVENT
-
 BEGIN:VEVENT
-UID:esp-wc26-semis-2ndo@espana-mundial-2026
-SUMMARY:⚽ España (2ª) · Semifinal
-DTSTART;TZID=Europe/Madrid:20260714T020000
-DTEND;TZID=Europe/Madrid:20260714T040000
-LOCATION:AT&T Stadium · Dallas, Texas
-DESCRIPTION:Semifinal del Mundial 2026\n\nEspaña (si quedó 2ª) vs mejor del cuadro C/K\n\nFavoritos: 🇧🇷 Brasil (~45%) · 🇵🇹 Portugal (~32%)\n\n⚠️ Solo si España llegó a semifinales.
+UID:esp-wc26-sf-2@anprieto.github.io
+DTSTAMP:20260627T124900Z
+SUMMARY:⚽ España (2ª) · Semifinal · Mundial 2026
+DTSTART:20260714T000000Z
+DTEND:20260714T020000Z
+LOCATION:AT&T Stadium · Dallas
+DESCRIPTION:⚽ España (2ª) · Semifinal · Mundial 2026\n\nSolo si España queda 2ª y llega a semis\n\nRivales más probables [estimación (sin datos en vivo)]:\n1. 🇧🇷 Brasil (45%)
+2. 🇵🇹 Portugal (32%)
+3. 🇲🇦 Marruecos (14%)\n\nActualizado: 27/6/2026, 16:49:00\nFuente: https://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY
-DESCRIPTION:En 30 min · España · Semifinal Mundial (si quedó 2ª)
+DESCRIPTION:En 30 min · ⚽ España (2ª) · Semifinal · Mundial 2026
 END:VALARM
+X-APPLE-DEFAULT-ALARM:FALSE
 END:VEVENT
-
 BEGIN:VEVENT
-UID:esp-wc26-final@espana-mundial-2026
-SUMMARY:🏆 España · FINAL del Mundial 2026
-DTSTART;TZID=Europe/Madrid:20260719T200000
-DTEND;TZID=Europe/Madrid:20260719T220000
-LOCATION:MetLife Stadium · East Rutherford, Nueva Jersey
-DESCRIPTION:Final del Mundial 2026 🏆\n\nEspaña busca su segunda estrella mundialista\n\nFavoritos del otro cuadro: 🇩🇪 Alemania · 🇦🇷 Argentina · 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra\n\n⚠️ Solo si España llega a la final.
+UID:esp-wc26-final@anprieto.github.io
+DTSTAMP:20260627T124900Z
+SUMMARY:🏆 España · FINAL Mundial 2026
+DTSTART:20260719T180000Z
+DTEND:20260719T200000Z
+LOCATION:MetLife Stadium · East Rutherford, NJ
+DESCRIPTION:🏆 España · FINAL Mundial 2026\n\nSolo si España llega a la final\n\nRivales más probables [estimación (sin datos en vivo)]:\n1. 🇩🇪 Alemania (36%)
+2. 🇦🇷 Argentina (28%)
+3. 🏴󠁧󠁢󠁥󠁮󠁧󠁿 Inglaterra (22%)\n\nActualizado: 27/6/2026, 16:49:00\nFuente: https://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
-TRIGGER:-PT60M
+TRIGGER:-PT30M
 ACTION:DISPLAY
-DESCRIPTION:En 1 hora · FINAL del Mundial · España
+DESCRIPTION:En 30 min · 🏆 España · FINAL Mundial 2026
 END:VALARM
-BEGIN:VALARM
-TRIGGER:-P1D
-ACTION:DISPLAY
-DESCRIPTION:Mañana · FINAL del Mundial · España 🏆
-END:VALARM
+X-APPLE-DEFAULT-ALARM:FALSE
 END:VEVENT
-
 END:VCALENDAR

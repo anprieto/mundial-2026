@@ -5,7 +5,7 @@
  *
  * CUADRO ESPANA 1a (confirmado 27 Jun 2026):
  *   16avos P84:  Espana vs Austria           · 2 Jul 21:00h ESP · SoFi, Los Angeles
- *   Octavos P93: Gan(Portugal vs Ghana P83)  · 6 Jul 21:00h ESP · AT&T, Dallas
+ *   Octavos P93: Gan(Portugal vs Croacia P83) · 6 Jul 21:00h ESP · AT&T, Dallas
  *   Cuartos P98: Gan(P93) vs Gan(P94)        · 10 Jul 21:00h ESP · SoFi, Los Angeles
  *   Semis P101:  Gan(P97) vs Gan(P98)        · 14 Jul 21:00h ESP · AT&T, Dallas
  *   Final:       Gan P101 vs Gan P102        · 19 Jul 21:00h ESP · MetLife, NJ
@@ -67,10 +67,10 @@ const EVENTS = [
     loc: 'AT&T Stadium, Dallas',
     title: 'Espana - Octavos Mundial 2026',
     type: 'match',
-    keyword: 'portugal ghana world cup',
-    pair: ['Portugal', 'Ghana'],
-    fallback: [['Portugal', 78], ['Ghana', 22]],
-    note: 'Ganador del P83: Portugal vs Ghana',
+    keyword: 'portugal croatia world cup',
+    pair: ['Portugal', 'Croatia'],
+    fallback: [['Portugal', 65], ['Croatia', 35]],
+    note: 'Ganador del P83: Portugal vs Croacia',
   },
   {
     uid: 'esp-wc26-cuartos',
@@ -230,7 +230,7 @@ async function main() {
 
   const [winnerMap, matchMap] = await Promise.all([
     fetchWinner(),
-    fetchMatchMarket('portugal ghana world cup', ['Portugal', 'Ghana']),
+    fetchMatchMarket('portugal croatia world cup', ['Portugal', 'Croatia']),
   ]);
 
   const vevents = EVENTS.map(ev => {

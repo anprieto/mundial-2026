@@ -277,7 +277,7 @@ const resolve = r => NAME_MAP[r] || r;
    CUADRO CONFIRMADO (España siempre 1ªH):
 
    P84: España (1ºH) vs Austria (2ºJ)        → P93
-   P83: Portugal (2ºK) vs Ghana (2ºL)         → P93
+   P83: Portugal (2ºK) vs Croacia (2ºL)        → P93
    P93: Gan.P83 vs Gan.P84  ← OCTAVOS ESPAÑA
    P94: Gan.P81 vs Gan.P82
    P98: Gan.P93 vs Gan.P94  ← CUARTOS ESPAÑA
@@ -324,7 +324,7 @@ const BRACKET_MATCHES = {
   P77: {t1:'Francia',       t2:'Suecia',          confirmed:true, played:false, score:null, date:'30 Jun · MetLife · 23:00h 🇪🇸'},
   P81: {t1:'EE.UU.',        t2:'Bosnia',          confirmed:true, played:false, score:null, date:'2 Jul · San Francisco, Levis · 02:00h 🇪🇸 🌙'},
   P82: {t1:'Egipto',        t2:'Corea del Sur',   confirmed:false,played:false, score:null, date:'1 Jul · Seattle, Lumen · 22:00h 🇪🇸'},
-  P83: {t1:'Portugal',      t2:'Ghana',           confirmed:true, played:false, score:null, date:'1 Jul · Toronto, BMO · 18:00h 🇪🇸'},
+  P83: {t1:'Portugal',      t2:'Croacia',           confirmed:true, played:false, score:null, date:'3 Jul · Toronto, BMO · 01:00h 🇪🇸 🌙'},
   P84: {t1:'España',        t2:'Austria',         confirmed:true, played:false, score:null, date:'2 Jul · Los Ángeles, SoFi · 21:00h 🇪🇸'},
   // 16avos cuadro opuesto (para final)
   P76: {t1:'Brasil',        t2:'Japón',           confirmed:true, played:false, score:null, date:'29 Jun · Houston, NRG · 19:00h 🇪🇸'},
@@ -359,14 +359,14 @@ const PHASES = [
   {
     id:'P93', round:'Octavos · P93',
     date:'6 Jul · Dallas, AT&T · 21:00h 🇪🇸',
-    note:'Portugal vs Ghana (P83) → el ganador enfrenta a España',
+    note:'Portugal vs Croacia (P83) → el ganador enfrenta a España',
     probType:'match',        // probabilidad de que gane cada uno en P83
-    matchSlug:'portugal-ghana-world-cup-2026',
-    matchPair:['Portugal','Ghana'],
+    matchSlug:'portugal-croatia-world-cup-2026',
+    matchPair:['Portugal','Croatia'],
     isFinal:false,
     candidates:[
-      {name:'Portugal', flag:'🇵🇹', matchOutcome:'Portugal', fallback:78},
-      {name:'Ghana',    flag:'🇬🇭', matchOutcome:'Ghana',    fallback:22},
+      {name:'Portugal', flag:'🇵🇹', matchOutcome:'Portugal', fallback:65},
+      {name:'Croacia',  flag:'🇭🇷', matchOutcome:'Croatia',  fallback:35},
     ],
   },
   /* ── Cuartos P98: Gan.P93 vs Gan.P94 ── */
@@ -435,17 +435,17 @@ const ROUTES = {
   ],
   /* Octavos: ganador P83 */
   'Portugal':[
-    {round:'16avos · P83', match:'Portugal vs Ghana',
-     priorRival:'Ghana (2ºL)', priorFlag:'🇬🇭',
-     date:'1 Jul · Toronto, BMO · 18:00h 🇪🇸'},
+    {round:'16avos · P83', match:'Portugal vs Croacia',
+     priorRival:'Croacia (2ºL)', priorFlag:'🇭🇷',
+     date:'3 Jul · Toronto, BMO · 01:00h 🇪🇸 🌙'},
     {round:'Octavos · P93', match:'Gan.P83 vs España',
      priorRival:'España', priorFlag:'🇪🇸',
      date:'6 Jul · Dallas, AT&T · 21:00h 🇪🇸', clash:true},
   ],
-  'Ghana':[
-    {round:'16avos · P83', match:'Ghana vs Portugal',
+  'Croacia':[
+    {round:'16avos · P83', match:'Croacia vs Portugal',
      priorRival:'Portugal (2ºK)', priorFlag:'🇵🇹',
-     date:'1 Jul · Toronto, BMO · 18:00h 🇪🇸'},
+     date:'3 Jul · Toronto, BMO · 01:00h 🇪🇸 🌙'},
     {round:'Octavos · P93', match:'Gan.P83 vs España',
      priorRival:'España', priorFlag:'🇪🇸',
      date:'6 Jul · Dallas, AT&T · 21:00h 🇪🇸', clash:true},
@@ -740,8 +740,8 @@ let matchData=[], slugMap={}, slugLog={}, slugPanelOpen=false, refreshing=false,
 ═══════════════════════════════════════════════════════════════ */
 const POLY_SLUGS = {
   'tournament-winner': 'world-cup-winner',
-  // Slug del partido Portugal vs Ghana — si no existe en Polymarket, fallback a fixture FIFA
-  'match-portugal-ghana': 'portugal-vs-ghana-2026-world-cup',
+  // Slug del partido Portugal vs Croacia — si no existe en Polymarket, fallback a fixture FIFA
+  'match-portugal-croatia': 'portugal-vs-croatia-2026-world-cup',
 };
 
 async function fetchSlugDirect(slugKey){
@@ -774,21 +774,21 @@ async function fetchSlugDirect(slugKey){
   renderSlugPanel();
 }
 
-/* También buscamos el partido específico Portugal-Ghana por keyword */
+/* También buscamos el partido específico Portugal-Croacia por keyword */
 async function fetchMatchProb(phase){
   if(phase.probType !== 'match') return;
-  const slugKey = 'match-p83-portugal-ghana';
-  slugLog[slugKey]={status:'pending',slug:'buscando Portugal vs Ghana...'}; renderSlugPanel();
+  const slugKey = 'match-p83-portugal-croatia';
+  slugLog[slugKey]={status:'pending',slug:'buscando Portugal vs Croacia...'}; renderSlugPanel();
   try{
     // Buscar por keyword en markets
-    const url=`https://gamma-api.polymarket.com/markets?keyword=portugal+ghana+world+cup&limit=10&active=true`;
+    const url=`https://gamma-api.polymarket.com/markets?keyword=portugal+croatia+world+cup&limit=10&active=true`;
     const r=await fetch(url,{signal:AbortSignal.timeout(10000)});
     if(!r.ok) throw new Error('HTTP '+r.status);
     const ms=await r.json();
-    // Filtrar: partido binario Portugal vs Ghana
+    // Filtrar: partido binario Portugal vs Croacia
     const match=ms.find(m=>{
       const q=(m.question||'').toLowerCase();
-      return q.includes('portugal') && q.includes('ghana') &&
+      return q.includes('portugal') && q.includes('croatia') &&
              (q.includes('world cup') || q.includes('2026')) && !m.closed;
     });
     if(!match) throw new Error('no encontrado');
@@ -802,9 +802,9 @@ async function fetchMatchProb(phase){
     phase.matchSlugKey=slugKey;
   }catch(e){
     slugLog[slugKey]={status:'miss',slug:e.message};
-    // fallback: usar ranking FIFA (Portugal ~6, Ghana ~60)
-    slugMap[slugKey]={slug:'fifa-ranking',markets:new Map([['Portugal',78],['Ghana',22]])};
-    slugLog[slugKey]={status:'ok',slug:'Ranking FIFA (fallback)',question:'Portugal ~6 · Ghana ~60'};
+    // fallback: usar ranking FIFA (Portugal ~6, Croacia ~12)
+    slugMap[slugKey]={slug:'fifa-ranking',markets:new Map([['Portugal',65],['Croatia',35]])};
+    slugLog[slugKey]={status:'ok',slug:'Ranking FIFA (fallback)',question:'Portugal ~6 · Croacia ~12'};
     phase.matchSlugKey=slugKey;
   }
   renderSlugPanel();
@@ -878,7 +878,7 @@ function getProb(phase, cand){
     const key=phase.matchSlugKey;
     if(!key||!slugMap[key]) return null;
     const map=slugMap[key].markets;
-    // El mercado puede usar "Portugal", "Ghana" como outcomes
+    // El mercado puede usar "Portugal", "Croatia" como outcomes
     const raw=map.get(cand.matchOutcome)||map.get(cand.name);
     return raw!=null?raw:null;
   }
@@ -1149,7 +1149,7 @@ function render(){
     if(pi<PHASES.length-1) html+='<div class="arrow">↓</div>';
   });
   document.getElementById('bracket').innerHTML=html;
-  document.getElementById('fnote').textContent='📌 España 1ª del Grupo H. Octavos: Portugal vs Ghana (P83) → el ganador se enfrenta a España. Cuartos: EE.UU. o Bosnia (favoritos). Semis: Alemania o Francia (favoritos). Final: Argentina, Brasil o Inglaterra desde el otro sub-cuadro.';
+  document.getElementById('fnote').textContent='📌 España 1ª del Grupo H. Octavos: Portugal vs Croacia (P83) → el ganador se enfrenta a España. Cuartos: EE.UU. o Bosnia (favoritos). Semis: Alemania o Francia (favoritos). Final: Argentina, Brasil o Inglaterra desde el otro sub-cuadro.';
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -1176,24 +1176,24 @@ function vAlarm(min,desc){
 }
 
 const ICS_EVENTS=[
-  {uid:'16avos', isoDate:'2026-07-02', timeESP:'20:00', dur:2, loc:'SoFi Stadium - Los Angeles',
+  {uid:'16avos', isoDate:'2026-07-02', timeESP:'21:00', dur:2, loc:'SoFi Stadium - Los Angeles',
    title:'Esp vs Austria - 16avos Mundial 2026',
    desc:'Espana (1aH) vs Austria (2oJ) - Confirmado\n16avos de final del Mundial 2026', alarm:30},
-  {uid:'octavos', isoDate:'2026-07-07', timeESP:'02:00', dur:2, loc:'AT&T Stadium - Dallas',
+  {uid:'octavos', isoDate:'2026-07-06', timeESP:'21:00', dur:2, loc:'AT&T Stadium - Dallas',
    title:'Esp - Octavos Mundial 2026',
    getDesc:()=>{
      const phase=PHASES.find(p=>p.id==='P93');
      const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
-     return 'Octavos P93\nEspana vs '+cands.map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nGanador Portugal vs Ghana\nFuente: Polymarket';
+     return 'Octavos P93\nEspana vs '+cands.map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nGanador Portugal vs Croacia\nFuente: Polymarket';
    }, alarm:30},
-  {uid:'cuartos', isoDate:'2026-07-11', timeESP:'02:00', dur:2, loc:'SoFi Stadium - Los Angeles',
+  {uid:'cuartos', isoDate:'2026-07-10', timeESP:'21:00', dur:2, loc:'SoFi Stadium - Los Angeles',
    title:'Esp - Cuartos Final Mundial 2026',
    getDesc:()=>{
      const phase=PHASES.find(p=>p.id==='P98');
      const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
      return 'Cuartos P98\nEspana vs '+cands.slice(0,3).map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nFuente: Polymarket';
    }, alarm:30},
-  {uid:'semis', isoDate:'2026-07-15', timeESP:'01:00', dur:2, loc:'AT&T Stadium - Dallas',
+  {uid:'semis', isoDate:'2026-07-14', timeESP:'21:00', dur:2, loc:'AT&T Stadium - Dallas',
    title:'Esp - Semifinal Mundial 2026',
    getDesc:()=>{
      const phase=PHASES.find(p=>p.id==='P101');

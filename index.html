@@ -227,7 +227,7 @@ body{background:var(--fondo);color:var(--texto);font-family:'Inter',system-ui,sa
 <div class="fnote" id="fnote"></div>
 <div class="fsrc">
   <span>📊</span><a href="https://polymarket.com/sports/world-cup" target="_blank" rel="noopener">Polymarket</a>
-  · <span>⚽</span><a href="https://github.com/openfootball/worldcup.json" target="_blank" rel="noopener">openfootball</a>
+  · <span>⚽</span><a href="https://www.espn.com/soccer/fifa-world-cup" target="_blank" rel="noopener">ESPN</a>
   · <span id="fsup"></span>
 </div>
 
@@ -814,21 +814,45 @@ async function fetchMatchProb(phase){
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   OPENFOOTBALL — resultados reales
+   ESPN — resultados reales (incl. penaltis)
+   openfootball/worldcup.json NO publica resultados en vivo (es solo
+   el calendario de fixtures), así que usamos el scoreboard de ESPN,
+   que sí marca ganador/perdedor (incl. tandas de penaltis).
 ═══════════════════════════════════════════════════════════════ */
 async function fetchResults(){
   try{
-    const url='https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
-    const r=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(8000)});
+    // Trae todo el rango del torneo en una sola llamada (11 jun - 19 jul 2026)
+    const url='https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=200&dates=20260611-20260719';
+    const r=await fetch(url,{cache:'no-cache',signal:AbortSignal.timeout(10000)});
     if(!r.ok) throw new Error('HTTP '+r.status);
     const d=await r.json();
-    matchData=d.matches||[];
+    const events=d.events||[];
+    matchData=events.map(ev=>{
+      const comp=ev.competitions?.[0];
+      const completed=comp?.status?.type?.completed;
+      const home=comp?.competitors?.find(c=>c.homeAway==='home');
+      const away=comp?.competitors?.find(c=>c.homeAway==='away');
+      if(!home||!away) return null;
+      const team1=home.team?.displayName, team2=away.team?.displayName;
+      if(!team1||!team2) return null;
+      let score=null, winner=null;
+      if(completed){
+        const s1=parseInt(home.score,10), s2=parseInt(away.score,10);
+        if(!isNaN(s1)&&!isNaN(s2)) score={ft:[s1,s2]};
+        // ESPN marca winner:true/false por equipo, incluso tras penaltis
+        // cuando el marcador regular quedo empatado (s1===s2).
+        if(home.winner===true) winner=team1;
+        else if(away.winner===true) winner=team2;
+        else if(score && s1!==s2) winner = s1>s2?team1:team2;
+      }
+      return {team1, team2, score, winner, group: comp?.altGameNote?.split(', ')?.[1]||null};
+    }).filter(Boolean);
     const played=matchData.filter(m=>m.score).length;
-    updateSrcLog('openfootball','ok',`${played} partidos con resultado`);
+    updateSrcLog('espn',played>0?'ok':'pending',`${played} partidos con resultado`);
     // Actualizar también resultados de partidos de 16avos que ya se hayan jugado
     updateBracketResults();
   }catch(e){
-    updateSrcLog('openfootball','miss',e.message);
+    updateSrcLog('espn','miss',e.message);
   }
 }
 
@@ -847,6 +871,9 @@ function updateBracketResults(){
       bm.played=true;
       const isHome=resolve(found.team1)===bm.t1;
       bm.score={t1:found.score.ft[isHome?0:1], t2:found.score.ft[isHome?1:0]};
+      // winner viene de ESPN (competitors[].winner), correcto incluso tras
+      // penaltis cuando el marcador regular quedo empatado.
+      bm.winner=found.winner?resolve(found.winner):null;
     }
   });
 }
@@ -878,23 +905,28 @@ function updateSpainScores(){
 ═══════════════════════════════════════════════════════════════ */
 
 /* Dado un candidato con feederMatch (id de BRACKET_MATCHES), devuelve:
-   - true  si su partido feeder ya se jugó y ESTE candidato perdió → eliminado
-   - 'won' si su partido feeder ya se jugó y ESTE candidato ganó   → confirmado
-   - null  si el partido feeder no se ha jugado todavía (o no aplica) */
+   - 'lost' si su partido feeder ya se jugó y ESTE candidato perdió → eliminado
+   - 'won'  si su partido feeder ya se jugó y ESTE candidato ganó   → confirmado
+   - null   si el partido feeder no se ha jugado todavía (o no aplica) */
 function feederStatus(cand){
   if(!cand.feederMatch) return null;
   const bm=BRACKET_MATCHES[cand.feederMatch];
-  if(!bm||!bm.played||!bm.score) return null;
+  if(!bm||!bm.played) return null;
   // bm.t1/t2 son los nombres canónicos del partido feeder
   const isT1=bm.t1===cand.name;
   const isT2=bm.t2===cand.name;
   if(!isT1&&!isT2) return null; // el candidato no es parte de este partido
-  const myScore=isT1?bm.score.t1:bm.score.t2;
-  const rivScore=isT1?bm.score.t2:bm.score.t1;
-  if(myScore>rivScore) return 'won';
-  if(myScore<rivScore) return 'lost';
-  // empate sin penaltis registrados: tratamos como sin resolver
-  return null;
+  // Prioridad: winner explícito (correcto incluso si hubo penaltis y el
+  // marcador en tiempo regular quedó empatado).
+  if(bm.winner) return bm.winner===cand.name ? 'won' : 'lost';
+  // Fallback: comparar marcador directo (solo válido si no hubo empate)
+  if(bm.score){
+    const myScore=isT1?bm.score.t1:bm.score.t2;
+    const rivScore=isT1?bm.score.t2:bm.score.t1;
+    if(myScore>rivScore) return 'won';
+    if(myScore<rivScore) return 'lost';
+  }
+  return null; // empate sin ganador determinado: sin resolver
 }
 
 function getProb(phase, cand){

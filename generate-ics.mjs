@@ -1,7 +1,7 @@
 /**
  * generate-ics.mjs
  * Corre en GitHub Actions cada 10 minutos.
- * PRIORIDAD: 1) Resultados reales (openfootball)  2) Polymarket  3) Fallback estatico
+ * PRIORIDAD: 1) Resultados reales (ESPN)  2) Polymarket  3) Fallback estatico
  * Genera espana-mundial-2026.ics
  *
  * CUADRO ESPANA 1a (confirmado 27 Jun 2026):
@@ -151,31 +151,52 @@ async function fetchWinner() {
   } catch (e) { console.warn(`  fail world-cup-winner: ${e.message}`); return null; }
 }
 
-// Resultados reales del Mundial (openfootball). Devuelve un Map "TeamA|TeamB" -> {winner, t1, t2, s1, s2}
-// normalizado en ambos sentidos para lookup facil.
+// Resultados reales del Mundial via ESPN (incluye ganador correcto tras penaltis).
+// openfootball/worldcup.json NO publica resultados en vivo (solo el calendario de
+// fixtures), por eso usamos el scoreboard no oficial de ESPN, que sí marca
+// competitors[].winner correctamente incluso cuando el marcador en los 90 min
+// queda empatado y se decide por penaltis.
+// Devuelve un Map "TeamA|TeamB" -> {winner, t1, t2, s1, s2} normalizado en
+// ambos sentidos para lookup facil.
+const ESPN_NAME_ALIAS = {
+  'Bosnia & Herzegovina': 'Bosnia',
+  'South Korea': 'South Korea',
+  'Korea Republic': 'South Korea',
+  'USA': 'United States',
+};
+const normName = n => ESPN_NAME_ALIAS[n] || n;
+
 async function fetchRealResults() {
   try {
-    const url = 'https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
-    const r = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    const url = 'https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard?limit=200&dates=20260611-20260719';
+    const r = await fetch(url, { signal: AbortSignal.timeout(10000) });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const d = await r.json();
-    const matches = d.matches || [];
+    const events = d.events || [];
     const map = new Map();
     let played = 0;
-    matches.forEach(m => {
-      if (!m.score) return;
+    events.forEach(ev => {
+      const comp = ev.competitions?.[0];
+      if (!comp?.status?.type?.completed) return;
+      const home = comp.competitors?.find(c => c.homeAway === 'home');
+      const away = comp.competitors?.find(c => c.homeAway === 'away');
+      if (!home || !away) return;
+      const t1 = normName(home.team?.displayName), t2 = normName(away.team?.displayName);
+      if (!t1 || !t2) return;
+      const s1 = parseInt(home.score, 10), s2 = parseInt(away.score, 10);
+      let winner = null;
+      if (home.winner === true) winner = t1;
+      else if (away.winner === true) winner = t2;
+      else if (!isNaN(s1) && !isNaN(s2) && s1 !== s2) winner = s1 > s2 ? t1 : t2;
+      if (!winner) return; // empate sin resolver (no debería pasar en eliminatoria)
       played++;
-      const t1 = m.team1, t2 = m.team2;
-      const s1 = m.score.ft?.[0], s2 = m.score.ft?.[1];
-      if (s1 == null || s2 == null) return;
-      const winner = s1 > s2 ? t1 : s2 > s1 ? t2 : null; // empate sin penaltis en el feed -> sin resolver
       const entry = { t1, t2, s1, s2, winner };
       map.set(`${t1}|${t2}`, entry);
       map.set(`${t2}|${t1}`, entry);
     });
-    console.log(`  ok openfootball (${played} partidos con resultado)`);
+    console.log(`  ok ESPN (${played} partidos con resultado)`);
     return map;
-  } catch (e) { console.warn(`  fail openfootball: ${e.message}`); return null; }
+  } catch (e) { console.warn(`  fail ESPN: ${e.message}`); return null; }
 }
 
 // Dado el feeder {t1,t2} de un candidato y su nombre, comprueba si ya hay resultado real.

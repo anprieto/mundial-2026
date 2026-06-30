@@ -1,7 +1,8 @@
 /**
  * generate-ics.mjs
  * Corre en GitHub Actions cada 10 minutos.
- * Llama a Polymarket + genera espana-mundial-2026.ics
+ * PRIORIDAD: 1) Resultados reales (openfootball)  2) Polymarket  3) Fallback estatico
+ * Genera espana-mundial-2026.ics
  *
  * CUADRO ESPANA 1a (confirmado 27 Jun 2026):
  *   16avos P84:  Espana vs Austria           · 2 Jul 21:00h ESP · SoFi, Los Angeles
@@ -83,6 +84,13 @@ const EVENTS = [
     names:  {'United States':'EE.UU.','Egypt':'Egipto','Bosnia':'Bosnia','South Korea':'Corea del Sur'},
     fallback: [['EE.UU.',65],['Egipto',15],['Bosnia',12],['Corea del Sur',8]],
     note: 'P94 = EE.UU./Bosnia vs Egipto/Corea del Sur',
+    // feeders: partido de 16avos (real) del que sale cada candidato
+    feeders: {
+      'United States': { t1: 'United States', t2: 'Bosnia' },
+      'Bosnia':         { t1: 'United States', t2: 'Bosnia' },
+      'Egypt':          { t1: 'Egypt', t2: 'South Korea' },
+      'South Korea':    { t1: 'Egypt', t2: 'South Korea' },
+    },
   },
   {
     uid: 'esp-wc26-semis',
@@ -91,11 +99,21 @@ const EVENTS = [
     loc: 'AT&T Stadium, Dallas',
     title: 'Espana - Semifinal Mundial 2026',
     type: 'tournament',
-    subset: ['Germany','France','Netherlands','Morocco','Sweden','Canada'],
-    names:  {'Germany':'Alemania','France':'Francia','Netherlands':'Paises Bajos',
-             'Morocco':'Marruecos','Sweden':'Suecia','Canada':'Canada'},
-    fallback: [['Alemania',34],['Francia',28],['Paises Bajos',22],['Marruecos',10],['Suecia',6]],
-    note: 'P97 = Gan(Alemania/Francia) vs Gan(Paises Bajos/Marruecos/Suecia/Canada)',
+    subset: ['Germany','Paraguay','France','Sweden','South Africa','Canada','Netherlands','Morocco'],
+    names:  {'Germany':'Alemania','Paraguay':'Paraguay','France':'Francia','Sweden':'Suecia',
+             'South Africa':'Sudafrica','Canada':'Canada','Netherlands':'Paises Bajos','Morocco':'Marruecos'},
+    fallback: [['Alemania',30],['Francia',26],['Paises Bajos',18],['Canada',6],['Marruecos',8],['Suecia',5],['Paraguay',4],['Sudafrica',3]],
+    note: 'P97 = Gan(Alemania/Paraguay/Francia/Suecia) vs Gan(Sudafrica/Canada/Paises Bajos/Marruecos)',
+    feeders: {
+      'Germany':      { t1: 'Germany', t2: 'Paraguay' },
+      'Paraguay':     { t1: 'Germany', t2: 'Paraguay' },
+      'France':       { t1: 'France', t2: 'Sweden' },
+      'Sweden':       { t1: 'France', t2: 'Sweden' },
+      'South Africa': { t1: 'South Africa', t2: 'Canada' },
+      'Canada':       { t1: 'South Africa', t2: 'Canada' },
+      'Netherlands':  { t1: 'Netherlands', t2: 'Morocco' },
+      'Morocco':      { t1: 'Netherlands', t2: 'Morocco' },
+    },
   },
   {
     uid: 'esp-wc26-final',
@@ -133,6 +151,42 @@ async function fetchWinner() {
   } catch (e) { console.warn(`  fail world-cup-winner: ${e.message}`); return null; }
 }
 
+// Resultados reales del Mundial (openfootball). Devuelve un Map "TeamA|TeamB" -> {winner, t1, t2, s1, s2}
+// normalizado en ambos sentidos para lookup facil.
+async function fetchRealResults() {
+  try {
+    const url = 'https://raw.githubusercontent.com/openfootball/worldcup.json/master/2026/worldcup.json';
+    const r = await fetch(url, { signal: AbortSignal.timeout(8000) });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const d = await r.json();
+    const matches = d.matches || [];
+    const map = new Map();
+    let played = 0;
+    matches.forEach(m => {
+      if (!m.score) return;
+      played++;
+      const t1 = m.team1, t2 = m.team2;
+      const s1 = m.score.ft?.[0], s2 = m.score.ft?.[1];
+      if (s1 == null || s2 == null) return;
+      const winner = s1 > s2 ? t1 : s2 > s1 ? t2 : null; // empate sin penaltis en el feed -> sin resolver
+      const entry = { t1, t2, s1, s2, winner };
+      map.set(`${t1}|${t2}`, entry);
+      map.set(`${t2}|${t1}`, entry);
+    });
+    console.log(`  ok openfootball (${played} partidos con resultado)`);
+    return map;
+  } catch (e) { console.warn(`  fail openfootball: ${e.message}`); return null; }
+}
+
+// Dado el feeder {t1,t2} de un candidato y su nombre, comprueba si ya hay resultado real.
+// Devuelve 'won' | 'lost' | null (sin resolver / sin datos)
+function realFeederStatus(resultsMap, feeder, candName) {
+  if (!resultsMap || !feeder) return null;
+  const entry = resultsMap.get(`${feeder.t1}|${feeder.t2}`);
+  if (!entry || !entry.winner) return null;
+  return entry.winner === candName ? 'won' : 'lost';
+}
+
 async function fetchMatchMarket(keyword, pair) {
   try {
     const url = `https://gamma-api.polymarket.com/markets?keyword=${encodeURIComponent(keyword)}&limit=20&active=true`;
@@ -154,7 +208,7 @@ async function fetchMatchMarket(keyword, pair) {
   } catch (e) { console.warn(`  fail ${keyword}: ${e.message}`); return null; }
 }
 
-function getTopRivals(ev, winnerMap, matchMap) {
+function getTopRivals(ev, winnerMap, matchMap, resultsMap) {
   if (ev.type === 'fixed') {
     return [{ name: 'Austria', pct: 100 }];
   }
@@ -171,11 +225,34 @@ function getTopRivals(ev, winnerMap, matchMap) {
     return ev.fallback.map(([name, pct]) => ({ name, pct }));
   }
 
-  if (ev.type === 'tournament' && winnerMap) {
-    const total = ev.subset.reduce((s, k) => s + (winnerMap.get(k) || 0), 0);
-    if (total > 0) {
-      return ev.subset
-        .map(k => ({ name: ev.names[k] || k, pct: Math.round((winnerMap.get(k)||0)/total*100) }))
+  if (ev.type === 'tournament') {
+    // Paso 1: descartar del subset a quien ya perdio su partido feeder (resultado real)
+    const aliveKeys = ev.subset.filter(k => {
+      const feeder = ev.feeders?.[k];
+      return realFeederStatus(resultsMap, feeder, k) !== 'lost';
+    });
+    const eliminated = ev.subset.filter(k => !aliveKeys.includes(k));
+    if (eliminated.length) {
+      console.log(`    eliminados por resultado real: ${eliminated.map(k => ev.names[k] || k).join(', ')}`);
+    }
+
+    // Paso 2: si tenemos Polymarket, reescalar SOLO entre los supervivientes
+    if (winnerMap) {
+      const total = aliveKeys.reduce((s, k) => s + (winnerMap.get(k) || 0), 0);
+      if (total > 0) {
+        return aliveKeys
+          .map(k => ({ name: ev.names[k] || k, pct: Math.round((winnerMap.get(k)||0)/total*100) }))
+          .sort((a, b) => b.pct - a.pct);
+      }
+    }
+
+    // Paso 3: fallback estatico, pero igualmente filtrando eliminados y reescalando
+    const aliveNames = new Set(aliveKeys.map(k => ev.names[k] || k));
+    const aliveFallback = ev.fallback.filter(([name]) => aliveNames.has(name));
+    const fbTotal = aliveFallback.reduce((s, [, pct]) => s + pct, 0);
+    if (fbTotal > 0) {
+      return aliveFallback
+        .map(([name, pct]) => ({ name, pct: Math.round(pct / fbTotal * 100) }))
         .sort((a, b) => b.pct - a.pct);
     }
   }
@@ -228,13 +305,14 @@ async function main() {
   console.log('Generando ICS Espana Mundial 2026...');
   console.log(new Date().toLocaleString('es-ES', { timeZone: 'Europe/Madrid' }), '\n');
 
-  const [winnerMap, matchMap] = await Promise.all([
+  const [resultsMap, winnerMap, matchMap] = await Promise.all([
+    fetchRealResults(),
     fetchWinner(),
     fetchMatchMarket('portugal croatia world cup', ['Portugal', 'Croatia']),
   ]);
 
   const vevents = EVENTS.map(ev => {
-    const rivals = getTopRivals(ev, winnerMap, matchMap);
+    const rivals = getTopRivals(ev, winnerMap, matchMap, resultsMap);
     console.log(`  ${ev.uid.split('-').pop()} -> ${rivals.slice(0,2).map(r=>r.name+' '+r.pct+'%').join(' / ')}`);
     return buildVevent(ev, rivals);
   });

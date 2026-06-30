@@ -379,27 +379,30 @@ const PHASES = [
     subset:['United States','Egypt','Bosnia','South Korea'],
     isFinal:false,
     candidates:[
-      {name:'EE.UU.',        flag:'🇺🇸', matchOutcome:'United States', fallback:65},
-      {name:'Egipto',        flag:'🇪🇬', matchOutcome:'Egypt',         fallback:15},
-      {name:'Bosnia',        flag:'🇧🇦', matchOutcome:'Bosnia',        fallback:12},
-      {name:'Corea del Sur', flag:'🇰🇷', matchOutcome:'South Korea',   fallback:8},
+      {name:'EE.UU.',        flag:'🇺🇸', matchOutcome:'United States', fallback:65, feederMatch:'P81', feederTeams:['EE.UU.','Bosnia']},
+      {name:'Egipto',        flag:'🇪🇬', matchOutcome:'Egypt',         fallback:15, feederMatch:'P82', feederTeams:['Egipto','Corea del Sur']},
+      {name:'Bosnia',        flag:'🇧🇦', matchOutcome:'Bosnia',        fallback:12, feederMatch:'P81', feederTeams:['EE.UU.','Bosnia']},
+      {name:'Corea del Sur', flag:'🇰🇷', matchOutcome:'South Korea',   fallback:8,  feederMatch:'P82', feederTeams:['Egipto','Corea del Sur']},
     ],
   },
   /* ── Semis P101: Gan.P97 vs Gan.P98 ── */
   {
     id:'P101', round:'Semis · P101',
     date:'14 Jul · Dallas, AT&T · 21:00h 🇪🇸',
-    note:'P97 = Gan(Alemania/Paraguay) vs Gan(Países Bajos/Marruecos/Sudáfrica/Canadá)',
+    note:'P97 = Gan(Alemania/Paraguay/Francia/Suecia) vs Gan(Sudáfrica/Canadá/Países Bajos/Marruecos)',
     probType:'tournament',
     slugKey:'tournament-winner',
-    subset:['Germany','France','Netherlands','Morocco','Sweden','Canada'],
+    subset:['Germany','Paraguay','France','Sweden','South Africa','Canada','Netherlands','Morocco'],
     isFinal:false,
     candidates:[
-      {name:'Alemania',     flag:'🇩🇪', matchOutcome:'Germany',     fallback:34},
-      {name:'Francia',      flag:'🇫🇷', matchOutcome:'France',      fallback:28},
-      {name:'Países Bajos', flag:'🇳🇱', matchOutcome:'Netherlands', fallback:22},
-      {name:'Marruecos',    flag:'🇲🇦', matchOutcome:'Morocco',     fallback:10},
-      {name:'Suecia',       flag:'🇸🇪', matchOutcome:'Sweden',      fallback:6},
+      {name:'Alemania',     flag:'🇩🇪', matchOutcome:'Germany',      fallback:30, feederMatch:'P74', feederTeams:['Alemania','Paraguay']},
+      {name:'Paraguay',     flag:'🇵🇾', matchOutcome:'Paraguay',     fallback:4,  feederMatch:'P74', feederTeams:['Alemania','Paraguay']},
+      {name:'Francia',      flag:'🇫🇷', matchOutcome:'France',       fallback:26, feederMatch:'P77', feederTeams:['Francia','Suecia']},
+      {name:'Suecia',       flag:'🇸🇪', matchOutcome:'Sweden',       fallback:5,  feederMatch:'P77', feederTeams:['Francia','Suecia']},
+      {name:'Sudáfrica',    flag:'🇿🇦', matchOutcome:'South Africa', fallback:3,  feederMatch:'P73', feederTeams:['Sudáfrica','Canadá']},
+      {name:'Canadá',       flag:'🇨🇦', matchOutcome:'Canada',       fallback:6,  feederMatch:'P73', feederTeams:['Sudáfrica','Canadá']},
+      {name:'Países Bajos', flag:'🇳🇱', matchOutcome:'Netherlands',  fallback:18, feederMatch:'P75', feederTeams:['Países Bajos','Marruecos']},
+      {name:'Marruecos',    flag:'🇲🇦', matchOutcome:'Morocco',      fallback:8,  feederMatch:'P75', feederTeams:['Países Bajos','Marruecos']},
     ],
   },
   /* ── Final ── */
@@ -869,9 +872,42 @@ function updateSpainScores(){
 
 /* ═══════════════════════════════════════════════════════════════
    PROBABILIDADES
+   PRIORIDAD: 1) Resultado real (openfootball/BRACKET_MATCHES)
+              2) Polymarket (match o tournament reescalado)
+              3) Fallback estático
 ═══════════════════════════════════════════════════════════════ */
+
+/* Dado un candidato con feederMatch (id de BRACKET_MATCHES), devuelve:
+   - true  si su partido feeder ya se jugó y ESTE candidato perdió → eliminado
+   - 'won' si su partido feeder ya se jugó y ESTE candidato ganó   → confirmado
+   - null  si el partido feeder no se ha jugado todavía (o no aplica) */
+function feederStatus(cand){
+  if(!cand.feederMatch) return null;
+  const bm=BRACKET_MATCHES[cand.feederMatch];
+  if(!bm||!bm.played||!bm.score) return null;
+  // bm.t1/t2 son los nombres canónicos del partido feeder
+  const isT1=bm.t1===cand.name;
+  const isT2=bm.t2===cand.name;
+  if(!isT1&&!isT2) return null; // el candidato no es parte de este partido
+  const myScore=isT1?bm.score.t1:bm.score.t2;
+  const rivScore=isT1?bm.score.t2:bm.score.t1;
+  if(myScore>rivScore) return 'won';
+  if(myScore<rivScore) return 'lost';
+  // empate sin penaltis registrados: tratamos como sin resolver
+  return null;
+}
+
 function getProb(phase, cand){
   if(phase.probType==='confirmed') return 100;
+
+  // Paso 1: ¿hay resultado real para el partido feeder de este candidato?
+  const fs=feederStatus(cand);
+  if(fs==='lost') return 0;     // eliminado por resultado real: 0% sin importar Polymarket
+  if(fs==='won' && phase.probType==='tournament'){
+    // Ya está confirmado que pasa de ronda; su probabilidad de seguir
+    // se sigue calculando con Polymarket dentro del subset ACTIVO (ver getTopCandidates),
+    // así que aquí no devolvemos 100 todavía — solo evitamos descartarlo.
+  }
 
   if(phase.probType==='match'){
     // Usar el mercado específico del partido P83
@@ -887,13 +923,26 @@ function getProb(phase, cand){
     const entry=slugMap[phase.slugKey];
     if(!entry||!cand.matchOutcome) return null;
     const map=entry.markets;
-    const subset=phase.subset||[];
-    const total=subset.reduce((s,k)=>s+(map.get(k)||0),0);
+    // Reescalar SOLO dentro de los candidatos que siguen vivos (resultado real lo permite)
+    const aliveSubset=(phase.subset||[]).filter(k=>{
+      const c=phase.candidates.find(c=>c.matchOutcome===k);
+      return !c || feederStatus(c)!=='lost';
+    });
+    const total=aliveSubset.reduce((s,k)=>s+(map.get(k)||0),0);
     if(!total) return null;
     return Math.round(((map.get(cand.matchOutcome)||0)/total)*100);
   }
 
   return null;
+}
+
+/* Devuelve la lista de candidatos de una fase, filtrando los ya eliminados
+   por resultado real y marcando los confirmados. Esto es lo que debe usar
+   el render del bracket en vez de iterar phase.candidates directamente. */
+function getActiveCandidates(phase){
+  return phase.candidates
+    .map(c=>({...c, feederResult:feederStatus(c)}))
+    .filter(c=>c.feederResult!=='lost');
 }
 
 /* Calcular standings de grupo desde openfootball */
@@ -1096,7 +1145,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closePopup();});
 function render(){
   let html='';
   PHASES.forEach((phase,pi)=>{
-    const cands=phase.candidates.map(c=>{
+    const cands=getActiveCandidates(phase).map(c=>{
       const live=getProb(phase,c);
       return{...c, pct:live!==null?live:c.fallback, live:live!==null&&phase.probType!=='confirmed'};
     }).sort((a,b)=>b.pct-a.pct);
@@ -1183,28 +1232,28 @@ const ICS_EVENTS=[
    title:'Esp - Octavos Mundial 2026',
    getDesc:()=>{
      const phase=PHASES.find(p=>p.id==='P93');
-     const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
+     const cands=getActiveCandidates(phase).map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
      return 'Octavos P93\nEspana vs '+cands.map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nGanador Portugal vs Croacia\nFuente: Polymarket';
    }, alarm:30},
   {uid:'cuartos', isoDate:'2026-07-10', timeESP:'21:00', dur:2, loc:'SoFi Stadium - Los Angeles',
    title:'Esp - Cuartos Final Mundial 2026',
    getDesc:()=>{
      const phase=PHASES.find(p=>p.id==='P98');
-     const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
+     const cands=getActiveCandidates(phase).map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
      return 'Cuartos P98\nEspana vs '+cands.slice(0,3).map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nFuente: Polymarket';
    }, alarm:30},
   {uid:'semis', isoDate:'2026-07-14', timeESP:'21:00', dur:2, loc:'AT&T Stadium - Dallas',
    title:'Esp - Semifinal Mundial 2026',
    getDesc:()=>{
      const phase=PHASES.find(p=>p.id==='P101');
-     const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
+     const cands=getActiveCandidates(phase).map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
      return 'Semifinal P101\nEspana vs '+cands.slice(0,3).map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nFuente: Polymarket';
    }, alarm:30},
   {uid:'final', isoDate:'2026-07-19', timeESP:'21:00', dur:2, loc:'MetLife Stadium - Nueva Jersey',
    title:'Esp - FINAL Mundial 2026',
    getDesc:()=>{
      const phase=PHASES.find(p=>p.isFinal);
-     const cands=phase.candidates.map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
+     const cands=getActiveCandidates(phase).map(c=>({...c,pct:getProb(phase,c)??c.fallback})).sort((a,b)=>b.pct-a.pct);
      return 'FINAL del Mundial 2026\nEspana busca su 2a estrella\n'+cands.slice(0,3).map(c=>c.name+' '+c.pct+'%').join(' / ')+'\nFuente: Polymarket';
    }, alarm:60},
 ];

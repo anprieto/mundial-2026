@@ -10,7 +10,7 @@ REFRESH-INTERVAL;VALUE=DURATION:PT10M
 X-PUBLISHED-TTL:PT10M
 BEGIN:VEVENT
 UID:esp-wc26-16avos@anprieto.github.io
-DTSTAMP:20260813T104500Z
+DTSTAMP:20260813T113100Z
 SUMMARY:Espana vs Austria - 16avos Mundial 2026
 DTSTART:20260702T190000Z
 DTEND:20260702T210000Z
@@ -26,12 +26,12 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:esp-wc26-octavos@anprieto.github.io
-DTSTAMP:20260813T104500Z
+DTSTAMP:20260813T113100Z
 SUMMARY:Espana - Octavos Mundial 2026 · vs Portugal
 DTSTART:20260706T190000Z
 DTEND:20260706T210000Z
 LOCATION:AT&T Stadium, Dallas
-DESCRIPTION:Espana - Octavos Mundial 2026\nRival mas probable: Portugal\nCandidatos: Portugal (65%) / Croatia (35%)\nGanador del P83: Portugal vs Croacia\nFuente: Polymarket (partido especifico) o Ranking FIFA\nActualizado: 13/8/2026, 12:45:41\nhttps://anprieto.github.io/mundial-2026/
+DESCRIPTION:Espana - Octavos Mundial 2026\nRival mas probable: Portugal\nCandidatos: Portugal (65%) / Croatia (35%)\nGanador del P83: Portugal vs Croacia\nFuente: Polymarket (partido especifico) o Ranking FIFA\nActualizado: 13/8/2026, 13:31:00\nhttps://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
@@ -42,12 +42,12 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:esp-wc26-cuartos@anprieto.github.io
-DTSTAMP:20260813T104500Z
+DTSTAMP:20260813T113100Z
 SUMMARY:Espana - Cuartos Final Mundial 2026 · vs EE.UU.
 DTSTART:20260710T190000Z
 DTEND:20260710T210000Z
 LOCATION:SoFi Stadium, Los Angeles
-DESCRIPTION:Espana - Cuartos Final Mundial 2026\nRival mas probable: EE.UU.\nCandidatos: EE.UU. (65%) / Egipto (15%) / Bosnia (12%)\nP94 = EE.UU./Bosnia vs Egipto/Corea del Sur\nFuente: Polymarket (world-cup-winner)\nActualizado: 13/8/2026, 12:45:41\nhttps://anprieto.github.io/mundial-2026/
+DESCRIPTION:Espana - Cuartos Final Mundial 2026\nRival mas probable: EE.UU.\nCandidatos: EE.UU. (65%) / Egipto (15%) / Bosnia (12%)\nP94 = EE.UU./Bosnia vs Egipto/Corea del Sur\nFuente: Polymarket (world-cup-winner)\nActualizado: 13/8/2026, 13:31:00\nhttps://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
@@ -58,12 +58,12 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:esp-wc26-semis@anprieto.github.io
-DTSTAMP:20260813T104500Z
+DTSTAMP:20260813T113100Z
 SUMMARY:Espana - Semifinal Mundial 2026 · vs Alemania
 DTSTART:20260714T190000Z
 DTEND:20260714T210000Z
 LOCATION:AT&T Stadium, Dallas
-DESCRIPTION:Espana - Semifinal Mundial 2026\nRival mas probable: Alemania\nCandidatos: Alemania (30%) / Francia (26%) / Paises Bajos (18%)\nP97 = Gan(Alemania/Paraguay/Francia/Suecia) vs Gan(Sudafrica/Canada/Paises Bajos/Marruecos)\nFuente: Polymarket (world-cup-winner)\nActualizado: 13/8/2026, 12:45:41\nhttps://anprieto.github.io/mundial-2026/
+DESCRIPTION:Espana - Semifinal Mundial 2026\nRival mas probable: Alemania\nCandidatos: Alemania (30%) / Francia (26%) / Paises Bajos (18%)\nP97 = Gan(Alemania/Paraguay/Francia/Suecia) vs Gan(Sudafrica/Canada/Paises Bajos/Marruecos)\nFuente: Polymarket (world-cup-winner)\nActualizado: 13/8/2026, 13:31:00\nhttps://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
@@ -74,12 +74,12 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:esp-wc26-final@anprieto.github.io
-DTSTAMP:20260813T104500Z
+DTSTAMP:20260813T113100Z
 SUMMARY:Espana - FINAL Mundial 2026 · vs Argentina
 DTSTART:20260719T190000Z
 DTEND:20260719T210000Z
 LOCATION:MetLife Stadium, East Rutherford NJ
-DESCRIPTION:Espana - FINAL Mundial 2026\nRival mas probable: Argentina\nCandidatos: Argentina (30%) / Brasil (25%) / Inglaterra (18%)\nCuadro opuesto: Argentina, Brasil, Inglaterra, Colombia, Mexico, Suiza\nFuente: Polymarket (world-cup-winner)\nActualizado: 13/8/2026, 12:45:41\nhttps://anprieto.github.io/mundial-2026/
+DESCRIPTION:Espana - FINAL Mundial 2026\nRival mas probable: Argentina\nCandidatos: Argentina (30%) / Brasil (25%) / Inglaterra (18%)\nCuadro opuesto: Argentina, Brasil, Inglaterra, Colombia, Mexico, Suiza\nFuente: Polymarket (world-cup-winner)\nActualizado: 13/8/2026, 13:31:00\nhttps://anprieto.github.io/mundial-2026/
 STATUS:CONFIRMED
 TRANSP:OPAQUE
 BEGIN:VALARM
